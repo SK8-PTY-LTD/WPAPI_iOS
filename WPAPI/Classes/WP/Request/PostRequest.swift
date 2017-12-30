@@ -1,6 +1,6 @@
 //
 //  PostsRequest.swift
-//  WPSDK
+//  WPAPI
 //
 //  Created by SongXujie on 26/12/17.
 //  Copyright © 2017 SK8 PTY LTD. All rights reserved.
@@ -69,7 +69,7 @@ struct ListPosts<T> : WPRequest where T: PostProtocol {
         categoriesExclude: [Int]? = nil) {
     
         let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withFullDate, .withFullTime, .withFractionalSeconds, .withTimeZone]
+        formatter.formatOptions = [.withFullDate, .withFullTime, .withTimeZone]
         
         self.context = context
         self.page = page
@@ -222,18 +222,18 @@ struct DeleteAPost<T> : WPRequest where T: PostProtocol {
     }
 }
 
-enum Context: String, Codable {
+public enum Context: String, Codable {
     case view = "view"
     case embed = "embed"
     case edit = "edit"
 }
 
-enum Order: String, Codable {
+public enum Order: String, Codable {
     case asc = "asc"
     case desc = "desc"
 }
 
-enum OrderBy: String, Codable {
+public enum OrderBy: String, Codable {
     case author = "author"
     case date = "date"
     case id = "id"
@@ -245,7 +245,7 @@ enum OrderBy: String, Codable {
     case title = "title"
 }
 
-enum Status: String, Codable {
+public enum Status: String, Codable {
     case draft = "draft"
     case publish = "publish"
 }

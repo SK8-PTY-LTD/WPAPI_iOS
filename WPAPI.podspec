@@ -24,11 +24,11 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/133342301@163.com/WPAPI'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { '133342301@163.com' => '133342301@163.com' }
-  s.source           = { :git => 'https://github.com/133342301@163.com/WPAPI.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.author           = { 'jacktator' => 'https://github.com/jacktator' }
+  s.source           = { :git => 'https://github.com/SK8-PTY-LTD/WPAPI.git', :tag => s.version.to_s }
+  # s.social_media_url = 'https://twitter.com/sk8techs'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.0'
 
   s.source_files = 'WPAPI/Classes/**/*'
   

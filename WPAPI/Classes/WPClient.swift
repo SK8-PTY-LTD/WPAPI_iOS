@@ -1,6 +1,6 @@
 //
 //  WPAPIClient.swift
-//  WPSDK
+//  WPAPI
 //
 //  Created by SongXujie on 26/12/17.
 //  Copyright © 2017 SK8 PTY LTD. All rights reserved.
@@ -10,15 +10,17 @@ import Foundation
 
 public class WPClient {
 
-    private let baseEndpoint = "https://beanlinked.sk8tech.io/wp-json"
+    private let baseURL: String!
     private let session = URLSession(configuration: .default)
     
     private let authorizationToken: String?
     
     public static var sharedInstance: WPClient!
     
-    public init(authorizationToken: String?) {
-        self.authorizationToken = authorizationToken;
+    public init(baseURL: String, authorizationToken: String? = nil) {
+        
+        self.baseURL = baseURL
+        self.authorizationToken = authorizationToken
         WPClient.sharedInstance = self
     }
     
@@ -31,20 +33,20 @@ public class WPClient {
             if let data = data {
                 do {
 //                    print("Response data \(data.base64EncodedString())")
-                    // Decode the top level response, and look up the decoded response to see
-                    // if it's a success or a failure
-                    let apiResponse = try JSONDecoder().decode(T.Response.self, from: data)
-                    completion(.success(apiResponse))
-                } catch {
                     // Decode the top level response failed, decode as failure
                     // if it's a failure
+                    let errorResponse = try JSONDecoder().decode(WPErrorResponse.self, from: data)
+                    if let message = errorResponse.message {
+                        completion(.failure(WPError.server(message: message)))
+                    } else {
+                        completion(.failure(WPError.decoding))
+                    }
+                } catch {
+                    // Decode the top level response, and look up the decoded response to see
+                    // if it's a success or a failure
                     do {
-                        let errorResponse = try JSONDecoder().decode(WPErrorResponse.self, from: data)
-                        if let message = errorResponse.message {
-                            completion(.failure(WPError.server(message: message)))
-                        } else {
-                            completion(.failure(WPError.decoding))
-                        }
+                        let apiResponse = try JSONDecoder().decode(T.Response.self, from: data)
+                        completion(.success(apiResponse))
                     } catch {
                         completion(.failure(error))
                     }
@@ -72,12 +74,12 @@ public class WPClient {
         switch request.method {
         case .get:
             guard let parameters = try? URLQueryEncoder.encode(request) else { fatalError("Wrong parameters") }
-            endpoint = URL(string: "\(baseEndpoint)\(request.pathName)?\(parameters)")
+            endpoint = URL(string: "\(baseURL!)/wp-json\(request.pathName)?\(parameters)")
         default:
-            endpoint = URL(string: "\(baseEndpoint)\(request.pathName)")
+            endpoint = URL(string: "\(baseURL!)/wp-json\(request.pathName)")
         }
         
-        print(request.method.rawValue + " " + endpoint!.absoluteString)
+        print(request.method.rawValue + ": " + endpoint!.absoluteString)
         
         // Create Request
         var req = URLRequest(url: endpoint!)

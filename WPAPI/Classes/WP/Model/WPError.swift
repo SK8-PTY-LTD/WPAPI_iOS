@@ -1,6 +1,6 @@
 //
 //  APIError.swift
-//  WPSDK
+//  WPAPI
 //
 //  Created by SongXujie on 26/12/17.
 //  Copyright © 2017 SK8 PTY LTD. All rights reserved.

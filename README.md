@@ -28,7 +28,7 @@ A more comprehensive REST API documentation can be found at [WordPress.org Handb
 
 # WPAPI
 
-[![CI Status](http://img.shields.io/travis/jacktator/WPAPI.svg?style=flat)](https://travis-ci.org/133342301@163.com/WPAPI)
+[![CI Status](http://img.shields.io/travis/SK8-PTY-LTD/WPAPI.svg?style=flat)](https://travis-ci.org/133342301@163.com/WPAPI)
 [![Version](https://img.shields.io/cocoapods/v/WPAPI.svg?style=flat)](http://cocoapods.org/pods/WPAPI)
 [![License](https://img.shields.io/cocoapods/l/WPAPI.svg?style=flat)](http://cocoapods.org/pods/WPAPI)
 [![Platform](https://img.shields.io/cocoapods/p/WPAPI.svg?style=flat)](http://cocoapods.org/pods/WPAPI)
@@ -44,7 +44,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-WPAPI is available through [CocoaPods](http://cocoapods.org). To install
+WPAPI is available through [CocoaPods](http://cocoapods.org) and [Github](https://github.com/SK8-PTY-LTD/WPAPI_iOS). To install
 it, simply add the following line to your Podfile:
 
 ```ruby

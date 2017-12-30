@@ -2,7 +2,7 @@
 
 import Quick
 import Nimble
-import WPAPI
+//import WPAPI
 
 class TableOfContentsSpec: QuickSpec {
     override func spec() {

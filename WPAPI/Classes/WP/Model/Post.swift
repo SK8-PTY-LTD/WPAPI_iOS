@@ -20,36 +20,36 @@ public protocol PostProtocol: Codable {
     
 }
 
-class Post : Codable, PostProtocol {
+open class Post : Codable, PostProtocol {
     
     // Slug for end point
-    class var endpoint: String {
+    open class var endpoint: String {
         return "posts"
     }
     
-	let id : Int?
-	let date : Date?
-	let dateGmt : Date?
-	let modified : Date?
-	let modifiedGmt : Date?
-	var slug : String?
-	var status : String?
-	let type : String?
-	var link : String?
-    var password: String?
-	var title : String?
-	var content : String?
-	var excerpt : String?
-	let author : Int?
-	var featuredMedia : Int?
-	let commentStatus : String?
-	let pingStatus : String?
-	var sticky : Bool?
-	let format : String?
-	let meta : [String]?
-	var categories : [Int]?
+	public let id : Int?
+	public let date : Date?
+	public let dateGmt : Date?
+	public let modified : Date?
+	public let modifiedGmt : Date?
+	public var slug : String?
+	public var status : String?
+	public let type : String?
+	public var link : String?
+    public var password: String?
+	public var title : String?
+	public var content : String?
+	public var excerpt : String?
+	public let author : Int?
+	public var featuredMedia : Int?
+	public let commentStatus : String?
+	public let pingStatus : String?
+	public var sticky : Bool?
+	public let format : String?
+	public let meta : [String]?
+	public var categories : [Int]?
 
-    init(title : String?, content : String?, featuredMedia : Int?, categories : [Int]?) {
+    public init(title : String?, content : String?, featuredMedia : Int?, categories : [Int]?) {
         
         self.id  = nil
         self.date  = nil
@@ -99,7 +99,7 @@ class Post : Codable, PostProtocol {
 		case categories = "categories"
 	}
 
-    required init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
@@ -129,7 +129,7 @@ class Post : Codable, PostProtocol {
         categories = try values.decodeIfPresent([Int].self, forKey: .categories)
 	}
     
-    func encode(to encoder: Encoder) throws {
+    open func encode(to encoder: Encoder) throws {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
@@ -183,7 +183,7 @@ class Post : Codable, PostProtocol {
     ///   - categories: Limit result set to all items that have the specified term assigned in the categories taxonomy.
     ///   - categoriesExclude:     Limit result set to all items except those that have the specified term assigned in the categories taxonomy.
     ///   - completion: Completion handle
-    static func list<T>(context: Context = .view,
+    public static func list<T>(context: Context = .view,
                      page: Int = 1,
                      perPage: Int = 10,
                      search: String? = nil,
@@ -216,7 +216,7 @@ class Post : Codable, PostProtocol {
         
     }
     
-    func save<T>(completion: @escaping ResultCallback<T>) where T: PostProtocol {
+    public func save<T>(completion: @escaping ResultCallback<T>) where T: PostProtocol {
         
         if self.id != nil {
             
@@ -249,7 +249,7 @@ class Post : Codable, PostProtocol {
         }
     }
     
-    static func get<T>(id: Int, completion: @escaping ResultCallback<T>) where T: PostProtocol {
+    public static func get<T>(id: Int, completion: @escaping ResultCallback<T>) where T: PostProtocol {
         
         let request = RetrieveAPost<T>(id: id)
         
@@ -264,7 +264,7 @@ class Post : Codable, PostProtocol {
         }
     }
     
-    func delete<T>(force: Bool? = false, completion: @escaping ResultCallback<T>) where T: PostProtocol {
+    public func delete<T>(force: Bool? = false, completion: @escaping ResultCallback<T>) where T: PostProtocol {
         
         if let id = self.id {
             let request = DeleteAPost<T>(id: id, force: force)
@@ -286,7 +286,7 @@ class Post : Codable, PostProtocol {
 
 }
 
-struct Content : Codable {
+public struct Content : Codable {
     let raw: String?
     let rendered : String?
     let protected : Bool?
@@ -305,7 +305,7 @@ struct Content : Codable {
     
 }
 
-struct Excerpt : Codable {
+public struct Excerpt : Codable {
     let raw: String?
     let rendered : String?
     let protected : Bool?
@@ -324,7 +324,7 @@ struct Excerpt : Codable {
     
 }
 
-struct Title : Codable {
+public struct Title : Codable {
     let raw: String?
     let rendered : String?
     
