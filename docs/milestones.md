@@ -4,6 +4,10 @@ A formatted sample can be found at [REST API End Points](rest-api-end-points.md)
 
 v0.1 Post
 
+1. Post
+1. Custom Post Type
+  1. Advanced Custom Fields
+
 v0.2 Basic information
 
 1. Name
