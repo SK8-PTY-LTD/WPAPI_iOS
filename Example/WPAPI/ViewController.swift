@@ -9,8 +9,12 @@
 import UIKit
 import WPAPI
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var postArray = [Post]()
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,18 +24,24 @@ class ViewController: UIViewController {
             switch response {
             case .success(let posts):
                 print("List post successful, \(posts.count) posts retrieved: ---")
+                
+                self.postArray = posts
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
                 for post in posts {
                     print("- \(post.title?.html2String ?? "Empty Title")")
 
-                    Post.get(id: post.id!, completion: { (response: Result<Post>) in
-                        switch response {
-                        case .success(let post):
-                            print("Get post successful! \(post.title?.html2String ?? "Empty Title")")
-                            print("  ---")
-                        case .failure(let error):
-                            print(error)
-                        }
-                    })
+//                    Post.get(id: post.id!, completion: { (response: Result<Post>) in
+//                        switch response {
+//                        case .success(let post):
+//                            print("Get post successful! \(post.title?.html2String ?? "Empty Title")")
+//                            print("  ---")
+//                        case .failure(let error):
+//                            print(error)
+//                        }
+//                    })
                 }
                 print("---------------------------------------------------------")
             case .failure(let error):
@@ -44,6 +54,7 @@ class ViewController: UIViewController {
 
             switch response {
             case .success(let post):
+                
                 print("Create post successful! \(post.title?.html2String ?? "Empty Title")")
                 print("  ---")
 
@@ -65,6 +76,19 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return postArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+        cell.textLabel?.text = postArray[indexPath.row].title
+        cell.detailTextLabel?.text = postArray[indexPath.row].content
+        return cell
     }
 
 
