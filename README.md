@@ -1,6 +1,6 @@
 # WPAPI
 
-[![CI Status](http://img.shields.io/travis/133342301@163.com/WPAPI.svg?style=flat)](https://travis-ci.org/133342301@163.com/WPAPI)
+[![CI Status](http://img.shields.io/travis/jacktator/WPAPI.svg?style=flat)](https://travis-ci.org/133342301@163.com/WPAPI)
 [![Version](https://img.shields.io/cocoapods/v/WPAPI.svg?style=flat)](http://cocoapods.org/pods/WPAPI)
 [![License](https://img.shields.io/cocoapods/l/WPAPI.svg?style=flat)](http://cocoapods.org/pods/WPAPI)
 [![Platform](https://img.shields.io/cocoapods/p/WPAPI.svg?style=flat)](http://cocoapods.org/pods/WPAPI)
@@ -10,6 +10,9 @@
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+
+1. Xcode 9
+2. Swift 4
 
 ## Installation
 
@@ -22,7 +25,7 @@ pod 'WPAPI'
 
 ## Author
 
-133342301@163.com, 133342301@163.com
+[Jack Song](https://github.com/jacktator)
 
 ## License
 
