@@ -12,9 +12,9 @@ This means **by default**, any **WordPress** 4.7+ instance can now be used as a 
 
 REST API is already a well-received standard in developer communities, many excellent native lib exists for native apps to consume REST API, such as [Alamofire](https://github.com/Alamofire/Alamofire) & [Retrofit](https://github.com/square/retrofit). 
 
-However the experience of writing raw API calls it is just not elegant enough for our coding taste. And this is exactly what WPSDK is:
+However the experience of writing raw API calls it is just not elegant enough for our coding taste. And this is exactly what WPAPI is:
 
-WPSDK is a **mobile SDK** which allows **native** apps to use any **WordPress 4.7+** as a **BAAS**. 
+WPAPI is a **mobile SDK** which allows **native** iOS apps to use any **WordPress 4.7+** as a **BAAS**.
 
 # Development
 
@@ -65,7 +65,7 @@ Pull requests for new features, bug fixes, and suggestions are welcome!
 
 ## Copyright
 
-Copyright © 2013-2018 SK8 PTY LTD
+Copyright © 2013-2018 [SK8 PTY LTD](https://sk8.tech)
 hi@sk8.tech
 
 ## License
