@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'WPAPI'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of WPAPI.'
+  s.summary          = 'An Swift client for the WordPress REST API'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/133342301@163.com/WPAPI'
+  s.homepage         = 'https://github.com/SK8-PTY-LTD/WPAPI_iOS'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'jacktator' => 'https://github.com/jacktator' }
-  s.source           = { :git => 'https://github.com/SK8-PTY-LTD/WPAPI.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/SK8-PTY-LTD/WPAPI_iOS.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/sk8techs'
 
   s.ios.deployment_target = '10.0'
