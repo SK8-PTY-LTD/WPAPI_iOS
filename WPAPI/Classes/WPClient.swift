@@ -13,14 +13,14 @@ public class WPClient {
     private let baseURL: String!
     private let session = URLSession(configuration: .default)
     
-    private let authorizationToken: String?
+    private var authorizationToken: String?
     
     public static var sharedInstance: WPClient!
     
-    public init(baseURL: String, authorizationToken: String? = nil) {
+    public init(baseURL: String, authToken: String? = nil) {
         
         self.baseURL = baseURL
-        self.authorizationToken = authorizationToken
+        self.authorizationToken = authToken
         WPClient.sharedInstance = self
     }
     
@@ -93,5 +93,17 @@ public class WPClient {
         }
         
         return req
+    }
+    
+    public func updateAuthToken(authToken : String) {
+        self.authorizationToken = authToken;
+    }
+    
+    func logIn(username: String, password: String) {
+        
+    }
+    
+    func logOut() {
+        
     }
 }
