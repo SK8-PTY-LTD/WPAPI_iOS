@@ -279,7 +279,7 @@ open class Post : Codable, PostProtocol {
                 }
             }
         } else {
-            completion(.failure(WPError.client(message: "Current post object is not saved on server yet, therefore cannot be deleted")))
+            completion(.failure(WPError.client(message: "Current post object is not saved on server yet, therefore cannot be deleted", code: .MISSING_OBJECT_ID)))
         }
         
     }

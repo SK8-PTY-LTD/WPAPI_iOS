@@ -37,7 +37,7 @@ public class WPClient {
                     // if it's a failure
                     let errorResponse = try JSONDecoder().decode(WPErrorResponse.self, from: data)
                     if let message = errorResponse.message {
-                        completion(.failure(WPError.server(message: message)))
+                        completion(.failure(WPError.server(message: message, code: Int(errorResponse.code!))))
                     } else {
                         completion(.failure(WPError.decoding))
                     }
