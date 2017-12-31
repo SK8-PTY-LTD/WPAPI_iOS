@@ -112,9 +112,9 @@ open class Post : Codable, WPAPI {
 		type = try values.decodeIfPresent(String.self, forKey: .type)
         password = try values.decodeIfPresent(String.self, forKey: .password)
 		link = try values.decodeIfPresent(String.self, forKey: .link)
-        title = (try values.decodeIfPresent(Title.self, forKey: .title))?.rendered
-        content = (try values.decodeIfPresent(Content.self, forKey: .content))?.rendered
-        excerpt = (try values.decodeIfPresent(Excerpt.self, forKey: .excerpt))?.rendered
+        title = (try values.decodeIfPresent(WPAPIText.self, forKey: .title))?.rendered
+        content = (try values.decodeIfPresent(WPAPIText.self, forKey: .content))?.rendered
+        excerpt = (try values.decodeIfPresent(WPAPIText.self, forKey: .excerpt))?.rendered
         author = try values.decodeIfPresent(Int.self, forKey: .author)
         featuredMedia = try values.decodeIfPresent(Int.self, forKey: .featured_media)
         commentStatus = try values.decodeIfPresent(String.self, forKey: .comment_status)
@@ -283,59 +283,4 @@ open class Post : Codable, WPAPI {
     }
 
 }
-
-public struct Content : Codable {
-    let raw: String?
-    let rendered : String?
-    let protected : Bool?
-    
-//    enum CodingKeys: String, CodingKey {
-//
-//        case rendered = "rendered"
-//        case protected = "protected"
-//    }
-//
-//    init(from decoder: Decoder) throws {
-//        let values = try decoder.container(keyedBy: CodingKeys.self)
-//        rendered = try values.decodeIfPresent(String.self, forKey: .rendered)
-//        protected = try values.decodeIfPresent(Bool.self, forKey: .protected)
-//    }
-    
-}
-
-public struct Excerpt : Codable {
-    let raw: String?
-    let rendered : String?
-    let protected : Bool?
-    
-//    enum CodingKeys: String, CodingKey {
-//
-//        case rendered = "rendered"
-//        case protected = "protected"
-//    }
-//
-//    init(from decoder: Decoder) throws {
-//        let values = try decoder.container(keyedBy: CodingKeys.self)
-//        rendered = try values.decodeIfPresent(String.self, forKey: .rendered)
-//        protected = try values.decodeIfPresent(Bool.self, forKey: .protected)
-//    }
-    
-}
-
-public struct Title : Codable {
-    let raw: String?
-    let rendered : String?
-    
-//    enum CodingKeys: String, CodingKey {
-//
-//        case rendered = "rendered"
-//    }
-//
-//    init(from decoder: Decoder) throws {
-//        let values = try decoder.container(keyedBy: CodingKeys.self)
-//        rendered = try values.decodeIfPresent(String.self, forKey: .rendered)
-//    }
-    
-}
-
 
