@@ -93,7 +93,7 @@ open class Category : Codable, WPAPI {
                                parent: Int? = nil,
                                post: [Int]? = nil,
                                slug: String? = nil,
-                               completion: ResultCallback<[T]>) where T : WPAPI {
+                               completion: @escaping ResultCallback<[T]>) where T : WPAPI {
         
         let request = ListCategories<T>(context: context,
                                         page: page,
