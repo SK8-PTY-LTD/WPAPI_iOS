@@ -50,21 +50,21 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
     let categories: [Int]?
     let categories_exclude: [Int]?
     
-    init(context: Context = .view,
-            page: Int = 1,
-            perPage: Int = 10,
-            search: String? = nil,
-            after: Date = Date(timeIntervalSince1970: 1),  // Cannot be 0 !!!
+    init(context: Context? = nil,
+        page: Int? = nil,
+        perPage: Int? = nil,
+        search: String? = nil,
+        after: Date? = nil,
         author: [Int]? = nil,
         authorExclude: [Int]? = nil,
-        before: Date = Date(),
+        before: Date? = nil,
         exclude: [Int]? = nil,
         include: [Int]? = nil,
         offset: Int? = nil,
-        order: Order = .desc,
-        orderby: OrderBy = .date,
+        order: Order? = nil,
+        orderby: OrderBy? = nil,
         slug: String? = nil,
-        status: Status = .publish,
+        status: Status? = nil,
         categories: [Int]? = nil,
         categoriesExclude: [Int]? = nil) {
     
@@ -75,10 +75,18 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
         self.page = page
         self.per_page = perPage
         self.search = search
-        self.after = formatter.string(from: after)
+        if let after = after {
+            self.after = formatter.string(from: after)
+        } else {
+            self.after = nil
+        }
         self.author = author
         self.author_exclude = authorExclude
-        self.before = formatter.string(from: before)
+        if let before = before {
+            self.before = formatter.string(from: before)
+        } else {
+            self.before = nil
+        }
         self.exclude = exclude
         self.include = include
         self.offset = offset

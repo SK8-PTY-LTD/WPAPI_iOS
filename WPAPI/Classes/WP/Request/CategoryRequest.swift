@@ -45,15 +45,15 @@ struct ListCategories<T> : WPRequest where T : WPAPI {
     let post: [Int]?
     let slug: String?
     
-    init(context: Context = .view,
-        page: Int = 1,
-        perPage: Int = 10,
+    init(context: Context? = nil,
+        page: Int? = nil,
+        perPage: Int? = nil,
         search: String? = nil,
         exclude: [Int]? = nil,
         include: [Int]? = nil,
-        order: Order = .desc,
-        orderby: OrderBy = .date,
-        hideEmpty: Bool? = false,
+        order: Order? = nil,
+        orderby: OrderBy? = nil,
+        hideEmpty: Bool? = nil,
         parent: Int? = nil,
         post: [Int]? = nil,
         slug: String? = nil) {
@@ -77,7 +77,7 @@ struct ListCategories<T> : WPRequest where T : WPAPI {
 /// - Author Jack Song
 /// - seeAlso
 /// [Create a Category](https://developer.wordpress.org/rest-api/reference/categories/#create-a-category)
-struct CreateACategories<T> : WPRequest where T: WPAPI {
+struct CreateACategory<T> : WPRequest where T: WPAPI {
     
     typealias Response = T
     

@@ -80,5 +80,112 @@ open class Category : Codable, WPAPI {
         try container.encodeIfPresent(parent, forKey: .parent)
         try container.encodeIfPresent(meta, forKey: .meta)
     }
+    
+    public static func list<T>(context: Context? = nil,
+                               page: Int? = nil,
+                               perPage: Int? = nil,
+                               search: String? = nil,
+                               exclude: [Int]? = nil,
+                               include: [Int]? = nil,
+                               order: Order? = nil,
+                               orderby: OrderBy? = nil,
+                               hideEmpty: Bool? = nil,
+                               parent: Int? = nil,
+                               post: [Int]? = nil,
+                               slug: String? = nil,
+                               completion: ResultCallback<[T]>) where T : WPAPI {
+        
+        let request = ListCategories<T>(context: context,
+                                        page: page,
+                                        perPage: perPage,
+                                        search: search,
+                                        exclude: exclude,
+                                        include: include,
+                                        order: order,
+                                        orderby: orderby,
+                                        hideEmpty: hideEmpty,
+                                        parent: parent,
+                                        post: post,
+                                        slug: slug)
+        
+        WPClient.sharedInstance.send(request) { response in
+            
+            switch response {
+            case .success(let categories):
+                completion(.success(categories))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        
+    }
+    
+    public func save<T>(completion: @escaping ResultCallback<T>) where T: WPAPI {
+        
+        if self.id != nil {
+            
+            // ID exists, Update A Category
+            let request = UpdateACategory<T>(category: self)
+            
+            WPClient.sharedInstance.send(request) { response in
+                
+                switch response {
+                case .success(let category):
+                    completion(.success(category))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } else {
+            
+            // ID does not exist, Create A Category
+            let request = CreateACategory<T>(category: self as! T)
+            
+            WPClient.sharedInstance.send(request) { response in
+                
+                switch response {
+                case .success(let category):
+                    completion(.success(category))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    public static func get<T>(id: Int, completion: @escaping ResultCallback<T>) where T: WPAPI {
+        
+        let request = RetrieveACategory<T>(id: id)
+        
+        WPClient.sharedInstance.send(request) { response in
+            
+            switch response {
+            case .success(let category):
+                completion(.success(category))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    public func delete<T>(force: Bool? = false, completion: @escaping ResultCallback<T>) where T: WPAPI {
+        
+        if let id = self.id {
+            let request = DeleteACategory<T>(id: id, force: force)
+            
+            WPClient.sharedInstance.send(request) { response in
+                
+                switch response {
+                case .success(let category):
+                    completion(.success(category))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } else {
+            completion(.failure(WPError.client(message: "Current category object is not saved on server yet, therefore cannot be deleted", code: .MISSING_OBJECT_ID)))
+        }
+        
+    }
 
 }

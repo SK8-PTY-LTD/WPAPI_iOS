@@ -181,26 +181,42 @@ open class Post : Codable, WPAPI {
     ///   - categories: Limit result set to all items that have the specified term assigned in the categories taxonomy.
     ///   - categoriesExclude:     Limit result set to all items except those that have the specified term assigned in the categories taxonomy.
     ///   - completion: Completion handle
-    public static func list<T>(context: Context = .view,
-                     page: Int = 1,
-                     perPage: Int = 10,
-                     search: String? = nil,
-                     after: Date = Date(timeIntervalSince1970: 1), // Cannot be 0 !!!
-                     author: [Int]? = nil,
-                     authorExclude: [Int]? = nil,
-                     before: Date = Date(),
-                     exclude: [Int]? = nil,
-                     include: [Int]? = nil,
-                     offset: Int? = nil,
-                     order: Order = .desc,
-                     orderby: OrderBy = .date,
-                     slug: String? = nil,
-                     status: Status = .publish,
-                     categories: [Int]? = nil,
-                     categoriesExclude: [Int]? = nil,
-                     completion: @escaping ResultCallback<[T]>) where T : WPAPI {
+    public static func list<T>(context: Context? = nil,
+                               page: Int? = nil,
+                               perPage: Int? = nil,
+                               search: String? = nil,
+                               after: Date? = nil,
+                               author: [Int]? = nil,
+                               authorExclude: [Int]? = nil,
+                               before: Date? = nil,
+                               exclude: [Int]? = nil,
+                               include: [Int]? = nil,
+                               offset: Int? = nil,
+                               order: Order? = nil,
+                               orderby: OrderBy? = nil,
+                               slug: String? = nil,
+                               status: Status? = nil,
+                               categories: [Int]? = nil,
+                               categoriesExclude: [Int]? = nil,
+                               completion: @escaping ResultCallback<[T]>) where T : WPAPI {
         
-        let request = ListPosts<T>(context: context, page: page, perPage: perPage, search: search, after: after, author: author, authorExclude: authorExclude, before: before, exclude: exclude, include: include, offset: offset, order: order, orderby: orderby, slug: slug, status: status, categories: categories, categoriesExclude: categoriesExclude)
+        let request = ListPosts<T>(context: context,
+                                   page: page,
+                                   perPage: perPage,
+                                   search: search,
+                                   after: after,
+                                   author: author,
+                                   authorExclude: authorExclude,
+                                   before: before,
+                                   exclude: exclude,
+                                   include: include,
+                                   offset: offset,
+                                   order: order,
+                                   orderby: orderby,
+                                   slug: slug,
+                                   status: status,
+                                   categories: categories,
+                                   categoriesExclude: categoriesExclude)
         
         WPClient.sharedInstance.send(request) { response in
             
