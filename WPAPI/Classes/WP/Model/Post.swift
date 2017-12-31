@@ -13,14 +13,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 import Foundation
 
-public protocol PostProtocol: Codable {
-    
-    /// Endpoint for this request (the last part of the URL)
-    static var endpoint: String { get }
-    
-}
-
-open class Post : Codable, PostProtocol {
+open class Post : Codable, WPAPI {
     
     // Slug for end point
     open class var endpoint: String {
@@ -47,7 +40,8 @@ open class Post : Codable, PostProtocol {
 	public var sticky : Bool?
 	public let format : String?
 	public let meta : [String]?
-	public var categories : [Int]?
+    public var categories : [Int]?
+    public var tags : [Int]?
 
     public init(title : String?, content : String?, featuredMedia : Int?, categories : [Int]?) {
         
@@ -72,6 +66,7 @@ open class Post : Codable, PostProtocol {
         self.format  = nil
         self.meta  = nil
         self.categories  = categories
+        self.tags = nil
     }
 
 	private enum CodingKeys: String, CodingKey {
@@ -97,6 +92,7 @@ open class Post : Codable, PostProtocol {
 		case format = "format"
 		case meta = "meta"
 		case categories = "categories"
+        case tags = "tags"
 	}
 
     required public init(from decoder: Decoder) throws {
@@ -127,6 +123,7 @@ open class Post : Codable, PostProtocol {
         format = try values.decodeIfPresent(String.self, forKey: .format)
         meta = try values.decodeIfPresent([String].self, forKey: .meta)
         categories = try values.decodeIfPresent([Int].self, forKey: .categories)
+        tags = try values.decodeIfPresent([Int].self, forKey: .tags)
 	}
     
     open func encode(to encoder: Encoder) throws {
@@ -157,6 +154,7 @@ open class Post : Codable, PostProtocol {
         try container.encodeIfPresent(format, forKey: .format)
         try container.encodeIfPresent(meta, forKey: .meta)
         try container.encodeIfPresent(categories, forKey: .categories)
+        try container.encodeIfPresent(tags, forKey: .tags)
     }
     
     /// <#Description#>
@@ -200,7 +198,7 @@ open class Post : Codable, PostProtocol {
                      status: Status = .publish,
                      categories: [Int]? = nil,
                      categoriesExclude: [Int]? = nil,
-                     completion: @escaping ResultCallback<[T]>) where T: PostProtocol {
+                     completion: @escaping ResultCallback<[T]>) where T : WPAPI {
         
         let request = ListPosts<T>(context: context, page: page, perPage: perPage, search: search, after: after, author: author, authorExclude: authorExclude, before: before, exclude: exclude, include: include, offset: offset, order: order, orderby: orderby, slug: slug, status: status, categories: categories, categoriesExclude: categoriesExclude)
         
@@ -216,7 +214,7 @@ open class Post : Codable, PostProtocol {
         
     }
     
-    public func save<T>(completion: @escaping ResultCallback<T>) where T: PostProtocol {
+    public func save<T>(completion: @escaping ResultCallback<T>) where T: WPAPI {
         
         if self.id != nil {
             
@@ -249,7 +247,7 @@ open class Post : Codable, PostProtocol {
         }
     }
     
-    public static func get<T>(id: Int, completion: @escaping ResultCallback<T>) where T: PostProtocol {
+    public static func get<T>(id: Int, completion: @escaping ResultCallback<T>) where T: WPAPI {
         
         let request = RetrieveAPost<T>(id: id)
         
@@ -264,7 +262,7 @@ open class Post : Codable, PostProtocol {
         }
     }
     
-    public func delete<T>(force: Bool? = false, completion: @escaping ResultCallback<T>) where T: PostProtocol {
+    public func delete<T>(force: Bool? = false, completion: @escaping ResultCallback<T>) where T: WPAPI {
         
         if let id = self.id {
             let request = DeleteAPost<T>(id: id, force: force)

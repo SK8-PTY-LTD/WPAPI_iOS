@@ -8,6 +8,41 @@
 
 import Foundation
 
+public protocol WPAPI: Codable {
+    
+    /// Endpoint for this request (the last part of the URL)
+    static var endpoint: String { get }
+    
+}
+
+public enum Context: String, Codable {
+    case view = "view"
+    case embed = "embed"
+    case edit = "edit"
+}
+
+public enum Order: String, Codable {
+    case asc = "asc"
+    case desc = "desc"
+}
+
+public enum OrderBy: String, Codable {
+    case author = "author"
+    case date = "date"
+    case id = "id"
+    case include = "include"
+    case modified = "modified"
+    case parent = "parent"
+    case relevance = "relevance"
+    case slug = "slug"
+    case title = "title"
+}
+
+public enum Status: String, Codable {
+    case draft = "draft"
+    case publish = "publish"
+}
+
 public class WPClient {
 
     private let baseURL: String!

@@ -1,5 +1,5 @@
 //
-//  PostRequest.swift
+//  CategoryRequest.swift
 //  WPAPI
 //
 //  Created by SongXujie on 26/12/17.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-/// List Posts
+/// List Categories
 /// - Author Jack Song
 /// - seeAlso
-/// [List Posts](https://developer.wordpress.org/rest-api/reference/posts/#list-posts)
-struct ListPosts<T> : WPRequest where T : WPAPI {
+/// [List Categories](https://developer.wordpress.org/rest-api/reference/categories/#list-categories)
+struct ListCategories<T> : WPRequest where T : WPAPI {
     
     typealias Response = [T]
     
@@ -36,66 +36,48 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
     let page: Int?
     let per_page: Int?
     let search: String?
-    let after: String?
-    let author: [Int]?
-    let author_exclude: [Int]?
-    let before: String?
     let exclude: [Int]?
     let include: [Int]?
-    let offset: Int?
     let order: Order?
     let orderby: OrderBy?
+    let hide_empty: Bool?
+    let parent: Int?
+    let post: [Int]?
     let slug: String?
-    let status: Status?
-    let categories: [Int]?
-    let categories_exclude: [Int]?
     
     init(context: Context = .view,
-            page: Int = 1,
-            perPage: Int = 10,
-            search: String? = nil,
-            after: Date = Date(timeIntervalSince1970: 1),  // Cannot be 0 !!!
-        author: [Int]? = nil,
-        authorExclude: [Int]? = nil,
-        before: Date = Date(),
+        page: Int = 1,
+        perPage: Int = 10,
+        search: String? = nil,
         exclude: [Int]? = nil,
         include: [Int]? = nil,
-        offset: Int? = nil,
         order: Order = .desc,
         orderby: OrderBy = .date,
-        slug: String? = nil,
-        status: Status = .publish,
-        categories: [Int]? = nil,
-        categoriesExclude: [Int]? = nil) {
-    
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withFullDate, .withFullTime, .withTimeZone]
+        hideEmpty: Bool? = false,
+        parent: Int? = nil,
+        post: [Int]? = nil,
+        slug: String? = nil) {
         
         self.context = context
         self.page = page
         self.per_page = perPage
         self.search = search
-        self.after = formatter.string(from: after)
-        self.author = author
-        self.author_exclude = authorExclude
-        self.before = formatter.string(from: before)
         self.exclude = exclude
         self.include = include
-        self.offset = offset
         self.order = order
         self.orderby = orderby
+        self.hide_empty = hideEmpty
+        self.parent = parent
+        self.post = post
         self.slug = slug
-        self.status = status
-        self.categories = categories
-        self.categories_exclude = categoriesExclude
     }
 }
 
-/// Create a Post
+/// Create a Category
 /// - Author Jack Song
 /// - seeAlso
-/// [Create a Post](https://developer.wordpress.org/rest-api/reference/posts/#create-a-post)
-struct CreateAPost<T> : WPRequest where T: WPAPI {
+/// [Create a Category](https://developer.wordpress.org/rest-api/reference/categories/#create-a-category)
+struct CreateACategories<T> : WPRequest where T: WPAPI {
     
     typealias Response = T
     
@@ -111,22 +93,22 @@ struct CreateAPost<T> : WPRequest where T: WPAPI {
     
     // Body
     var body: Data? {
-        return try? JSONEncoder().encode(post)
+        return try? JSONEncoder().encode(category)
     }
     
     // Body
-    let post: T
+    let category: T
     
-    init(post: T) {
-        self.post = post
+    init(category: T) {
+        self.category = category
     }
 }
 
-/// Retrieve a Post
+/// Retrieve a Category
 /// - Author Jack Song
 /// - seeAlso
-/// [Retrieve A Post](https://developer.wordpress.org/rest-api/reference/posts/#retrieve-a-post)
-struct RetrieveAPost<T> : WPRequest where T : WPAPI {
+/// [Retrieve A Category](https://developer.wordpress.org/rest-api/reference/categories/#retrieve-a-category)
+struct RetrieveACategory<T> : WPRequest where T : WPAPI {
     
     typealias Response = T
     
@@ -153,11 +135,11 @@ struct RetrieveAPost<T> : WPRequest where T : WPAPI {
     }
 }
 
-/// Update a Post
+/// Update a Category
 /// - Author Jack Song
 /// - seeAlso
-/// [Update a Post](https://developer.wordpress.org/rest-api/reference/posts/#update-a-post)
-struct UpdateAPost<T> : WPRequest where T : WPAPI {
+/// [Update a Category](https://developer.wordpress.org/rest-api/reference/categories/#update-a-category)
+struct UpdateACategory<T> : WPRequest where T : WPAPI {
     
     typealias Response = T
     
@@ -168,27 +150,27 @@ struct UpdateAPost<T> : WPRequest where T : WPAPI {
     
     // Path name
     var pathName: String {
-        return "/wp/v2/\(T.endpoint)/\(post.id!)"
+        return "/wp/v2/\(T.endpoint)/\(category.id!)"
     }
     
     // Body
     var body: Data? {
-        return try? JSONEncoder().encode(post)
+        return try? JSONEncoder().encode(category)
     }
     
     // Body
-    let post: Post
+    let category: Category
     
-    init(post: Post) {
-        self.post = post
+    init(category: Category) {
+        self.category = category
     }
 }
 
-/// Delete a Post
+/// Delete a Category
 /// - Author Jack Song
 /// - seeAlso
-/// [Delete a Post](https://developer.wordpress.org/rest-api/reference/posts/#delete-a-post)
-struct DeleteAPost<T> : WPRequest where T : WPAPI {
+/// [Delete a Category](https://developer.wordpress.org/rest-api/reference/categories/#delete-a-category)
+struct DeleteACategory<T> : WPRequest where T : WPAPI {
     
     typealias Response = T
     
