@@ -69,6 +69,47 @@ public struct WPAPIText : Codable {
     
 }
 
+struct AvatarUrls : Codable {
+    let size24 : String?
+    let size48 : String?
+    let size96 : String?
+    
+    enum CodingKeys: String, CodingKey {
+        
+        case size24 = "24"
+        case size48 = "48"
+        case size96 = "96"
+    }
+    
+    init(from decoder: Decoder) throws {
+        
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        size24 = try values.decodeIfPresent(String.self, forKey: .size24)
+        size48 = try values.decodeIfPresent(String.self, forKey: .size48)
+        size96 = try values.decodeIfPresent(String.self, forKey: .size96)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encodeIfPresent(size24, forKey: .size24)
+        try container.encodeIfPresent(size48, forKey: .size48)
+        try container.encodeIfPresent(size96, forKey: .size96)
+    }
+    
+}
+
+public enum Role: String, Codable {
+    case subscriber = "subscriber"
+    case contributor = "contributor"
+    case author = "author"
+    case editor = "editor"
+    case administrator = "administrator"
+}
+
+
 public class WP {
     
     public static var sharedInstance: WP!
