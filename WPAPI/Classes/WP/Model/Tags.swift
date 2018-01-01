@@ -28,6 +28,18 @@ open class Tag : Codable, WPAPI {
 	let slug : String?
 	let taxonomy : String?
 	let meta : [String]?
+    
+    public init(name : String?, description : String?) {
+        
+        self.id  = nil
+        self.count = nil
+        self.description = description
+        self.link = nil
+        self.name = name
+        self.slug = nil
+        self.taxonomy = nil
+        self.meta = nil
+    }
 
 	enum CodingKeys: String, CodingKey {
 
@@ -67,6 +79,113 @@ open class Tag : Codable, WPAPI {
         try container.encodeIfPresent(slug, forKey: .slug)
         try container.encodeIfPresent(taxonomy, forKey: .taxonomy)
         try container.encodeIfPresent(meta, forKey: .meta)
+    }
+    
+    public static func list<T>(context: Context? = nil,
+                               page: Int? = nil,
+                               perPage: Int? = nil,
+                               search: String? = nil,
+                               exclude: [Int]? = nil,
+                               include: [Int]? = nil,
+                               offset: Int? = nil,
+                               order: Order? = nil,
+                               orderby: OrderBy? = nil,
+                               hideEmpty: Bool? = nil,
+                               post: [Int]? = nil,
+                               slug: String? = nil,
+                               completion: @escaping ResultCallback<[T]>) where T : WPAPI {
+        
+        let request = ListTags<T>(context: context,
+                                        page: page,
+                                        perPage: perPage,
+                                        search: search,
+                                        exclude: exclude,
+                                        include: include,
+                                        offset: offset,
+                                        order: order,
+                                        orderby: orderby,
+                                        hideEmpty: hideEmpty,
+                                        post: post,
+                                        slug: slug)
+        
+        WP.sharedInstance.send(request) { response in
+            
+            switch response {
+            case .success(let tags):
+                completion(.success(tags))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        
+    }
+    
+    public func save<T>(completion: @escaping ResultCallback<T>) where T: WPAPI {
+        
+        if self.id != nil {
+            
+            // ID exists, Update A Tag
+            let request = UpdateATag<T>(tag: self)
+            
+            WP.sharedInstance.send(request) { response in
+                
+                switch response {
+                case .success(let tag):
+                    completion(.success(tag))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } else {
+            
+            // ID does not exist, Create A Tag
+            let request = CreateATag<T>(tag: self as! T)
+            
+            WP.sharedInstance.send(request) { response in
+                
+                switch response {
+                case .success(let tag):
+                    completion(.success(tag))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    public static func get<T>(id: Int, completion: @escaping ResultCallback<T>) where T: WPAPI {
+        
+        let request = RetrieveATag<T>(id: id)
+        
+        WP.sharedInstance.send(request) { response in
+            
+            switch response {
+            case .success(let tag):
+                completion(.success(tag))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    public func delete<T>(force: Bool? = false, completion: @escaping ResultCallback<T>) where T: WPAPI {
+        
+        if let id = self.id {
+            let request = DeleteATag<T>(id: id, force: force)
+            
+            WP.sharedInstance.send(request) { response in
+                
+                switch response {
+                case .success(let tag):
+                    completion(.success(tag))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } else {
+            completion(.failure(WPError.client(message: "Current tag object is not saved on server yet, therefore cannot be deleted", code: .MISSING_OBJECT_ID)))
+        }
+        
     }
 
 }

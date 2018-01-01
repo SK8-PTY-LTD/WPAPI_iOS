@@ -29,20 +29,49 @@ open class Media : Codable, WPAPI {
 	public let status : String?
 	public let type : String?
 	public let link : String?
-	public let title : String?
-	public let author : Int?
+	public var title : String?
+	public var author : Int?
 	public let commentStatus : String?
 	public let pingStatus : String?
 	public let template : String?
 	public let meta : [String]?
-	public let description : String?
-	public let caption : String?
-	public let altText : String?
+	public var description : String?
+	public var caption : String?
+	public var altText : String?
 	public let mediaType : String?
 	public let mimeType : String?
 	public let mediaDetails : MediaDetails?
-	public let post : Int?
+	public var post : Int?
 	public let sourceUrl : String?
+    internal let data : Data!
+    
+    public init(image : UIImage, title : String? = nil, description : String? = nil, caption : String? = nil, altText : String? = nil, post : Post? = nil, author : Int? = nil) {
+        
+        self.id = nil
+        self.date = nil
+        self.dateGmt = nil
+        self.modified = nil
+        self.modifiedGmt = nil
+        self.slug = nil
+        self.status = nil
+        self.type = nil
+        self.link = nil
+        self.title = title
+        self.author = author
+        self.commentStatus = nil
+        self.pingStatus = nil
+        self.template = nil
+        self.meta = nil
+        self.description = description
+        self.caption = caption
+        self.altText = altText
+        self.mediaType = nil
+        self.mimeType = nil
+        self.mediaDetails = nil
+        self.post = post?.id
+        self.sourceUrl = nil
+        self.data = UIImagePNGRepresentation(image)!
+    }
 
 	enum CodingKeys: String, CodingKey {
 
@@ -87,7 +116,7 @@ open class Media : Codable, WPAPI {
 		status = try values.decodeIfPresent(String.self, forKey: .status)
 		type = try values.decodeIfPresent(String.self, forKey: .type)
 		link = try values.decodeIfPresent(String.self, forKey: .link)
-        title = try (try values.decodeIfPresent(WPAPIText.self, forKey: .title))?.rendered
+        title = (try values.decodeIfPresent(WPAPIText.self, forKey: .title))?.rendered
 		author = try values.decodeIfPresent(Int.self, forKey: .author)
 		commentStatus = try values.decodeIfPresent(String.self, forKey: .comment_status)
 		pingStatus = try values.decodeIfPresent(String.self, forKey: .ping_status)
@@ -101,6 +130,7 @@ open class Media : Codable, WPAPI {
 		mediaDetails = try values.decodeIfPresent(MediaDetails.self, forKey: .media_details)
 		post = try values.decodeIfPresent(Int.self, forKey: .post)
 		sourceUrl = try values.decodeIfPresent(String.self, forKey: .source_url)
+        data = nil
 	}
     
     public func encode(to encoder: Encoder) throws {
@@ -132,6 +162,127 @@ open class Media : Codable, WPAPI {
         try container.encodeIfPresent(mediaDetails, forKey: .media_details)
         try container.encodeIfPresent(post, forKey: .post)
         try container.encodeIfPresent(sourceUrl, forKey: .source_url)
+        
+    }
+    
+    public static func list<T>(context: Context? = nil,
+                               page: Int? = nil,
+                               perPage: Int? = nil,
+                               search: String? = nil,
+                               after: Date? = nil,
+                               author: [Int]? = nil,
+                               authorExclude: [Int]? = nil,
+                               before: Date? = nil,
+                               exclude: [Int]? = nil,
+                               include: [Int]? = nil,
+                               offset: Int? = nil,
+                               order: Order? = nil,
+                               orderby: OrderBy? = nil,
+                               parent: [Int]? = nil,
+                               parentExclude: [Int]? = nil,
+                               slug: String? = nil,
+                               status: Status? = nil,
+                               mediaType: MediaType? = nil,
+                               mimeType: String? = nil,
+                               completion: @escaping ResultCallback<[T]>) where T : WPAPI {
+        
+        let request = ListMedia<T>(context: context,
+                                   page: page,
+                                   perPage: perPage,
+                                   search: search,
+                                   after: after,
+                                   author: author,
+                                   authorExclude: authorExclude,
+                                   before: before,
+                                   exclude: exclude,
+                                   include: include,
+                                   offset: offset,
+                                   order: order,
+                                   orderby: orderby,
+                                   parent: parent,
+                                   parentExclude: parentExclude,
+                                   slug: slug,
+                                   status: status,
+                                   mediaType: mediaType,
+                                   mimeType: mimeType)
+        
+        WP.sharedInstance.send(request) { response in
+            
+            switch response {
+            case .success(let media):
+                completion(.success(media))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        
+    }
+    
+    public func save<T>(completion: @escaping ResultCallback<T>) where T: WPAPI {
+        
+        if self.id != nil {
+            
+            // ID exists, Update A Media
+            let request = UpdateAMedia<T>(media: self)
+            
+            WP.sharedInstance.send(request) { response in
+                
+                switch response {
+                case .success(let media):
+                    completion(.success(media))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } else {
+            
+            // ID does not exist, Create A Media
+            let request = CreateAMedia<T>(media: self)
+            
+            WP.sharedInstance.upload(request, completion: { response in
+                
+                switch response {
+                case .success(let media):
+                    completion(.success(media))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            })
+        }
+    }
+    
+    public static func get<T>(id: Int, completion: @escaping ResultCallback<T>) where T: WPAPI {
+        
+        let request = RetrieveAMedia<T>(id: id)
+        
+        WP.sharedInstance.send(request) { response in
+            
+            switch response {
+            case .success(let media):
+                completion(.success(media))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    public func delete<T>(force: Bool? = false, completion: @escaping ResultCallback<T>) where T: WPAPI {
+        
+        if let id = self.id {
+            let request = DeleteAMedia<T>(id: id, force: force)
+            
+            WP.sharedInstance.send(request) { response in
+                
+                switch response {
+                case .success(let media):
+                    completion(.success(media))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } else {
+            completion(.failure(WPError.client(message: "Current media object is not saved on server yet, therefore cannot be deleted", code: .MISSING_OBJECT_ID)))
+        }
         
     }
 
@@ -198,17 +349,17 @@ public struct Sizes : Codable {
 }
 
 public struct ImageMeta : Codable {
-	let aperture : Int?
+	let aperture : String?
 	let credit : String?
 	let camera : String?
 	let caption : String?
-	let createdTimestamp : Int?
+	let createdTimestamp : String?
 	let copyright : String?
-	let focalLength : Int?
-	let iso : Int?
-	let shutterSpeed : Int?
+	let focalLength : String?
+	let iso : String?
+	let shutterSpeed : String?
 	let title : String?
-	let orientation : Int?
+	let orientation : String?
 	let keywords : [String]?
 
 	enum CodingKeys: String, CodingKey {
@@ -229,17 +380,17 @@ public struct ImageMeta : Codable {
 
     public init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
-		aperture = try values.decodeIfPresent(Int.self, forKey: .aperture)
+		aperture = try values.decodeIfPresent(String.self, forKey: .aperture)
 		credit = try values.decodeIfPresent(String.self, forKey: .credit)
 		camera = try values.decodeIfPresent(String.self, forKey: .camera)
 		caption = try values.decodeIfPresent(String.self, forKey: .caption)
-		createdTimestamp = try values.decodeIfPresent(Int.self, forKey: .created_timestamp)
+		createdTimestamp = try values.decodeIfPresent(String.self, forKey: .created_timestamp)
 		copyright = try values.decodeIfPresent(String.self, forKey: .copyright)
-		focalLength = try values.decodeIfPresent(Int.self, forKey: .focal_length)
-		iso = try values.decodeIfPresent(Int.self, forKey: .iso)
-		shutterSpeed = try values.decodeIfPresent(Int.self, forKey: .shutter_speed)
+		focalLength = try values.decodeIfPresent(String.self, forKey: .focal_length)
+		iso = try values.decodeIfPresent(String.self, forKey: .iso)
+		shutterSpeed = try values.decodeIfPresent(String.self, forKey: .shutter_speed)
 		title = try values.decodeIfPresent(String.self, forKey: .title)
-		orientation = try values.decodeIfPresent(Int.self, forKey: .orientation)
+		orientation = try values.decodeIfPresent(String.self, forKey: .orientation)
 		keywords = try values.decodeIfPresent([String].self, forKey: .keywords)
 	}
     

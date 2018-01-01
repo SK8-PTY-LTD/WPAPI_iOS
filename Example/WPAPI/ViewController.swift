@@ -9,7 +9,7 @@
 import UIKit
 import WPAPI
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var postArray = [Post]()
     
@@ -49,27 +49,35 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
 
-        let post = Post(title: "Test Title", content: "<p>Test<br>Content<p>", featuredMedia: 3835, categories: [35])
-        post.save() { (response: Result<Post>) in
-
-            switch response {
-            case .success(let post):
-                
-                print("Create post successful! \(post.title?.html2String ?? "Empty Title")")
-                print("  ---")
-
-                post.delete(force: false, completion: { (response: Result<Post>) in
-                    switch response {
-                    case .success(let post):
-                        print("Delete post successful! \(post.title?.html2String ?? "Empty Title")")
-                        print("  ---")
-                    case .failure(let error):
-                        print(error)
-                    }
-                })
-            case .failure(let error):
-                print(error)
-            }
+//        let post = Post(title: "Test Title", content: "<p>Test<br>Content<p>", featuredMedia: 3835, categories: [35])
+//        post.save() { (response: Result<Post>) in
+//
+//            switch response {
+//            case .success(let post):
+//
+//                print("Create post successful! \(post.title?.html2String ?? "Empty Title")")
+//                print("  ---")
+//
+//                post.delete(force: false, completion: { (response: Result<Post>) in
+//                    switch response {
+//                    case .success(let post):
+//                        print("Delete post successful! \(post.title?.html2String ?? "Empty Title")")
+//                        print("  ---")
+//                    case .failure(let error):
+//                        print(error)
+//                    }
+//                })
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+        
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        self.present(picker, animated: true) {
+            print("Finished picking")
         }
     }
 
@@ -89,6 +97,35 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.textLabel?.text = postArray[indexPath.row].title
         cell.detailTextLabel?.text = postArray[indexPath.row].content
         return cell
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        let image: UIImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        let media = Media(image: image)
+        media.save { (response: Result<Media>) in
+            
+            
+            switch response {
+            case .success(let media):
+                
+                print("Create media successful! \(media.id)")
+                print("  ---")
+                
+                media.delete(force: false, completion: { (response: Result<Media>) in
+                    switch response {
+                    case .success(let media):
+                        print("Delete media successful! \(media.id)")
+                        print("  ---")
+                    case .failure(let error):
+                        print(error)
+                    }
+                })
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
     }
 
 

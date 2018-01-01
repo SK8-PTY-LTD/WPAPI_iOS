@@ -108,7 +108,7 @@ open class Category : Codable, WPAPI {
                                         post: post,
                                         slug: slug)
         
-        WPClient.sharedInstance.send(request) { response in
+        WP.sharedInstance.send(request) { response in
             
             switch response {
             case .success(let categories):
@@ -127,7 +127,7 @@ open class Category : Codable, WPAPI {
             // ID exists, Update A Category
             let request = UpdateACategory<T>(category: self)
             
-            WPClient.sharedInstance.send(request) { response in
+            WP.sharedInstance.send(request) { response in
                 
                 switch response {
                 case .success(let category):
@@ -141,7 +141,7 @@ open class Category : Codable, WPAPI {
             // ID does not exist, Create A Category
             let request = CreateACategory<T>(category: self as! T)
             
-            WPClient.sharedInstance.send(request) { response in
+            WP.sharedInstance.send(request) { response in
                 
                 switch response {
                 case .success(let category):
@@ -157,7 +157,7 @@ open class Category : Codable, WPAPI {
         
         let request = RetrieveACategory<T>(id: id)
         
-        WPClient.sharedInstance.send(request) { response in
+        WP.sharedInstance.send(request) { response in
             
             switch response {
             case .success(let category):
@@ -173,7 +173,7 @@ open class Category : Codable, WPAPI {
         if let id = self.id {
             let request = DeleteACategory<T>(id: id, force: force)
             
-            WPClient.sharedInstance.send(request) { response in
+            WP.sharedInstance.send(request) { response in
                 
                 switch response {
                 case .success(let category):

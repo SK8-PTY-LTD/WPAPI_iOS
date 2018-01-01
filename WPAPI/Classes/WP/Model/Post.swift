@@ -97,16 +97,13 @@ open class Post : Codable, WPAPI {
 
     required public init(from decoder: Decoder) throws {
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
-        
 		let values = try decoder.container(keyedBy: CodingKeys.self)
         
 		id = try values.decodeIfPresent(Int.self, forKey: .id)
-        date = formatter.date(from: try values.decodeIfPresent(String.self, forKey: .date)!)
-        dateGmt = formatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_gmt)!)
-        modified = formatter.date(from: try values.decodeIfPresent(String.self, forKey: .modified)!)
-        modifiedGmt = formatter.date(from: try values.decodeIfPresent(String.self, forKey: .modified_gmt)!)
+        date = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date)!)
+        dateGmt = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_gmt)!)
+        modified = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .modified)!)
+        modifiedGmt = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .modified_gmt)!)
 		slug = try values.decodeIfPresent(String.self, forKey: .slug)
 		status = try values.decodeIfPresent(String.self, forKey: .status)
 		type = try values.decodeIfPresent(String.self, forKey: .type)
@@ -128,16 +125,13 @@ open class Post : Codable, WPAPI {
     
     open func encode(to encoder: Encoder) throws {
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
-        
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encodeIfPresent(id, forKey: .id)
-        try container.encodeIfPresent(formatter.string(from: date ?? Date()), forKey: .date)
-        try container.encodeIfPresent(formatter.string(from: dateGmt ?? Date()), forKey: .date_gmt)
-        try container.encodeIfPresent(formatter.string(from: modified ?? Date()), forKey: .modified)
-        try container.encodeIfPresent(formatter.string(from: modifiedGmt ?? Date()), forKey: .modified_gmt)
+        try container.encodeIfPresent(WP.dateFormatter.string(from: date ?? Date()), forKey: .date)
+        try container.encodeIfPresent(WP.dateFormatter.string(from: dateGmt ?? Date()), forKey: .date_gmt)
+        try container.encodeIfPresent(WP.dateFormatter.string(from: modified ?? Date()), forKey: .modified)
+        try container.encodeIfPresent(WP.dateFormatter.string(from: modifiedGmt ?? Date()), forKey: .modified_gmt)
         try container.encodeIfPresent(slug, forKey: .slug)
         try container.encodeIfPresent(status, forKey: .status)
         try container.encodeIfPresent(type, forKey: .type)
@@ -218,7 +212,7 @@ open class Post : Codable, WPAPI {
                                    categories: categories,
                                    categoriesExclude: categoriesExclude)
         
-        WPClient.sharedInstance.send(request) { response in
+        WP.sharedInstance.send(request) { response in
             
             switch response {
             case .success(let posts):
@@ -237,7 +231,7 @@ open class Post : Codable, WPAPI {
             // ID exists, Update A Post
             let request = UpdateAPost<T>(post: self)
             
-            WPClient.sharedInstance.send(request) { response in
+            WP.sharedInstance.send(request) { response in
 
                 switch response {
                 case .success(let post):
@@ -251,7 +245,7 @@ open class Post : Codable, WPAPI {
             // ID does not exist, Create A Post
             let request = CreateAPost<T>(post: self as! T)
             
-            WPClient.sharedInstance.send(request) { response in
+            WP.sharedInstance.send(request) { response in
                 
                 switch response {
                 case .success(let post):
@@ -267,7 +261,7 @@ open class Post : Codable, WPAPI {
         
         let request = RetrieveAPost<T>(id: id)
         
-        WPClient.sharedInstance.send(request) { response in
+        WP.sharedInstance.send(request) { response in
             
             switch response {
             case .success(let post):
@@ -283,7 +277,7 @@ open class Post : Codable, WPAPI {
         if let id = self.id {
             let request = DeleteAPost<T>(id: id, force: force)
             
-            WPClient.sharedInstance.send(request) { response in
+            WP.sharedInstance.send(request) { response in
                 
                 switch response {
                 case .success(let post):

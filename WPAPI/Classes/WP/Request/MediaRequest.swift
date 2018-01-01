@@ -1,5 +1,5 @@
 //
-//  PostRequest.swift
+//  MediaRequest.swift
 //  WPAPI
 //
 //  Created by SongXujie on 26/12/17.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-/// List Posts
+/// List Media
 /// - Author Jack Song
 /// - seeAlso
-/// [List Posts](https://developer.wordpress.org/rest-api/reference/posts/#list-posts)
-struct ListPosts<T> : WPRequest where T : WPAPI {
+/// [List Media](https://developer.wordpress.org/rest-api/reference/media/#list-media)
+struct ListMedia<T> : WPRequest where T : WPAPI {
     
     typealias Response = [T]
     
@@ -45,28 +45,32 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
     let offset: Int?
     let order: Order?
     let orderby: OrderBy?
+    let parent: [Int]?
+    let parent_exclude: [Int]?
     let slug: String?
     let status: Status?
-    let categories: [Int]?
-    let categories_exclude: [Int]?
+    let mediaType: MediaType?
+    let mimeType: String?
     
     init(context: Context? = nil,
-        page: Int? = nil,
-        perPage: Int? = nil,
-        search: String? = nil,
-        after: Date? = nil,
-        author: [Int]? = nil,
-        authorExclude: [Int]? = nil,
-        before: Date? = nil,
-        exclude: [Int]? = nil,
-        include: [Int]? = nil,
-        offset: Int? = nil,
-        order: Order? = nil,
-        orderby: OrderBy? = nil,
-        slug: String? = nil,
-        status: Status? = nil,
-        categories: [Int]? = nil,
-        categoriesExclude: [Int]? = nil) {
+         page: Int? = nil,
+         perPage: Int? = nil,
+         search: String? = nil,
+         after: Date? = nil,
+         author: [Int]? = nil,
+         authorExclude: [Int]? = nil,
+         before: Date? = nil,
+         exclude: [Int]? = nil,
+         include: [Int]? = nil,
+         offset: Int? = nil,
+         order: Order? = nil,
+         orderby: OrderBy? = nil,
+         parent: [Int]? = nil,
+         parentExclude: [Int]? = nil,
+         slug: String? = nil,
+         status: Status? = nil,
+         mediaType: MediaType? = nil,
+         mimeType: String? = nil) {
         
         self.context = context
         self.page = page
@@ -89,18 +93,20 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
         self.offset = offset
         self.order = order
         self.orderby = orderby
+        self.parent = parent
+        self.parent_exclude = parentExclude
         self.slug = slug
         self.status = status
-        self.categories = categories
-        self.categories_exclude = categoriesExclude
+        self.mediaType = mediaType
+        self.mimeType = mimeType
     }
 }
 
-/// Create a Post
+/// Create a Media
 /// - Author Jack Song
 /// - seeAlso
-/// [Create a Post](https://developer.wordpress.org/rest-api/reference/posts/#create-a-post)
-struct CreateAPost<T> : WPRequest where T: WPAPI {
+/// [Create a Media](https://developer.wordpress.org/rest-api/reference/media/#create-a-media)
+struct CreateAMedia<T> : WPRequest where T: WPAPI {
     
     typealias Response = T
     
@@ -116,22 +122,22 @@ struct CreateAPost<T> : WPRequest where T: WPAPI {
     
     // Body
     var body: Data? {
-        return try? JSONEncoder().encode(post)
+        return media.data
     }
     
     // Body
-    let post: T
+    let media: Media
     
-    init(post: T) {
-        self.post = post
+    init(media: Media) {
+        self.media = media
     }
 }
 
-/// Retrieve a Post
+/// Retrieve a Media
 /// - Author Jack Song
 /// - seeAlso
-/// [Retrieve A Post](https://developer.wordpress.org/rest-api/reference/posts/#retrieve-a-post)
-struct RetrieveAPost<T> : WPRequest where T : WPAPI {
+/// [Retrieve A Media](https://developer.wordpress.org/rest-api/reference/media/#retrieve-a-media)
+struct RetrieveAMedia<T> : WPRequest where T : WPAPI {
     
     typealias Response = T
     
@@ -158,11 +164,11 @@ struct RetrieveAPost<T> : WPRequest where T : WPAPI {
     }
 }
 
-/// Update a Post
+/// Update a Media
 /// - Author Jack Song
 /// - seeAlso
-/// [Update a Post](https://developer.wordpress.org/rest-api/reference/posts/#update-a-post)
-struct UpdateAPost<T> : WPRequest where T : WPAPI {
+/// [Update a Media](https://developer.wordpress.org/rest-api/reference/media/#update-a-media)
+struct UpdateAMedia<T> : WPRequest where T : WPAPI {
     
     typealias Response = T
     
@@ -173,27 +179,27 @@ struct UpdateAPost<T> : WPRequest where T : WPAPI {
     
     // Path name
     var pathName: String {
-        return "/wp/v2/\(T.endpoint)/\(post.id!)"
+        return "/wp/v2/\(T.endpoint)/\(media.id!)"
     }
     
     // Body
     var body: Data? {
-        return try? JSONEncoder().encode(post)
+        return try? JSONEncoder().encode(media)
     }
     
     // Body
-    let post: Post
+    let media: Media
     
-    init(post: Post) {
-        self.post = post
+    init(media: Media) {
+        self.media = media
     }
 }
 
-/// Delete a Post
+/// Delete a Media
 /// - Author Jack Song
 /// - seeAlso
-/// [Delete a Post](https://developer.wordpress.org/rest-api/reference/posts/#delete-a-post)
-struct DeleteAPost<T> : WPRequest where T : WPAPI {
+/// [Delete a Media](https://developer.wordpress.org/rest-api/reference/media/#delete-a-media)
+struct DeleteAMedia<T> : WPRequest where T : WPAPI {
     
     typealias Response = T
     

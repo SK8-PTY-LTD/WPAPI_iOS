@@ -43,6 +43,13 @@ public enum Status: String, Codable {
     case publish = "publish"
 }
 
+public enum MediaType: String, Codable {
+    case image = "image"
+    case video = "video"
+    case audio = "audio"
+    case application = "application"
+}
+
 public struct WPAPIText : Codable {
     let raw: String?
     let rendered : String?
@@ -62,20 +69,22 @@ public struct WPAPIText : Codable {
     
 }
 
-public class WPClient {
+public class WP {
+    
+    public static var sharedInstance: WP!
+    public static let dateFormatter = DateFormatter()
 
     private let baseURL: String!
     private let session = URLSession(configuration: .default)
-    
     private var authorizationToken: String?
-    
-    public static var sharedInstance: WPClient!
     
     public init(baseURL: String, authToken: String? = nil) {
         
         self.baseURL = baseURL
         self.authorizationToken = authToken
-        WPClient.sharedInstance = self
+        
+        WP.dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
+        WP.sharedInstance = self
     }
     
     /// Sends a request to WordPress servers, calling the completion method when finished
@@ -86,7 +95,7 @@ public class WPClient {
         let task = session.dataTask(with: req) { data, response, error in
             if let data = data {
                 do {
-//                    print("Response data \(data.base64EncodedString())")
+                    //                    print("Response data \(data.base64EncodedString())")
                     // Decode the top level response failed, decode as failure
                     // if it's a failure
                     let errorResponse = try JSONDecoder().decode(WPErrorResponse.self, from: data)
@@ -110,6 +119,99 @@ public class WPClient {
             }
         }
         task.resume()
+    }
+    
+    /// Sends a request to WordPress servers, calling the completion method when finished
+    public func upload<T: WPRequest>(_ request: T, completion: @escaping ResultCallback<T.Response>) {
+        
+        // Determine end point
+        
+        let endpoint = URL(string: "\(baseURL!)/wp-json\(request.pathName)")
+        
+        print(request.method.rawValue + ": " + endpoint!.absoluteString)
+        
+        // Create Request
+        var req = URLRequest(url: endpoint!)
+        
+        req.httpMethod = request.method.rawValue
+        
+        // JWT Authorization
+        if let authToken = self.authorizationToken {
+            req.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        }
+        
+        // Set additional header for Content-Type.
+        let boundary = "Boundary-\(UUID().uuidString)"
+        req.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        // Set body data
+        req.httpBody = createBody(boundary: boundary,
+                                  data: request.body!,
+                                  mimeType: "image/png",
+                                  filename: "\(WP.dateFormatter.string(from: Date())).png")
+        
+        let task = session.dataTask(with: req) { data, response, error in
+            if let data = data {
+                do {
+                    // print("Response data \(data.base64EncodedString())")
+                    // Decode the top level response failed, decode as failure
+                    // if it's a failure
+                    let errorResponse = try JSONDecoder().decode(WPErrorResponse.self, from: data)
+                    if let message = errorResponse.message {
+                        completion(.failure(WPError.server(message: message, code: Int(errorResponse.code!))))
+                    } else {
+                        completion(.failure(WPError.decoding))
+                    }
+                } catch {
+                    // Decode the top level response, and look up the decoded response to see
+                    // if it's a success or a failure
+                    do {
+                        let apiResponse = try JSONDecoder().decode(T.Response.self, from: data)
+                        completion(.success(apiResponse))
+                    } catch {
+                        completion(.failure(error))
+                    }
+                }
+            } else if let error = error {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+    
+    
+    /// <#Description#>
+    ///
+    /// - seeAlso:
+    /// (Swift upload multi form upload)[https://github.com/newfivefour/BlogPosts/blob/master/swift-form-data-multipart-upload-URLRequest.md]
+    /// - Parameters:
+    ///   - boundary: <#boundary description#>
+    ///   - data: <#data description#>
+    ///   - mimeType: <#mimeType description#>
+    ///   - filename: <#filename description#>
+    /// - Returns: <#return value description#>
+    func createBody(boundary: String,
+                    data: Data,
+                    mimeType: String,
+                    filename: String) -> Data {
+        let body = NSMutableData()
+        
+        let boundaryPrefix = "--\(boundary)\r\n"
+        
+//        for (key, value) in parameters {
+//            body.appendString(boundaryPrefix)
+//            body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+//            body.appendString("\(value)\r\n")
+//        }
+        
+        body.appendString(boundaryPrefix)
+        body.appendString("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
+        body.appendString("Content-Type: \(mimeType)\r\n\r\n")
+        body.append(data)
+        body.appendString("\r\n")
+        body.appendString("--".appending(boundary.appending("--")))
+        
+        return body as Data
     }
     
     /// Encodes a URL based on the given request
@@ -137,11 +239,18 @@ public class WPClient {
         
         // Create Request
         var req = URLRequest(url: endpoint!)
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        req.httpMethod = request.method.rawValue
+        
+        // JWT Authorization
         if let authToken = self.authorizationToken {
             req.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         }
-        req.httpMethod = request.method.rawValue
+        
+        // Set additional header for Content-Type.
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // Set body data
         if let body = request.body {
             req.httpBody = body
         }

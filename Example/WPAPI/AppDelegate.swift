@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        _ = WPClient(baseURL: "https://wp.sk8.tech")
+        _ = WP(baseURL: "https://wp.sk8.tech", authToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvd3Auc2s4LnRlY2giLCJpYXQiOjE1MTQ3ODg0NzYsIm5iZiI6MTUxNDc4ODQ3NiwiZXhwIjoxNTE1MzkzMjc2LCJkYXRhIjp7InVzZXIiOnsiaWQiOiIxIn19fQ.imhOZofAkhuBhcPfc8k44G3be3R2f1CB08dfzukrb7Y")
         
         return true
     }
