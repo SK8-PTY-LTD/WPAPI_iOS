@@ -132,6 +132,36 @@ struct RetrieveAUser<T> : WPRequest where T : WPAPI {
     }
 }
 
+/// Retrieve Me
+/// - Author Jack Song
+/// - seeAlso
+/// [Retrieve Me](https://developer.wordpress.org/rest-api/reference/users/#retrieve-a-user)
+struct RetrieveMe<T> : WPRequest where T : WPAPI {
+    
+    typealias Response = T
+    
+    // Method
+    var method: Method {
+        return .get
+    }
+    
+    // Path name
+    var pathName: String {
+        return "/wp/v2/\(T.endpoint)/me"
+    }
+    
+    // Body
+    var body: Data? {
+        return nil
+    }
+    
+    // Body
+    let context = "edit"
+    
+    init() {
+    }
+}
+
 /// Update a User
 /// - Author Jack Song
 /// - seeAlso

@@ -114,6 +114,7 @@ public class WP {
     
     public static var sharedInstance: WP!
     public static let dateFormatter = DateFormatter()
+    public static var currentUser: User?
 
     private let baseURL: String!
     private let session = URLSession(configuration: .default)
@@ -300,14 +301,18 @@ public class WP {
     }
     
     public func updateAuthToken(authToken : String) {
+        print("WPAPI: authToken updated \(authToken)")
         self.authorizationToken = authToken;
-    }
-    
-    func logIn(username: String, password: String) {
         
-    }
-    
-    func logOut() {
-        
+        User.getMe { (response: Result<User>) in
+            
+            switch response {
+            case .success(let me):
+                WP.currentUser = me
+                print("WPAPI: currentUser updated: \(WP.currentUser.username)")
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

@@ -217,6 +217,21 @@ open class User : Codable, WPAPI {
         }
     }
     
+    public static func getMe<T>(completion: @escaping ResultCallback<T>) where T: WPAPI {
+        
+        let request = RetrieveMe<T>()
+        
+        WP.sharedInstance.send(request) { response in
+            
+            switch response {
+            case .success(let user):
+                completion(.success(user))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     public func delete<T>(force: Bool? = false, completion: @escaping ResultCallback<T>) where T: WPAPI {
         
         if let id = self.id {
