@@ -14,7 +14,7 @@ REST API is already a well-received standard in developer communities, many exce
 
 However the experience of writing raw API calls it is just not elegant enough for our coding taste. And this is exactly what WPAPI is:
 
-WPAPI is a **mobile SDK** which allows **native** iOS apps to use any **WordPress 4.7+** as a **BAAS**.
+Written in native **Swift 4**, WPAPI is a **mobile SDK** which allows iOS apps to use yyour WordPress 4.7+ website as a Backend.
 
 # Development
 
