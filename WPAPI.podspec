@@ -17,16 +17,13 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
-
+  s.description      = "Since the release of 4.7 Vauhan in Dec 2016, WordPress comes with REST API endpoints for posts, comments, terms, users, meta, and settings. This means by default, any WordPress 4.7+ instance can now be used as a BAAS for your app. Written in native Swift 4, WPAPI is a mobile SDK which allows native iOS apps to use yyour WordPress 4.7+ website as a Backend."
   s.homepage         = 'https://cocoapods.org/pods/WPAPI'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'jacktator' => 'https://github.com/jacktator' }
   s.source           = { :git => 'https://github.com/SK8-PTY-LTD/WPAPI_iOS.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/sk8techs'
+  s.social_media_url = 'https://twitter.com/sk8techs'
 
   s.ios.deployment_target = '10.0'
 
