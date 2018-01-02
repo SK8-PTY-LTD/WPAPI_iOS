@@ -115,11 +115,12 @@ public class WP {
     
     public static var sharedInstance: WP!
     public static let dateFormatter = DateFormatter()
-    public static var currentUser: User?
+    public private(set) static var currentUser: User?
 
-    private let baseURL: String!
+    public let baseURL: String!
     private let session = URLSession(configuration: .default)
-    private var authorizationToken: String?
+    public var authorizationToken: String?
+    
     
     public init(baseURL: String, authToken: String? = nil) {
         

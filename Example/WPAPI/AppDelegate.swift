@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             case .failure(let error):
                 print("App: currentUser error \(error)")
             }
-        } 
+        }
         
         return true
     }
