@@ -14,7 +14,7 @@ REST API is already a well-received standard in developer communities, many exce
 
 However the experience of writing raw API calls it is just not elegant enough for our coding taste. And this is exactly what WPAPI is:
 
-WPAPI is a **mobile SDK** which allows **native** iOS apps to use any **WordPress 4.7+** as a **BAAS**.
+Written in native **Swift 4**, WPAPI is a **mobile SDK** which allows iOS apps to use yyour WordPress 4.7+ website as a Backend.
 
 # Development
 
@@ -28,7 +28,7 @@ A more comprehensive REST API documentation can be found at [WordPress.org Handb
 
 # WPAPI
 
-[![CI Status](http://img.shields.io/travis/SK8-PTY-LTD/WPAPI.svg?style=flat)](https://travis-ci.org/133342301@163.com/WPAPI)
+[![CI Status](http://img.shields.io/travis/SK8-PTY-LTD/WPAPI.svg?style=flat)](https://travis-ci.org/SK8-PTY-LTD/WPAPI_iOS)
 [![Version](https://img.shields.io/cocoapods/v/WPAPI.svg?style=flat)](http://cocoapods.org/pods/WPAPI)
 [![License](https://img.shields.io/cocoapods/l/WPAPI.svg?style=flat)](http://cocoapods.org/pods/WPAPI)
 [![Platform](https://img.shields.io/cocoapods/p/WPAPI.svg?style=flat)](http://cocoapods.org/pods/WPAPI)
@@ -56,6 +56,7 @@ pod 'WPAPI'
 ## Contributing
 
 Pull requests for new features, bug fixes, and suggestions are welcome!
+For more information on [iOS App Development] and [WordPress Web Development](https://sk8.tech/services/web-design), please [Contact Us](https://sk8.tech/contact-us)
 
 ## Author
 
