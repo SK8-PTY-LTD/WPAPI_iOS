@@ -3,7 +3,7 @@
 //  WPAPI
 //
 //  Created by SongXujie on 26/12/17.
-//  Copyright © 2017 SK8 PTY LTD. All rights reserved.
+//  Copyright © 2018 SK8 PTY LTD. All rights reserved.
 //
 
 import Foundation
@@ -309,7 +309,7 @@ public class WP {
             switch response {
             case .success(let me):
                 WP.currentUser = me
-                print("WPAPI: currentUser updated: \(WP.currentUser!.username)")
+                print("WPAPI: currentUser updated: \(WP.currentUser!.username!)")
             case .failure(let error):
                 print(error)
             }

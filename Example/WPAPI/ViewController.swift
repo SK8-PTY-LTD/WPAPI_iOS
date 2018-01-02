@@ -109,13 +109,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             switch response {
             case .success(let media):
                 
-                print("Create media successful! \(media.id)")
+                print("Create media successful! \(String(media.id!))")
                 print("  ---")
                 
                 media.delete(force: false, completion: { (response: Result<Media>) in
                     switch response {
                     case .success(let media):
-                        print("Delete media successful! \(media.id)")
+                        print("Delete media successful! \(String(media.id!))")
                         print("  ---")
                     case .failure(let error):
                         print(error)
