@@ -69,7 +69,7 @@ public struct WPAPIText : Codable {
     
 }
 
-struct AvatarUrls : Codable {
+public struct AvatarUrls : Codable {
     
     let size24 : String?
     let size48 : String?
@@ -82,7 +82,7 @@ struct AvatarUrls : Codable {
         case size96 = "96"
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -301,7 +301,7 @@ public class WP {
         return req
     }
     
-    public func updateAuthToken(authToken : String) {
+    public func updateAuthToken(authToken : String, completion: @escaping ResultCallback<User>) {
         print("WPAPI: authToken updated \(authToken)")
         self.authorizationToken = authToken;
         
@@ -311,8 +311,11 @@ public class WP {
             case .success(let me):
                 WP.currentUser = me
                 print("WPAPI: currentUser updated: \(WP.currentUser!.username!)")
+                completion(.success(me))
             case .failure(let error):
-                print(error)
+                WP.currentUser = nil
+                completion(.failure(error))
+                print("WPAPI: authToken error: \(error)")
             }
         }
     }

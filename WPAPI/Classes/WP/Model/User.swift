@@ -20,24 +20,24 @@ open class User : Codable, WPAPI {
         return "users"
     }
     
-	let id : Int?
-	let username : String?
-	var name : String?
-	let firstName : String?
-	let lastName : String?
-	let email : String?
-	let url : String?
-	let description : String?
-	let link : String?
-	let locale : String?
-	let nickname : String?
-	let slug : String?
-	let roles : [String]?
-	let registeredDate : Date?
-	let capabilities : Capabilities?
-	let extraCapabilities : ExtraCapabilities?
-	let avatarUrls : AvatarUrls?
-	let meta : [String]?
+	public let id : Int?
+	public let username : String?
+	public var name : String?
+	public let firstName : String?
+	public let lastName : String?
+	public let email : String?
+	public let url : String?
+	public let description : String?
+	public let link : String?
+	public let locale : String?
+	public let nickname : String?
+	public let slug : String?
+	public let roles : [String]?
+	public let registeredDate : Date?
+	public let capabilities : Capabilities?
+	public let extraCapabilities : ExtraCapabilities?
+	public let avatarUrls : AvatarUrls?
+	public let meta : [String]?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -254,7 +254,7 @@ open class User : Codable, WPAPI {
 
 }
 
-struct Capabilities : Codable {
+public struct Capabilities : Codable {
     let switch_themes : Bool?
     let edit_themes : Bool?
     let activate_plugins : Bool?
@@ -534,7 +534,7 @@ struct Capabilities : Codable {
         case administrator = "administrator"
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         switch_themes = try values.decodeIfPresent(Bool.self, forKey: .switch_themes)
         edit_themes = try values.decodeIfPresent(Bool.self, forKey: .edit_themes)
@@ -677,7 +677,7 @@ struct Capabilities : Codable {
     
 }
 
-struct ExtraCapabilities : Codable {
+public struct ExtraCapabilities : Codable {
     let administrator : Bool?
     
     enum CodingKeys: String, CodingKey {
@@ -685,7 +685,7 @@ struct ExtraCapabilities : Codable {
         case administrator = "administrator"
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         administrator = try values.decodeIfPresent(Bool.self, forKey: .administrator)
     }

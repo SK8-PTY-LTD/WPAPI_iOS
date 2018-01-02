@@ -20,20 +20,20 @@ open class Comment : Codable, WPAPI {
         return "comments"
     }
     
-	let id : Int?
-	let comment : Int?
-	let parent : Int?
-	let author : Int?
-	let authorName : String?
-	let authorUrl : String?
-	let date : Date?
-	let dateGmt : Date?
-	let content : String?
-	let link : String?
-	let status : String?
-	let type : String?
-	let authorAvatarUrls : AvatarUrls?
-	let meta : [String]?
+	public let id : Int?
+	public let comment : Int?
+	public let parent : Int?
+	public let author : Int?
+	public let authorName : String?
+	public let authorUrl : String?
+	public let date : Date?
+	public let dateGmt : Date?
+	public let content : String?
+	public let link : String?
+	public let status : String?
+	public let type : String?
+	public let authorAvatarUrls : AvatarUrls?
+	public let meta : [String]?
 
 	enum CodingKeys: String, CodingKey {
 
