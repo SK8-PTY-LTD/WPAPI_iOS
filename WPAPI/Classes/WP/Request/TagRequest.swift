@@ -17,7 +17,7 @@ struct ListTags<T> : WPRequest where T : WPAPI {
     typealias Response = [T]
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .get
     }
     
@@ -82,7 +82,7 @@ struct CreateATag<T> : WPRequest where T: WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .post
     }
     
@@ -113,7 +113,7 @@ struct RetrieveATag<T> : WPRequest where T : WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .get
     }
     
@@ -144,7 +144,7 @@ struct UpdateATag<T> : WPRequest where T : WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .post
     }
     
@@ -175,7 +175,7 @@ struct DeleteATag<T> : WPRequest where T : WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .delete
     }
     

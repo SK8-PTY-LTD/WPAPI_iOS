@@ -17,7 +17,7 @@ struct ListMedia<T> : WPRequest where T : WPAPI {
     typealias Response = [T]
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .get
     }
     
@@ -111,7 +111,7 @@ struct CreateAMedia<T> : WPRequest where T: WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .post
     }
     
@@ -142,7 +142,7 @@ struct RetrieveAMedia<T> : WPRequest where T : WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .get
     }
     
@@ -173,7 +173,7 @@ struct UpdateAMedia<T> : WPRequest where T : WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .post
     }
     
@@ -204,7 +204,7 @@ struct DeleteAMedia<T> : WPRequest where T : WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .delete
     }
     

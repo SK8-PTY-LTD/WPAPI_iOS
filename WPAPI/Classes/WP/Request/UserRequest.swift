@@ -17,7 +17,7 @@ struct ListUsers<T> : WPRequest where T : WPAPI {
     typealias Response = [T]
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .get
     }
     
@@ -79,7 +79,7 @@ struct CreateAUser<T> : WPRequest where T: WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .post
     }
     
@@ -110,7 +110,7 @@ struct RetrieveAUser<T> : WPRequest where T : WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .get
     }
     
@@ -141,7 +141,7 @@ struct RetrieveMe<T> : WPRequest where T : WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .get
     }
     
@@ -171,7 +171,7 @@ struct UpdateAUser<T> : WPRequest where T : WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .post
     }
     
@@ -202,7 +202,7 @@ struct DeleteAUser<T> : WPRequest where T : WPAPI {
     typealias Response = T
     
     // Method
-    var method: Method {
+    var method: WPMethod {
         return .delete
     }
     

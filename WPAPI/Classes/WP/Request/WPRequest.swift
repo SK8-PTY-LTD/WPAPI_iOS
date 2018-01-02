@@ -16,7 +16,7 @@ public protocol WPRequest: Encodable {
     associatedtype Response: Decodable
     
     // Method
-    var method: Method { get }
+    var method: WPMethod { get }
     
     /// Endpoint for this request (the last part of the URL)
     var pathName: String { get }
@@ -25,7 +25,7 @@ public protocol WPRequest: Encodable {
     var body: Data? { get }
 }
 
-public enum Method: String, Codable {
+public enum WPMethod: String, Codable {
     case get = "GET"
     case post = "POST"
     case put = "PUT"
