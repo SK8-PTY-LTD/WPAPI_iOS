@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/SK8-PTY-LTD/WPAPI_iOS'
+  s.homepage         = 'https://cocoapods.org/pods/WPAPI'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'jacktator' => 'https://github.com/jacktator' }
