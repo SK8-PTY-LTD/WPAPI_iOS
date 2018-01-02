@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WPAPI'
-  s.version          = '0.4.3'
+  s.version          = '0.4.4'
   s.summary          = 'An Swift client for the WordPress REST API'
 
 # This description is used to generate tags and improve search results.
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = "Since the release of 4.7 Vauhan in Dec 2016, WordPress comes with REST API endpoints for posts, comments, terms, users, meta, and settings. This means by default, any WordPress 4.7+ instance can now be used as a BAAS for your app. Written in native Swift 4, WPAPI is a mobile SDK which allows native iOS apps to use yyour WordPress 4.7+ website as a Backend."
-  s.homepage         = 'https://cocoapods.org/pods/WPAPI'
+  s.homepage         = 'https://github.com/SK8-PTY-LTD/WPAPI_iOS'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'jacktator' => 'https://github.com/jacktator' }
