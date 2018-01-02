@@ -56,6 +56,7 @@ pod 'WPAPI'
 ## Contributing
 
 Pull requests for new features, bug fixes, and suggestions are welcome!
+For more information on [iOS App Development] and [WordPress Web Development](https://sk8.tech/services/web-design), please [Contact Us](https://sk8.tech/contact-us)
 
 ## Author
 
