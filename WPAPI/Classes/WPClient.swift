@@ -309,7 +309,7 @@ public class WP {
             switch response {
             case .success(let me):
                 WP.currentUser = me
-                print("WPAPI: currentUser updated: \(WP.currentUser.username)")
+                print("WPAPI: currentUser updated: \(WP.currentUser!.username)")
             case .failure(let error):
                 print(error)
             }
