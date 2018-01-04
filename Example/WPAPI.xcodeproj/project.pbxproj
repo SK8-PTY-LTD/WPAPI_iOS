@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A9352871FFDB1D500EEAF8C /* BLPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9352861FFDB1D500EEAF8C /* BLPost.swift */; };
 		3C6D173D1FF7FF660043AD5F /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6D173B1FF7FDC00043AD5F /* String+HTML.swift */; };
 		3C6D173E1FF7FF6C0043AD5F /* Data+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6D173A1FF7FDC00043AD5F /* Data+HTML.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		170112C34CA2DF4D3638ADE7 /* Pods-WPAPI_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WPAPI_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-WPAPI_Example/Pods-WPAPI_Example.release.xcconfig"; sourceTree = "<group>"; };
+		2A9352861FFDB1D500EEAF8C /* BLPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLPost.swift; sourceTree = "<group>"; };
 		3C6D173A1FF7FDC00043AD5F /* Data+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+HTML.swift"; sourceTree = "<group>"; };
 		3C6D173B1FF7FDC00043AD5F /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		4054F2A8CA37A91BF0C812DF /* Pods-WPAPI_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WPAPI_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WPAPI_Tests/Pods-WPAPI_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				3C6D173C1FF7FDC00043AD5F /* Extensions */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				2A9352861FFDB1D500EEAF8C /* BLPost.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -391,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				2A9352871FFDB1D500EEAF8C /* BLPost.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				3C6D173D1FF7FF660043AD5F /* String+HTML.swift in Sources */,
 				3C6D173E1FF7FF6C0043AD5F /* Data+HTML.swift in Sources */,

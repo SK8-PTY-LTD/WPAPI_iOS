@@ -19,35 +19,51 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        Post.list(page: 1, perPage: 5) { (response: Result<[Post]>) in
-
+        BLPost.list(page: 1, perPage: 5) { (response: Result<[BLPost]>) in
+            
             switch response {
             case .success(let posts):
                 print("List post successful, \(posts.count) posts retrieved: ---")
-                
-                self.postArray = posts
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-                
+               
                 for post in posts {
                     print("- \(post.title?.html2String ?? "Empty Title")")
 
-//                    Post.get(id: post.id!, completion: { (response: Result<Post>) in
-//                        switch response {
-//                        case .success(let post):
-//                            print("Get post successful! \(post.title?.html2String ?? "Empty Title")")
-//                            print("  ---")
-//                        case .failure(let error):
-//                            print(error)
-//                        }
-//                    })
                 }
                 print("---------------------------------------------------------")
             case .failure(let error):
                 print(error)
             }
         }
+        
+//        Post.list(page: 1, perPage: 5) { (response: Result<[Post]>) in
+//
+//            switch response {
+//            case .success(let posts):
+//                print("List post successful, \(posts.count) posts retrieved: ---")
+//
+//                self.postArray = posts
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                }
+//
+//                for post in posts {
+//                    print("- \(post.title?.html2String ?? "Empty Title")")
+//
+////                    Post.get(id: post.id!, completion: { (response: Result<Post>) in
+////                        switch response {
+////                        case .success(let post):
+////                            print("Get post successful! \(post.title?.html2String ?? "Empty Title")")
+////                            print("  ---")
+////                        case .failure(let error):
+////                            print(error)
+////                        }
+////                    })
+//                }
+//                print("---------------------------------------------------------")
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
 
 //        let post = Post(title: "Test Title", content: "<p>Test<br>Content<p>", featuredMedia: 3835, categories: [35])
 //        post.save() { (response: Result<Post>) in

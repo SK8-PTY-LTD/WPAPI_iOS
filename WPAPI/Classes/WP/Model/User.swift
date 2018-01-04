@@ -1,15 +1,15 @@
-/* 
-Copyright (c) 2018 Swift Models Generated from JSON powered by http://www.json4swift.com
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar
-
-*/
+/*
+ Copyright (c) 2018 Swift Models Generated from JSON powered by http://www.json4swift.com
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
+ For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar
+ 
+ */
 
 import Foundation
 
@@ -20,74 +20,77 @@ open class User : Codable, WPAPI {
         return "users"
     }
     
-	public let id : Int?
-	public let username : String?
-	public var name : String?
-	public let firstName : String?
-	public let lastName : String?
-	public let email : String?
-	public let url : String?
-	public let description : String?
-	public let link : String?
-	public let locale : String?
-	public let nickname : String?
-	public let slug : String?
-	public let roles : [String]?
-	public let registeredDate : Date?
-	public let capabilities : Capabilities?
-	public let extraCapabilities : ExtraCapabilities?
-	public let avatarUrls : AvatarUrls?
-	public let meta : [String]?
-
-	enum CodingKeys: String, CodingKey {
-
-		case id = "id"
-		case username = "username"
-		case name = "name"
-		case first_name = "first_name"
-		case last_name = "last_name"
-		case email = "email"
-		case url = "url"
-		case description = "description"
-		case link = "link"
-		case locale = "locale"
-		case nickname = "nickname"
-		case slug = "slug"
-		case roles = "roles"
-		case registered_date = "registered_date"
-		case capabilities = "capabilities"
-		case extra_capabilities = "extra_capabilities"
-		case avatar_urls = "avatar_urls"
-		case meta = "meta"
-	}
-
-	public required init(from decoder: Decoder) throws {
+    public let id : Int?
+    public let username : String?
+    public var name : String?
+    public let firstName : String?
+    public let lastName : String?
+    public let email : String?
+    public let url : String?
+    public let description : String?
+    public let link : String?
+    public let locale : String?
+    public let nickname : String?
+    public let slug : String?
+    public let roles : [String]?
+    public let registeredDate : Date?
+    public let capabilities : Capabilities?
+    public let extraCapabilities : ExtraCapabilities?
+    public let avatarUrls : AvatarUrls?
+    public let meta : [String]?
+    
+    enum CodingKeys: String, CodingKey {
         
-		let values = try decoder.container(keyedBy: CodingKeys.self)
+        case id = "id"
+        case username = "username"
+        case name = "name"
+        case first_name = "first_name"
+        case last_name = "last_name"
+        case email = "email"
+        case url = "url"
+        case description = "description"
+        case link = "link"
+        case locale = "locale"
+        case nickname = "nickname"
+        case slug = "slug"
+        case roles = "roles"
+        case registered_date = "registered_date"
+        case capabilities = "capabilities"
+        case extra_capabilities = "extra_capabilities"
+        case avatar_urls = "avatar_urls"
+        case meta = "meta"
+    }
+    
+    public required init(from decoder: Decoder) throws {
         
-		id = try values.decodeIfPresent(Int.self, forKey: .id)
-		username = try values.decodeIfPresent(String.self, forKey: .username)
-		name = try values.decodeIfPresent(String.self, forKey: .name)
-		firstName = try values.decodeIfPresent(String.self, forKey: .first_name)
-		lastName = try values.decodeIfPresent(String.self, forKey: .last_name)
-		email = try values.decodeIfPresent(String.self, forKey: .email)
-		url = try values.decodeIfPresent(String.self, forKey: .url)
-		description = try values.decodeIfPresent(String.self, forKey: .description)
-		link = try values.decodeIfPresent(String.self, forKey: .link)
-		locale = try values.decodeIfPresent(String.self, forKey: .locale)
-		nickname = try values.decodeIfPresent(String.self, forKey: .nickname)
-		slug = try values.decodeIfPresent(String.self, forKey: .slug)
-		roles = try values.decodeIfPresent([String].self, forKey: .roles)
-        if let dateString = try values.decodeIfPresent(String.self, forKey: .registered_date) {
-            registeredDate = WP.dateFormatter.date(from: dateString)
-        } else {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        id = try values.decodeIfPresent(Int.self, forKey: .id)
+        username = try values.decodeIfPresent(String.self, forKey: .username)
+        name = try values.decodeIfPresent(String.self, forKey: .name)
+        firstName = try values.decodeIfPresent(String.self, forKey: .first_name)
+        lastName = try values.decodeIfPresent(String.self, forKey: .last_name)
+        email = try values.decodeIfPresent(String.self, forKey: .email)
+        url = try values.decodeIfPresent(String.self, forKey: .url)
+        description = try values.decodeIfPresent(String.self, forKey: .description)
+        link = try values.decodeIfPresent(String.self, forKey: .link)
+        locale = try values.decodeIfPresent(String.self, forKey: .locale)
+        nickname = try values.decodeIfPresent(String.self, forKey: .nickname)
+        slug = try values.decodeIfPresent(String.self, forKey: .slug)
+        roles = try values.decodeIfPresent([String].self, forKey: .roles)
+        
+        let ds = ((try values.decodeIfPresent(String.self, forKey: .registered_date)))
+        if ds != nil {
+            registeredDate = WP.dateFormatter.date(from: ds!)
+        }else{
             registeredDate = nil
         }
+        
         capabilities = try values.decodeIfPresent(Capabilities.self, forKey: .capabilities)
         extraCapabilities = try values.decodeIfPresent(ExtraCapabilities.self, forKey: .extra_capabilities)
-		avatarUrls = try values.decodeIfPresent(AvatarUrls.self, forKey: .avatar_urls)
-		meta = try values.decodeIfPresent([String].self, forKey: .meta)
-	}
+        avatarUrls = try values.decodeIfPresent(AvatarUrls.self, forKey: .avatar_urls)
+        meta = try values.decodeIfPresent([String].self, forKey: .meta)
+    }
     
     public func encode(to encoder: Encoder) throws {
         
@@ -150,16 +153,16 @@ open class User : Codable, WPAPI {
                                completion: @escaping ResultCallback<[T]>) where T : WPAPI {
         
         let request = ListUsers<T>(context: context,
-                                      page: page,
-                                      perPage: perPage,
-                                      search: search,
-                                      exclude: exclude,
-                                      include: include,
-                                      offset: offset,
-                                      order: order,
-                                      orderby: orderby,
-                                      slug: slug,
-                                      roles: roles)
+                                   page: page,
+                                   perPage: perPage,
+                                   search: search,
+                                   exclude: exclude,
+                                   include: include,
+                                   offset: offset,
+                                   order: order,
+                                   orderby: orderby,
+                                   slug: slug,
+                                   roles: roles)
         
         WP.sharedInstance.send(request) { response in
             
@@ -255,7 +258,7 @@ open class User : Codable, WPAPI {
         }
         
     }
-
+    
 }
 
 public struct Capabilities : Codable {
@@ -270,7 +273,7 @@ public struct Capabilities : Codable {
     let manage_categories : Bool?
     let manage_links : Bool?
     let upload_files : Bool?
-//    let import : Bool?
+    //    let import : Bool?
     let unfiltered_html : Bool?
     let edit_posts : Bool?
     let edit_others_posts : Bool?
@@ -410,7 +413,7 @@ public struct Capabilities : Codable {
         case manage_categories = "manage_categories"
         case manage_links = "manage_links"
         case upload_files = "upload_files"
-//        case import = "import"
+        //        case import = "import"
         case unfiltered_html = "unfiltered_html"
         case edit_posts = "edit_posts"
         case edit_others_posts = "edit_others_posts"
@@ -551,7 +554,7 @@ public struct Capabilities : Codable {
         manage_categories = try values.decodeIfPresent(Bool.self, forKey: .manage_categories)
         manage_links = try values.decodeIfPresent(Bool.self, forKey: .manage_links)
         upload_files = try values.decodeIfPresent(Bool.self, forKey: .upload_files)
-//        import = try values.decodeIfPresent(Bool.self, forKey: .import)
+        //        import = try values.decodeIfPresent(Bool.self, forKey: .import)
         unfiltered_html = try values.decodeIfPresent(Bool.self, forKey: .unfiltered_html)
         edit_posts = try values.decodeIfPresent(Bool.self, forKey: .edit_posts)
         edit_others_posts = try values.decodeIfPresent(Bool.self, forKey: .edit_others_posts)
@@ -695,3 +698,4 @@ public struct ExtraCapabilities : Codable {
     }
     
 }
+
