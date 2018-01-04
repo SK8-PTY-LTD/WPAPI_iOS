@@ -78,7 +78,11 @@ open class User : Codable, WPAPI {
 		nickname = try values.decodeIfPresent(String.self, forKey: .nickname)
 		slug = try values.decodeIfPresent(String.self, forKey: .slug)
 		roles = try values.decodeIfPresent([String].self, forKey: .roles)
-		registeredDate = WP.dateFormatter.date(from: (try values.decodeIfPresent(String.self, forKey: .registered_date))!)
+        if let dateString = try values.decodeIfPresent(String.self, forKey: .registered_date) {
+            registeredDate = WP.dateFormatter.date(from: dateString)
+        } else {
+            registeredDate = nil
+        }
         capabilities = try values.decodeIfPresent(Capabilities.self, forKey: .capabilities)
         extraCapabilities = try values.decodeIfPresent(ExtraCapabilities.self, forKey: .extra_capabilities)
 		avatarUrls = try values.decodeIfPresent(AvatarUrls.self, forKey: .avatar_urls)
