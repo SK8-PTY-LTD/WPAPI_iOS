@@ -71,9 +71,9 @@ public struct WPAPIText : Codable {
 
 public struct AvatarUrls : Codable {
     
-    let size24 : String?
-    let size48 : String?
-    let size96 : String?
+    public let size24 : String?
+    public let size48 : String?
+    public let size96 : String?
     
     enum CodingKeys: String, CodingKey {
         
