@@ -37,7 +37,7 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
     let per_page: Int?
     let search: String?
     let after: String?
-    let author: [Int]?
+    let author: Int?
     let author_exclude: [Int]?
     let before: String?
     let exclude: [Int]?
@@ -55,7 +55,7 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
         perPage: Int? = nil,
         search: String? = nil,
         after: Date? = nil,
-        author: [Int]? = nil,
+        author: Int? = nil,
         authorExclude: [Int]? = nil,
         before: Date? = nil,
         exclude: [Int]? = nil,
