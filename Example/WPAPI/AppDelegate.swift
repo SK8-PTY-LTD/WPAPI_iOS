@@ -19,15 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         _ = WP(baseURL: "https://wp.sk8.tech")
-        WP.sharedInstance.updateAuthToken(authToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvd3Auc2s4LnRlY2giLCJpYXQiOjE1MTQ3ODg0NzYsIm5iZiI6MTUxNDc4ODQ3NiwiZXhwIjoxNTE1MzkzMjc2LCJkYXRhIjp7InVzZXIiOnsiaWQiOiIxIn19fQ.imhOZofAkhuBhcPfc8k44G3be3R2f1CB08dfzukrb7Y") { (response: Result<User>) in
-            
-            switch response {
-            case .success(let me):
-                print("App: currentUser is \(me.email!)")
-            case .failure(let error):
-                print("App: currentUser error \(error)")
-            }
-        }
+//        WP.sharedInstance.updateAuthToken(authToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvd3Auc2s4LnRlY2giLCJpYXQiOjE1MTQ3ODg0NzYsIm5iZiI6MTUxNDc4ODQ3NiwiZXhwIjoxNTE1MzkzMjc2LCJkYXRhIjp7InVzZXIiOnsiaWQiOiIxIn19fQ.imhOZofAkhuBhcPfc8k44G3be3R2f1CB08dfzukrb7Y") { (response: Result<User>) in
+//
+//            switch response {
+//            case .success(let me):
+//                print("App: currentUser is \(me.email!)")
+//            case .failure(let error):
+//                print("App: currentUser error \(error)")
+//            }
+//        }
         
         return true
     }

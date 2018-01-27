@@ -11,7 +11,7 @@ import WPAPI
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var postArray = [Post]()
+    var postArray = [BLPost]()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -19,23 +19,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        BLPost.list(page: 1, perPage: 5) { (response: Result<[BLPost]>) in
+        BLPost.list(page: 1, perPage: 5, categories: [32, 23]) { (response: Result<[BLPost]>) in
             
             switch response {
             case .success(let posts):
                 print("List post successful, \(posts.count) posts retrieved: ---")
-               
                 for post in posts {
                     print("- \(post.title?.html2String ?? "Empty Title")")
-
+                    
                 }
                 print("---------------------------------------------------------")
+
+                self.postArray = posts
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             case .failure(let error):
                 print(error)
             }
         }
         
-//        Post.list(page: 1, perPage: 5) { (response: Result<[Post]>) in
+//        Post.list(page: 1, perPage: 5, categories: [32, 12]) { (response: Result<[Post]>) in
 //
 //            switch response {
 //            case .success(let posts):
