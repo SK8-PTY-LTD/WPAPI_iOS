@@ -27,7 +27,8 @@ public enum HTTPParameter: CustomStringConvertible, Decodable {
     case bool(Bool)
     case int(Int)
     case double(Double)
-    case array([Int])
+    case intArray([Int])
+    case stringArray([String])
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -40,8 +41,10 @@ public enum HTTPParameter: CustomStringConvertible, Decodable {
             self = .int(int)
         } else if let double = try? container.decode(Double.self) {
             self = .double(double)
-        } else if let array = try? container.decode([Int].self) {
-            self = .array(array)
+        } else if let intArray = try? container.decode([Int].self) {
+            self = .intArray(intArray)
+        } else if let stringArray = try? container.decode([String].self) {
+            self = .stringArray(stringArray)
         } else {
             throw WPError.decoding
         }
@@ -57,8 +60,11 @@ public enum HTTPParameter: CustomStringConvertible, Decodable {
             return String(describing: int)
         case .double(let double):
             return String(describing: double)
-        case .array(let array):
-            let arrayValue = (array.map{String($0)}).joined(separator: ",")
+        case .intArray(let intArray):
+            let arrayValue = (intArray.map{String($0)}).joined(separator: ",")
+            return arrayValue
+        case .stringArray(let stringArray):
+            let arrayValue = (stringArray.map{String($0)}).joined(separator: ",")
             return arrayValue
         }
     }
