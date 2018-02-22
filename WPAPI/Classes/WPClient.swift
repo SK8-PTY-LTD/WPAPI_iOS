@@ -314,6 +314,7 @@ public class WP {
                 print("WPAPI: currentUser updated: \(WP.currentUser!.username!)")
                 completion(.success(me))
             case .failure(let error):
+                self.authorizationToken = nil
                 WP.currentUser = nil
                 completion(.failure(error))
                 print("WPAPI: authToken error: \(error)")
