@@ -43,6 +43,18 @@ public enum Status: String, Codable {
     case publish = "publish"
 }
 
+// TODO Move WooCommerce related enum to the 'right' place
+public enum WCStatus: String, Codable {
+    case any = "any"
+    case pending = "pending"
+    case processing = "processing"
+    case onHold = "on-hold"
+    case completed = "completed"
+    case cancelled = "cancelled"
+    case refunded = "refunded"
+    case failed = "failed"
+}
+
 public enum MediaType: String, Codable {
     case image = "image"
     case video = "video"
