@@ -60,53 +60,49 @@ open class WCOrder : Codable , WPAPI {
 	let feeLines : [String]?
 	let couponLines : [String]?
 	let refunds : [String]?
-    
-    convenience init(currency: String?, billing: Address?, shipping: Address?, lineItems: [LineItem]?) {
-        self.init(id: nil, parentId: nil, number: nil, orderKey: nil, createdVia: nil, version: nil, status: nil, currency: currency, dateCreated: nil, dateCreatedGmt: nil, dateModified: nil, dateModifiedGmt: nil, discountTotal: nil, discountTax: nil, shippingTotal: nil, shippingTax: nil, cartTax: nil, total: nil, totalTax: nil, pricesIncludeTax: nil, customerId: nil, customerIpAddress: nil, customerUserAgent: nil, customerNote: nil, billing: billing, shipping: shipping, paymentMethod: nil, paymentMethodTitle: nil, transactionId: nil, datePaid: nil, datePaidGmt: nil, dateCompleted: nil, dateCompletedGmt: nil, cartHash: nil, metaData: nil, lineItems: lineItems, taxLines: nil, shippingLines: nil, feeLines: nil, couponLines: nil, refunds: nil)
-    }
 
-    public init(id : Int?, parentId : Int?, number : Int?, orderKey : String?, createdVia : String?, version : String?, status : String?, currency : String?, dateCreated : Date?, dateCreatedGmt : Date?, dateModified : Date?, dateModifiedGmt : Date?, discountTotal : Double?, discountTax : Double?, shippingTotal : Double?, shippingTax : Double?, cartTax : Double?, total : Double?, totalTax : Double?, pricesIncludeTax : Bool?, customerId : Int?, customerIpAddress : String?, customerUserAgent : String?, customerNote : String?, billing : Address?, shipping : Address?, paymentMethod : String?, paymentMethodTitle : String?, transactionId : String?, datePaid : Date?, datePaidGmt : Date?, dateCompleted : Date?, dateCompletedGmt : Date?, cartHash : String?, metaData : [MetaData]?, lineItems : [LineItem]?, taxLines : [TaxLine]?, shippingLines : [String]?, feeLines : [String]?, couponLines : [String]?, refunds : [String]?) {
-        self.id  = id
-        self.parentId  = parentId
-        self.number  = number
-        self.orderKey  = orderKey
-        self.createdVia  = createdVia
-        self.version  = version
-        self.status  = status
+    public init(currency: String?, billing: Address?, shipping: Address?, lineItems: [LineItem]?) {
+        self.id  = nil
+        self.parentId  = nil
+        self.number  = nil
+        self.orderKey  = nil
+        self.createdVia  = nil
+        self.version  = nil
+        self.status  = nil
         self.currency  = currency
-        self.dateCreated  = dateCreated
-        self.dateCreatedGmt  = dateCreatedGmt
-        self.dateModified  = dateModified
-        self.dateModifiedGmt  = dateModifiedGmt
-        self.discountTotal  = discountTotal
-        self.discountTax  = discountTax
-        self.shippingTotal  = shippingTotal
-        self.shippingTax  = shippingTax
-        self.cartTax  = cartTax
-        self.total  = total
-        self.totalTax  = totalTax
-        self.pricesIncludeTax  = pricesIncludeTax
-        self.customerId  = customerId
-        self.customerIpAddress  = customerIpAddress
-        self.customerUserAgent  = customerUserAgent
-        self.customerNote  = customerNote
+        self.dateCreated  = nil
+        self.dateCreatedGmt  = nil
+        self.dateModified  = nil
+        self.dateModifiedGmt  = nil
+        self.discountTotal  = nil
+        self.discountTax  = nil
+        self.shippingTotal  = nil
+        self.shippingTax  = nil
+        self.cartTax  = nil
+        self.total  = nil
+        self.totalTax  = nil
+        self.pricesIncludeTax  = nil
+        self.customerId  = nil
+        self.customerIpAddress  = nil
+        self.customerUserAgent  = nil
+        self.customerNote  = nil
         self.billing  = billing
         self.shipping  = shipping
-        self.paymentMethod  = paymentMethod
-        self.paymentMethodTitle  = paymentMethodTitle
-        self.transactionId  = transactionId
-        self.datePaid  = datePaid
-        self.datePaidGmt  = datePaidGmt
-        self.dateCompleted  = dateCompleted
-        self.dateCompletedGmt  = dateCompletedGmt
-        self.cartHash  = cartHash
-        self.metaData  = metaData
+        self.paymentMethod  = nil
+        self.paymentMethodTitle  = nil
+        self.transactionId  = nil
+        self.datePaid  = nil
+        self.datePaidGmt  = nil
+        self.dateCompleted  = nil
+        self.dateCompletedGmt  = nil
+        self.cartHash  = nil
+        self.metaData  = nil
         self.lineItems  = lineItems
-        self.taxLines  = taxLines
-        self.shippingLines  = shippingLines
-        self.feeLines  = feeLines
-        self.couponLines  = couponLines
-        self.refunds  = refunds
+        self.taxLines  = nil
+        self.shippingLines  = nil
+        self.feeLines  = nil
+        self.couponLines  = nil
+        self.refunds  = nil
     }
 
 	enum CodingKeys: String, CodingKey {
