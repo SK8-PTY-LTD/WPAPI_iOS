@@ -272,6 +272,18 @@ open class WCOrder : Codable , WPAPI {
         let state : String?
         let postcode : String?
         let country : String?
+
+        public init(firstName : String?, lastName : String?, company : String?, address1 : String?, address2 : String?, city : String?, state : String?, postcode : String?, country : String?) {
+            self.firstName  = firstName
+            self.lastName  = lastName
+            self.company  = company
+            self.address1  = address1
+            self.address2  = address2
+            self.city  = city
+            self.state  = state
+            self.postcode  = postcode
+            self.country  = country
+        }
         
         enum CodingKeys: String, CodingKey {
             
