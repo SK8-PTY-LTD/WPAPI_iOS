@@ -332,6 +332,23 @@ open class WCOrder : Codable , WPAPI {
         let sku : String?
         let price : Double?
         
+        public init(productId: Int, quantity: Int) {
+            self.id = nil
+            self.name = nil
+            self.productId = productId
+            self.variationId = nil
+            self.quantity = quantity
+            self.taxClass = nil
+            self.subtotal = nil
+            self.subtotalTax = nil
+            self.total = nil
+            self.totalTax = nil
+            self.taxes = nil
+            self.metaData = nil
+            self.sku = nil
+            self.price = nil
+        }
+        
         enum CodingKeys: String, CodingKey {
             
             case id = "id"
