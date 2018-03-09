@@ -241,6 +241,145 @@ open class WCOrder : Codable , WPAPI {
         try container.encodeIfPresent(refunds, forKey: .refunds)
     }
     
+    /// <#Description#>
+    ///
+    /// - Author: Jack
+    /// - seeAlso
+    ///   [List Posts](https://developer.wordpress.org/rest-api/reference/posts/#list-posts)
+    /// - Parameters:
+    ///   - context: Scope under which the request is made; determines fields present in response.
+    ///   - page: Current page of the collection.
+    ///   - perPage: Maximum number of items to be returned in result set.
+    ///   - search: Limit results to those matching a string.
+    ///   - after: Limit response to posts published after a given ISO8601 compliant date.
+    ///   - author: Limit result set to posts assigned to specific authors.
+    ///   - authorExclude: Ensure result set excludes posts assigned to specific authors.
+    ///   - before: Limit response to posts published before a given ISO8601 compliant date.
+    ///   - exclude: Ensure result set excludes specific IDs.
+    ///   - include: Limit result set to specific IDs.
+    ///   - offset: Offset the result set by a specific number of items.
+    ///   - order: Order sort attribute ascending or descending.
+    ///   - orderby: Sort collection by object attribute.
+    ///   - slug: Limit result set to posts with one or more specific slugs.
+    ///   - status: Limit result set to posts assigned one or more statuses.
+    ///   - categories: Limit result set to all items that have the specified term assigned in the categories taxonomy.
+    ///   - categoriesExclude:     Limit result set to all items except those that have the specified term assigned in the categories taxonomy.
+    ///   - completion: Completion handle
+    public static func list(context: Context? = nil,
+                            page: Int? = nil,
+                            perPage: Int? = nil,
+                            search: String? = nil,
+                            after: Date? = nil,
+                            before: Date? = nil,
+                            exclude: [Int]? = nil,
+                            include: [Int]? = nil,
+                            offset: Int? = nil,
+                            order: Order? = nil,
+                            orderby: OrderBy? = nil,
+                            parent: [Int]? = nil,
+                            parent_exclude: [Int]? = nil,
+                            status: WCStatus? = nil,
+                            categories: [Int]? = nil,
+                            categoriesExclude: [Int]? = nil,
+                            completion: @escaping ResultCallback<[WCOrder]>) {
+        
+        let request = ListOrders(context: context,
+                                 page: page,
+                                 perPage: perPage,
+                                 search: search,
+                                 after: after,
+                                 before: before,
+                                 exclude: exclude,
+                                 include: include,
+                                 offset: offset,
+                                 order: order,
+                                 orderby: orderby,
+                                 parent: parent,
+                                 parent_exclude: parent_exclude,
+                                 status: status,
+                                 categories: categories,
+                                 categoriesExclude: categoriesExclude)
+        
+        WP.sharedInstance.send(request) { response in
+            
+            switch response {
+            case .success(let orders):
+                completion(.success(orders))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        
+    }
+    
+    public func save(completion: @escaping ResultCallback<WCOrder>) {
+        
+        if self.id != nil {
+            
+            // ID exists, Update A Post
+            let request = UpdateAOrder(order: self)
+            
+            WP.sharedInstance.send(request) { response in
+                
+                switch response {
+                case .success(let order):
+                    completion(.success(order))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } else {
+            
+            // ID does not exist, Create A Post
+            let request = CreateAOrder(order: self)
+            
+            WP.sharedInstance.send(request) { response in
+                
+                switch response {
+                case .success(let order):
+                    completion(.success(order))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    public static func get(id: Int, completion: @escaping ResultCallback<WCOrder>) {
+        
+        let request = RetrieveAOrder(id: id)
+        
+        WP.sharedInstance.send(request) { response in
+            
+            switch response {
+            case .success(let order):
+                completion(.success(order))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    public func delete(force: Bool? = false, completion: @escaping ResultCallback<WCOrder>) {
+        
+        if let id = self.id {
+            let request = DeleteAPost<WCOrder>(id: id, force: force)
+            
+            WP.sharedInstance.send(request) { response in
+                
+                switch response {
+                case .success(let order):
+                    completion(.success(order))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } else {
+            completion(.failure(WPError.client(message: "Current post object is not saved on server yet, therefore cannot be deleted", code: .MISSING_OBJECT_ID)))
+        }
+        
+    }
+    
     public struct MetaData : Codable {
         let id : Int?
         let key : String?
