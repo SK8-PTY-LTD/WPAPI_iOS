@@ -60,6 +60,10 @@ open class WCOrder : Codable , WPAPI {
 	let feeLines : [String]?
 	let couponLines : [String]?
 	let refunds : [String]?
+    
+    convenience init(currency: String?, billing: Address?, shipping: Address?, lineItems: [LineItem]?) {
+        self.init(id: nil, parentId: nil, number: nil, orderKey: nil, createdVia: nil, version: nil, status: nil, currency: currency, dateCreated: nil, dateCreatedGmt: nil, dateModified: nil, dateModifiedGmt: nil, discountTotal: nil, discountTax: nil, shippingTotal: nil, shippingTax: nil, cartTax: nil, total: nil, totalTax: nil, pricesIncludeTax: nil, customerId: nil, customerIpAddress: nil, customerUserAgent: nil, customerNote: nil, billing: billing, shipping: shipping, paymentMethod: nil, paymentMethodTitle: nil, transactionId: nil, datePaid: nil, datePaidGmt: nil, dateCompleted: nil, dateCompletedGmt: nil, cartHash: nil, metaData: nil, lineItems: lineItems, taxLines: nil, shippingLines: nil, feeLines: nil, couponLines: nil, refunds: nil)
+    }
 
     public init(id : Int?, parentId : Int?, number : Int?, orderKey : String?, createdVia : String?, version : String?, status : String?, currency : String?, dateCreated : Date?, dateCreatedGmt : Date?, dateModified : Date?, dateModifiedGmt : Date?, discountTotal : Double?, discountTax : Double?, shippingTotal : Double?, shippingTax : Double?, cartTax : Double?, total : Double?, totalTax : Double?, pricesIncludeTax : Bool?, customerId : Int?, customerIpAddress : String?, customerUserAgent : String?, customerNote : String?, billing : Address?, shipping : Address?, paymentMethod : String?, paymentMethodTitle : String?, transactionId : String?, datePaid : Date?, datePaidGmt : Date?, dateCompleted : Date?, dateCompletedGmt : Date?, cartHash : String?, metaData : [MetaData]?, lineItems : [LineItem]?, taxLines : [TaxLine]?, shippingLines : [String]?, feeLines : [String]?, couponLines : [String]?, refunds : [String]?) {
         self.id  = id
