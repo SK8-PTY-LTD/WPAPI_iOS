@@ -50,7 +50,7 @@ class BLPost : Post {
     
     override func encode(to encoder: Encoder) throws {
         
-        var container = encoder.container(keyedBy: CodingKeys.self)
+//        var container = encoder.container(keyedBy: CodingKeys.self)
         
         // Neither of betterAuthor && betterFeaturedImage should be encoded
         

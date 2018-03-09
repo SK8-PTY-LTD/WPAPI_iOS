@@ -61,6 +61,50 @@ open class WCOrder : Codable , WPAPI {
 	let couponLines : [String]?
 	let refunds : [String]?
 
+    public init(id : Int?, parentId : Int?, number : Int?, orderKey : String?, createdVia : String?, version : String?, status : String?, currency : String?, dateCreated : Date?, dateCreatedGmt : Date?, dateModified : Date?, dateModifiedGmt : Date?, discountTotal : Double?, discountTax : Double?, shippingTotal : Double?, shippingTax : Double?, cartTax : Double?, total : Double?, totalTax : Double?, pricesIncludeTax : Bool?, customerId : Int?, customerIpAddress : String?, customerUserAgent : String?, customerNote : String?, billing : Address?, shipping : Address?, paymentMethod : String?, paymentMethodTitle : String?, transactionId : String?, datePaid : Date?, datePaidGmt : Date?, dateCompleted : Date?, dateCompletedGmt : Date?, cartHash : String?, metaData : [MetaData]?, lineItems : [LineItem]?, taxLines : [TaxLine]?, shippingLines : [String]?, feeLines : [String]?, couponLines : [String]?, refunds : [String]?) {
+        self.id  = id
+        self.parentId  = parentId
+        self.number  = number
+        self.orderKey  = orderKey
+        self.createdVia  = createdVia
+        self.version  = version
+        self.status  = status
+        self.currency  = currency
+        self.dateCreated  = dateCreated
+        self.dateCreatedGmt  = dateCreatedGmt
+        self.dateModified  = dateModified
+        self.dateModifiedGmt  = dateModifiedGmt
+        self.discountTotal  = discountTotal
+        self.discountTax  = discountTax
+        self.shippingTotal  = shippingTotal
+        self.shippingTax  = shippingTax
+        self.cartTax  = cartTax
+        self.total  = total
+        self.totalTax  = totalTax
+        self.pricesIncludeTax  = pricesIncludeTax
+        self.customerId  = customerId
+        self.customerIpAddress  = customerIpAddress
+        self.customerUserAgent  = customerUserAgent
+        self.customerNote  = customerNote
+        self.billing  = billing
+        self.shipping  = shipping
+        self.paymentMethod  = paymentMethod
+        self.paymentMethodTitle  = paymentMethodTitle
+        self.transactionId  = transactionId
+        self.datePaid  = datePaid
+        self.datePaidGmt  = datePaidGmt
+        self.dateCompleted  = dateCompleted
+        self.dateCompletedGmt  = dateCompletedGmt
+        self.cartHash  = cartHash
+        self.metaData  = metaData
+        self.lineItems  = lineItems
+        self.taxLines  = taxLines
+        self.shippingLines  = shippingLines
+        self.feeLines  = feeLines
+        self.couponLines  = couponLines
+        self.refunds  = refunds
+    }
+
 	enum CodingKeys: String, CodingKey {
 
 		case id = "id"
@@ -197,7 +241,7 @@ open class WCOrder : Codable , WPAPI {
         try container.encodeIfPresent(refunds, forKey: .refunds)
     }
     
-    struct MetaData : Codable {
+    public struct MetaData : Codable {
         let id : Int?
         let key : String?
         let value : String?
@@ -209,7 +253,7 @@ open class WCOrder : Codable , WPAPI {
             case value = "value"
         }
         
-        init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             id = try values.decodeIfPresent(Int.self, forKey: .id)
             key = try values.decodeIfPresent(String.self, forKey: .key)
@@ -218,7 +262,7 @@ open class WCOrder : Codable , WPAPI {
         
     }
     
-    struct Address : Codable {
+    public struct Address : Codable {
         let firstName : String?
         let lastName : String?
         let company : String?
@@ -242,7 +286,7 @@ open class WCOrder : Codable , WPAPI {
             case country = "country"
         }
         
-        init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             firstName = try values.decodeIfPresent(String.self, forKey: .first_name)
             lastName = try values.decodeIfPresent(String.self, forKey: .last_name)
@@ -368,7 +412,7 @@ open class WCOrder : Codable , WPAPI {
         
     }
     
-    struct TaxLine : Codable {
+    public struct TaxLine : Codable {
         let id : Int?
         let rateCode : String?
         let rateId : Int?
@@ -390,7 +434,7 @@ open class WCOrder : Codable , WPAPI {
             case meta_data = "meta_data"
         }
         
-        init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             id = try values.decodeIfPresent(Int.self, forKey: .id)
             rateCode = try values.decodeIfPresent(String.self, forKey: .rate_code)
