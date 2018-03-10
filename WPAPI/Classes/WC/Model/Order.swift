@@ -1,15 +1,15 @@
-/* 
-Copyright (c) 2018 Swift Models Generated from JSON powered by http://www.json4swift.com
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar
-
-*/
+/*
+ Copyright (c) 2018 Swift Models Generated from JSON powered by http://www.json4swift.com
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
+ For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar
+ 
+ */
 
 import Foundation
 open class WCOrder : Codable , WPAPI {
@@ -19,48 +19,48 @@ open class WCOrder : Codable , WPAPI {
         return "orders"
     }
     
-	public let id : Int?
-	public let parentId : Int?
-	public let number : String?
-	public let orderKey : String?
-	public let createdVia : String?
-	public let version : String?
-	public let status : String?
-	public let currency : String?
-	public let dateCreated : Date?
-	public let dateCreatedGmt : Date?
-	public let dateModified : Date?
-	public let dateModifiedGmt : Date?
-	public let discountTotal : String?
-	public let discountTax : String?
-	public let shippingTotal : String?
-	public let shippingTax : String?
-	public let cartTax : String?
-	public let total : String?
-	public let totalTax : String?
-	public let pricesIncludeTax : Bool?
-	public let customerId : Int?
-	public let customerIpAddress : String?
-	public let customerUserAgent : String?
-	public let customerNote : String?
-	public let billing : Address?
-	public let shipping : Address?
-	public let paymentMethod : String?
-	public let paymentMethodTitle : String?
-	public let transactionId : String?
-	public let datePaid : Date?
-	public let datePaidGmt : Date?
-	public let dateCompleted : Date?
-	public let dateCompletedGmt : Date?
-	public let cartHash : String?
-	public let metaData : [MetaData]?
-	public let lineItems : [LineItem]?
-	public let taxLines : [TaxLine]?
-	public let shippingLines : [String]?
-	public let feeLines : [String]?
-	public let couponLines : [String]?
-	public let refunds : [String]?
-
+    public let id : Int?
+    public let parentId : Int?
+    public let number : String?
+    public let orderKey : String?
+    public let createdVia : String?
+    public let version : String?
+    public let status : String?
+    public let currency : String?
+    public let dateCreated : Date?
+    public let dateCreatedGmt : Date?
+    public let dateModified : Date?
+    public let dateModifiedGmt : Date?
+    public let discountTotal : String?
+    public let discountTax : String?
+    public let shippingTotal : String?
+    public let shippingTax : String?
+    public let cartTax : String?
+    public let total : String?
+    public let totalTax : String?
+    public let pricesIncludeTax : Bool?
+    public let customerId : Int?
+    public let customerIpAddress : String?
+    public let customerUserAgent : String?
+    public let customerNote : String?
+    public let billing : Address?
+    public let shipping : Address?
+    public let paymentMethod : String?
+    public let paymentMethodTitle : String?
+    public let transactionId : String?
+    public let datePaid : Date?
+    public let datePaidGmt : Date?
+    public let dateCompleted : Date?
+    public let dateCompletedGmt : Date?
+    public let cartHash : String?
+    public let metaData : [MetaData]?
+    public let lineItems : [LineItem]?
+    public let taxLines : [TaxLine]?
+    public let shippingLines : [String]?
+    public let feeLines : [String]?
+    public let couponLines : [String]?
+    public let refunds : [String]?
+    
     public init(currency: String?, billing: Address?, shipping: Address?, lineItems: [LineItem]?) {
         self.id  = nil
         self.parentId  = nil
@@ -104,83 +104,83 @@ open class WCOrder : Codable , WPAPI {
         self.couponLines  = nil
         self.refunds  = nil
     }
-
-	enum CodingKeys: String, CodingKey {
-
-		case id = "id"
-		case parent_id = "parent_id"
-		case number = "number"
-		case order_key = "order_key"
-		case created_via = "created_via"
-		case version = "version"
-		case status = "status"
-		case currency = "currency"
-		case date_created = "date_created"
-		case date_created_gmt = "date_created_gmt"
-		case date_modified = "date_modified"
-		case date_modified_gmt = "date_modified_gmt"
-		case discount_total = "discount_total"
-		case discount_tax = "discount_tax"
-		case shipping_total = "shipping_total"
-		case shipping_tax = "shipping_tax"
-		case cart_tax = "cart_tax"
-		case total = "total"
-		case total_tax = "total_tax"
-		case prices_include_tax = "prices_include_tax"
-		case customer_id = "customer_id"
-		case customer_ip_address = "customer_ip_address"
-		case customer_user_agent = "customer_user_agent"
-		case customer_note = "customer_note"
-		case billing = "billing"
-		case shipping = "shipping"
-		case payment_method = "payment_method"
-		case payment_method_title = "payment_method_title"
-		case transaction_id = "transaction_id"
-		case date_paid = "date_paid"
-		case date_paid_gmt = "date_paid_gmt"
-		case date_completed = "date_completed"
-		case date_completed_gmt = "date_completed_gmt"
-		case cart_hash = "cart_hash"
-		case meta_data = "meta_data"
-		case line_items = "line_items"
-		case tax_lines = "tax_lines"
-		case shipping_lines = "shipping_lines"
-		case fee_lines = "fee_lines"
-		case coupon_lines = "coupon_lines"
-		case refunds = "refunds"
-	}
-
+    
+    enum CodingKeys: String, CodingKey {
+        
+        case id = "id"
+        case parent_id = "parent_id"
+        case number = "number"
+        case order_key = "order_key"
+        case created_via = "created_via"
+        case version = "version"
+        case status = "status"
+        case currency = "currency"
+        case date_created = "date_created"
+        case date_created_gmt = "date_created_gmt"
+        case date_modified = "date_modified"
+        case date_modified_gmt = "date_modified_gmt"
+        case discount_total = "discount_total"
+        case discount_tax = "discount_tax"
+        case shipping_total = "shipping_total"
+        case shipping_tax = "shipping_tax"
+        case cart_tax = "cart_tax"
+        case total = "total"
+        case total_tax = "total_tax"
+        case prices_include_tax = "prices_include_tax"
+        case customer_id = "customer_id"
+        case customer_ip_address = "customer_ip_address"
+        case customer_user_agent = "customer_user_agent"
+        case customer_note = "customer_note"
+        case billing = "billing"
+        case shipping = "shipping"
+        case payment_method = "payment_method"
+        case payment_method_title = "payment_method_title"
+        case transaction_id = "transaction_id"
+        case date_paid = "date_paid"
+        case date_paid_gmt = "date_paid_gmt"
+        case date_completed = "date_completed"
+        case date_completed_gmt = "date_completed_gmt"
+        case cart_hash = "cart_hash"
+        case meta_data = "meta_data"
+        case line_items = "line_items"
+        case tax_lines = "tax_lines"
+        case shipping_lines = "shipping_lines"
+        case fee_lines = "fee_lines"
+        case coupon_lines = "coupon_lines"
+        case refunds = "refunds"
+    }
+    
     public required init(from decoder: Decoder) throws {
-		let values = try decoder.container(keyedBy: CodingKeys.self)
-		id = try values.decodeIfPresent(Int.self, forKey: .id)
-		parentId = try values.decodeIfPresent(Int.self, forKey: .parent_id)
-		number = try values.decodeIfPresent(String.self, forKey: .number)
-		orderKey = try values.decodeIfPresent(String.self, forKey: .order_key)
-		createdVia = try values.decodeIfPresent(String.self, forKey: .created_via)
-		version = try values.decodeIfPresent(String.self, forKey: .version)
-		status = try values.decodeIfPresent(String.self, forKey: .status)
-		currency = try values.decodeIfPresent(String.self, forKey: .currency)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decodeIfPresent(Int.self, forKey: .id)
+        parentId = try values.decodeIfPresent(Int.self, forKey: .parent_id)
+        number = try values.decodeIfPresent(String.self, forKey: .number)
+        orderKey = try values.decodeIfPresent(String.self, forKey: .order_key)
+        createdVia = try values.decodeIfPresent(String.self, forKey: .created_via)
+        version = try values.decodeIfPresent(String.self, forKey: .version)
+        status = try values.decodeIfPresent(String.self, forKey: .status)
+        currency = try values.decodeIfPresent(String.self, forKey: .currency)
         dateCreated = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_created)!)
         dateCreatedGmt = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_created_gmt)!)
         dateModified = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_modified)!)
         dateModifiedGmt = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_modified_gmt)!)
-		discountTotal = try values.decodeIfPresent(String.self, forKey: .discount_total)
-		discountTax = try values.decodeIfPresent(String.self, forKey: .discount_tax)
-		shippingTotal = try values.decodeIfPresent(String.self, forKey: .shipping_total)
-		shippingTax = try values.decodeIfPresent(String.self, forKey: .shipping_tax)
-		cartTax = try values.decodeIfPresent(String.self, forKey: .cart_tax)
-		total = try values.decodeIfPresent(String.self, forKey: .total)
-		totalTax = try values.decodeIfPresent(String.self, forKey: .total_tax)
-		pricesIncludeTax = try values.decodeIfPresent(Bool.self, forKey: .prices_include_tax)
-		customerId = try values.decodeIfPresent(Int.self, forKey: .customer_id)
-		customerIpAddress = try values.decodeIfPresent(String.self, forKey: .customer_ip_address)
+        discountTotal = try values.decodeIfPresent(String.self, forKey: .discount_total)
+        discountTax = try values.decodeIfPresent(String.self, forKey: .discount_tax)
+        shippingTotal = try values.decodeIfPresent(String.self, forKey: .shipping_total)
+        shippingTax = try values.decodeIfPresent(String.self, forKey: .shipping_tax)
+        cartTax = try values.decodeIfPresent(String.self, forKey: .cart_tax)
+        total = try values.decodeIfPresent(String.self, forKey: .total)
+        totalTax = try values.decodeIfPresent(String.self, forKey: .total_tax)
+        pricesIncludeTax = try values.decodeIfPresent(Bool.self, forKey: .prices_include_tax)
+        customerId = try values.decodeIfPresent(Int.self, forKey: .customer_id)
+        customerIpAddress = try values.decodeIfPresent(String.self, forKey: .customer_ip_address)
         customerUserAgent = try values.decodeIfPresent(String.self, forKey: .customer_user_agent)
         customerNote = try values.decodeIfPresent(String.self, forKey: .customer_note)
         billing = try values.decodeIfPresent(Address.self, forKey: .billing)
         shipping = try values.decodeIfPresent(Address.self, forKey: .shipping)
-		paymentMethod = try values.decodeIfPresent(String.self, forKey: .payment_method)
-		paymentMethodTitle = try values.decodeIfPresent(String.self, forKey: .payment_method_title)
-		transactionId = try values.decodeIfPresent(String.self, forKey: .transaction_id)
+        paymentMethod = try values.decodeIfPresent(String.self, forKey: .payment_method)
+        paymentMethodTitle = try values.decodeIfPresent(String.self, forKey: .payment_method_title)
+        transactionId = try values.decodeIfPresent(String.self, forKey: .transaction_id)
         if let datePaidString = try values.decodeIfPresent(String.self, forKey: .date_paid) {
             if datePaidString != "" {
                 datePaid = WP.dateFormatter.date(from: datePaidString)
@@ -217,15 +217,15 @@ open class WCOrder : Codable , WPAPI {
         } else {
             dateCompletedGmt = nil
         }
-		cartHash = try values.decodeIfPresent(String.self, forKey: .cart_hash)
-		metaData = try values.decodeIfPresent([MetaData].self, forKey: .meta_data)
-		lineItems = try values.decodeIfPresent([LineItem].self, forKey: .line_items)
-		taxLines = try values.decodeIfPresent([TaxLine].self, forKey: .tax_lines)
-		shippingLines = try values.decodeIfPresent([String].self, forKey: .shipping_lines)
-		feeLines = try values.decodeIfPresent([String].self, forKey: .fee_lines)
-		couponLines = try values.decodeIfPresent([String].self, forKey: .coupon_lines)
-		refunds = try values.decodeIfPresent([String].self, forKey: .refunds)
-	}
+        cartHash = try values.decodeIfPresent(String.self, forKey: .cart_hash)
+        metaData = try values.decodeIfPresent([MetaData].self, forKey: .meta_data)
+        lineItems = try values.decodeIfPresent([LineItem].self, forKey: .line_items)
+        taxLines = try values.decodeIfPresent([TaxLine].self, forKey: .tax_lines)
+        shippingLines = try values.decodeIfPresent([String].self, forKey: .shipping_lines)
+        feeLines = try values.decodeIfPresent([String].self, forKey: .fee_lines)
+        couponLines = try values.decodeIfPresent([String].self, forKey: .coupon_lines)
+        refunds = try values.decodeIfPresent([String].self, forKey: .refunds)
+    }
     
     public func encode(to encoder: Encoder) throws {
         
@@ -443,7 +443,7 @@ open class WCOrder : Codable , WPAPI {
         public let state : String?
         public let postcode : String?
         public let country : String?
-
+        
         public init(firstName : String?, lastName : String?, company : String?, address1 : String?, address2 : String?, city : String?, state : String?, postcode : String?, country : String?) {
             self.firstName  = firstName
             self.lastName  = lastName
@@ -641,8 +641,8 @@ open class WCOrder : Codable , WPAPI {
             rateId = try values.decodeIfPresent(Int.self, forKey: .rate_id)
             label = try values.decodeIfPresent(String.self, forKey: .label)
             compound = try values.decodeIfPresent(Bool.self, forKey: .compound)
-            taxTotal = try values.decodeIfPresent(Double.self, forKey: .tax_total)
-            shippingTaxTotal = try values.decodeIfPresent(Double.self, forKey: .shipping_tax_total)
+            taxTotal = Double(try values.decodeIfPresent(String.self, forKey: .tax_total)!)
+            shippingTaxTotal = Double(try values.decodeIfPresent(String.self, forKey: .shipping_tax_total)!)
             metaData = try values.decodeIfPresent([String].self, forKey: .meta_data)
         }
         
@@ -662,5 +662,6 @@ open class WCOrder : Codable , WPAPI {
         }
         
     }
-
+    
 }
+
