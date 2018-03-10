@@ -184,22 +184,38 @@ open class WCOrder : Codable , WPAPI {
         if let datePaidString = try values.decodeIfPresent(String.self, forKey: .date_paid) {
             if datePaidString != "" {
                 datePaid = WP.dateFormatter.date(from: datePaidString)
+            } else {
+                datePaid = nil
             }
+        } else {
+            datePaid = nil
         }
         if let datePaidGmtString = try values.decodeIfPresent(String.self, forKey: .date_paid_gmt) {
             if datePaidGmtString != "" {
                 datePaidGmt = WP.dateFormatter.date(from: datePaidGmtString)
+            } else {
+                datePaidGmt = nil
             }
+        } else {
+            datePaidGmt = nil
         }
         if let dateCompletedString = try values.decodeIfPresent(String.self, forKey: .date_completed) {
             if dateCompletedString != "" {
                 dateCompleted = WP.dateFormatter.date(from: dateCompletedString)
+            } else {
+                dateCompleted = nil
             }
+        } else {
+            dateCompleted = nil
         }
         if let dateCompletedGmtString = try values.decodeIfPresent(String.self, forKey: .date_completed_gmt) {
             if dateCompletedGmtString != "" {
                 dateCompletedGmt = WP.dateFormatter.date(from: dateCompletedGmtString)
+            } else {
+                dateCompletedGmt = nil
             }
+        } else {
+            dateCompletedGmt = nil
         }
 		cartHash = try values.decodeIfPresent(String.self, forKey: .cart_hash)
 		metaData = try values.decodeIfPresent([MetaData].self, forKey: .meta_data)
