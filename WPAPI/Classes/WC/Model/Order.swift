@@ -558,10 +558,10 @@ open class WCOrder : Codable , WPAPI {
             variationId = try values.decodeIfPresent(Int.self, forKey: .variation_id)
             quantity = try values.decodeIfPresent(Int.self, forKey: .quantity)
             taxClass = try values.decodeIfPresent(String.self, forKey: .tax_class)
-            subtotal = try values.decodeIfPresent(Double.self, forKey: .subtotal)
-            subtotalTax = try values.decodeIfPresent(Double.self, forKey: .subtotal_tax)
-            total = try values.decodeIfPresent(Double.self, forKey: .total)
-            totalTax = try values.decodeIfPresent(Double.self, forKey: .total_tax)
+            subtotal = Double(try values.decodeIfPresent(String.self, forKey: .subtotal)!)
+            subtotalTax = Double(try values.decodeIfPresent(String.self, forKey: .subtotal_tax)!)
+            total = Double(try values.decodeIfPresent(String.self, forKey: .total)!)
+            totalTax = Double(try values.decodeIfPresent(String.self, forKey: .total_tax)!)
             taxes = try values.decodeIfPresent([Tax].self, forKey: .taxes)
             metaData = try values.decodeIfPresent([String].self, forKey: .meta_data)
             sku = try values.decodeIfPresent(String.self, forKey: .sku)
@@ -604,8 +604,8 @@ open class WCOrder : Codable , WPAPI {
             init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: CodingKeys.self)
                 id = try values.decodeIfPresent(Int.self, forKey: .id)
-                total = try values.decodeIfPresent(Double.self, forKey: .total)
-                subtotal = try values.decodeIfPresent(Double.self, forKey: .subtotal)
+                total = Double(try values.decodeIfPresent(String.self, forKey: .total)!)
+                subtotal = Double(try values.decodeIfPresent(String.self, forKey: .subtotal)!)
             }
             
         }
