@@ -181,10 +181,26 @@ open class WCOrder : Codable , WPAPI {
 		paymentMethod = try values.decodeIfPresent(String.self, forKey: .payment_method)
 		paymentMethodTitle = try values.decodeIfPresent(String.self, forKey: .payment_method_title)
 		transactionId = try values.decodeIfPresent(String.self, forKey: .transaction_id)
-        datePaid = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_paid)!)
-        datePaidGmt = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_paid_gmt)!)
-        dateCompleted = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_completed)!)
-        dateCompletedGmt = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_completed_gmt)!)
+        if let datePaidString = try values.decodeIfPresent(String.self, forKey: .date_paid) {
+            if datePaidString != "" {
+                datePaid = WP.dateFormatter.date(from: datePaidString)
+            }
+        }
+        if let datePaidGmtString = try values.decodeIfPresent(String.self, forKey: .date_paid_gmt) {
+            if datePaidGmtString != "" {
+                datePaidGmt = WP.dateFormatter.date(from: datePaidGmtString)
+            }
+        }
+        if let dateCompletedString = try values.decodeIfPresent(String.self, forKey: .date_completed) {
+            if dateCompletedString != "" {
+                dateCompleted = WP.dateFormatter.date(from: dateCompletedString)
+            }
+        }
+        if let dateCompletedGmtString = try values.decodeIfPresent(String.self, forKey: .date_completed_gmt) {
+            if dateCompletedGmtString != "" {
+                dateCompletedGmt = WP.dateFormatter.date(from: dateCompletedGmtString)
+            }
+        }
 		cartHash = try values.decodeIfPresent(String.self, forKey: .cart_hash)
 		metaData = try values.decodeIfPresent([MetaData].self, forKey: .meta_data)
 		lineItems = try values.decodeIfPresent([LineItem].self, forKey: .line_items)
