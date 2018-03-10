@@ -21,7 +21,7 @@ open class WCOrder : Codable , WPAPI {
     
 	public let id : Int?
 	public let parentId : Int?
-	public let number : Int?
+	public let number : String?
 	public let orderKey : String?
 	public let createdVia : String?
 	public let version : String?
@@ -31,13 +31,13 @@ open class WCOrder : Codable , WPAPI {
 	public let dateCreatedGmt : Date?
 	public let dateModified : Date?
 	public let dateModifiedGmt : Date?
-	public let discountTotal : Double?
-	public let discountTax : Double?
-	public let shippingTotal : Double?
-	public let shippingTax : Double?
-	public let cartTax : Double?
-	public let total : Double?
-	public let totalTax : Double?
+	public let discountTotal : String?
+	public let discountTax : String?
+	public let shippingTotal : String?
+	public let shippingTax : String?
+	public let cartTax : String?
+	public let total : String?
+	public let totalTax : String?
 	public let pricesIncludeTax : Bool?
 	public let customerId : Int?
 	public let customerIpAddress : String?
@@ -154,7 +154,7 @@ open class WCOrder : Codable , WPAPI {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		id = try values.decodeIfPresent(Int.self, forKey: .id)
 		parentId = try values.decodeIfPresent(Int.self, forKey: .parent_id)
-		number = try values.decodeIfPresent(Int.self, forKey: .number)
+		number = try values.decodeIfPresent(String.self, forKey: .number)
 		orderKey = try values.decodeIfPresent(String.self, forKey: .order_key)
 		createdVia = try values.decodeIfPresent(String.self, forKey: .created_via)
 		version = try values.decodeIfPresent(String.self, forKey: .version)
@@ -164,13 +164,13 @@ open class WCOrder : Codable , WPAPI {
         dateCreatedGmt = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_created_gmt)!)
         dateModified = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_modified)!)
         dateModifiedGmt = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_modified_gmt)!)
-		discountTotal = try values.decodeIfPresent(Double.self, forKey: .discount_total)
-		discountTax = try values.decodeIfPresent(Double.self, forKey: .discount_tax)
-		shippingTotal = try values.decodeIfPresent(Double.self, forKey: .shipping_total)
-		shippingTax = try values.decodeIfPresent(Double.self, forKey: .shipping_tax)
-		cartTax = try values.decodeIfPresent(Double.self, forKey: .cart_tax)
-		total = try values.decodeIfPresent(Double.self, forKey: .total)
-		totalTax = try values.decodeIfPresent(Double.self, forKey: .total_tax)
+		discountTotal = try values.decodeIfPresent(String.self, forKey: .discount_total)
+		discountTax = try values.decodeIfPresent(String.self, forKey: .discount_tax)
+		shippingTotal = try values.decodeIfPresent(String.self, forKey: .shipping_total)
+		shippingTax = try values.decodeIfPresent(String.self, forKey: .shipping_tax)
+		cartTax = try values.decodeIfPresent(String.self, forKey: .cart_tax)
+		total = try values.decodeIfPresent(String.self, forKey: .total)
+		totalTax = try values.decodeIfPresent(String.self, forKey: .total_tax)
 		pricesIncludeTax = try values.decodeIfPresent(Bool.self, forKey: .prices_include_tax)
 		customerId = try values.decodeIfPresent(Int.self, forKey: .customer_id)
 		customerIpAddress = try values.decodeIfPresent(String.self, forKey: .customer_ip_address)
