@@ -19,47 +19,47 @@ open class WCOrder : Codable , WPAPI {
         return "orders"
     }
     
-	let id : Int?
-	let parentId : Int?
-	let number : Int?
-	let orderKey : String?
-	let createdVia : String?
-	let version : String?
-	let status : String?
-	let currency : String?
-	let dateCreated : Date?
-	let dateCreatedGmt : Date?
-	let dateModified : Date?
-	let dateModifiedGmt : Date?
-	let discountTotal : Double?
-	let discountTax : Double?
-	let shippingTotal : Double?
-	let shippingTax : Double?
-	let cartTax : Double?
-	let total : Double?
-	let totalTax : Double?
-	let pricesIncludeTax : Bool?
-	let customerId : Int?
-	let customerIpAddress : String?
-	let customerUserAgent : String?
-	let customerNote : String?
-	let billing : Address?
-	let shipping : Address?
-	let paymentMethod : String?
-	let paymentMethodTitle : String?
-	let transactionId : String?
-	let datePaid : Date?
-	let datePaidGmt : Date?
-	let dateCompleted : Date?
-	let dateCompletedGmt : Date?
-	let cartHash : String?
-	let metaData : [MetaData]?
-	let lineItems : [LineItem]?
-	let taxLines : [TaxLine]?
-	let shippingLines : [String]?
-	let feeLines : [String]?
-	let couponLines : [String]?
-	let refunds : [String]?
+	public let id : Int?
+	public let parentId : Int?
+	public let number : Int?
+	public let orderKey : String?
+	public let createdVia : String?
+	public let version : String?
+	public let status : String?
+	public let currency : String?
+	public let dateCreated : Date?
+	public let dateCreatedGmt : Date?
+	public let dateModified : Date?
+	public let dateModifiedGmt : Date?
+	public let discountTotal : Double?
+	public let discountTax : Double?
+	public let shippingTotal : Double?
+	public let shippingTax : Double?
+	public let cartTax : Double?
+	public let total : Double?
+	public let totalTax : Double?
+	public let pricesIncludeTax : Bool?
+	public let customerId : Int?
+	public let customerIpAddress : String?
+	public let customerUserAgent : String?
+	public let customerNote : String?
+	public let billing : Address?
+	public let shipping : Address?
+	public let paymentMethod : String?
+	public let paymentMethodTitle : String?
+	public let transactionId : String?
+	public let datePaid : Date?
+	public let datePaidGmt : Date?
+	public let dateCompleted : Date?
+	public let dateCompletedGmt : Date?
+	public let cartHash : String?
+	public let metaData : [MetaData]?
+	public let lineItems : [LineItem]?
+	public let taxLines : [TaxLine]?
+	public let shippingLines : [String]?
+	public let feeLines : [String]?
+	public let couponLines : [String]?
+	public let refunds : [String]?
 
     public init(currency: String?, billing: Address?, shipping: Address?, lineItems: [LineItem]?) {
         self.id  = nil
@@ -402,15 +402,15 @@ open class WCOrder : Codable , WPAPI {
     }
     
     public struct Address : Codable {
-        let firstName : String?
-        let lastName : String?
-        let company : String?
-        let address1 : String?
-        let address2 : String?
-        let city : String?
-        let state : String?
-        let postcode : String?
-        let country : String?
+        public let firstName : String?
+        public let lastName : String?
+        public let company : String?
+        public let address1 : String?
+        public let address2 : String?
+        public let city : String?
+        public let state : String?
+        public let postcode : String?
+        public let country : String?
 
         public init(firstName : String?, lastName : String?, company : String?, address1 : String?, address2 : String?, city : String?, state : String?, postcode : String?, country : String?) {
             self.firstName  = firstName
