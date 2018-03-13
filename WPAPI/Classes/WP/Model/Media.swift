@@ -361,11 +361,11 @@ open class Media : Codable, WPAPI {
 }
 
 public struct MediaDetails : Codable {
-    let width : Int?
-    let height : Int?
-    let file : String?
-    let sizes : Sizes?
-    let imageMeta : ImageMeta?
+    public let width : Int?
+    public let height : Int?
+    public let file : String?
+    public let sizes : Sizes?
+    public let imageMeta : ImageMeta?
     
     enum CodingKeys: String, CodingKey {
         
@@ -400,9 +400,9 @@ public struct MediaDetails : Codable {
 }
 
 public struct Sizes : Codable {
-    let thumbnail : MediaSize?
-    let medium : MediaSize?
-    let full : MediaSize?
+    public let thumbnail : MediaSize?
+    public let medium : MediaSize?
+    public let full : MediaSize?
     
     enum CodingKeys: String, CodingKey {
         
@@ -421,18 +421,18 @@ public struct Sizes : Codable {
 }
 
 public struct ImageMeta : Codable {
-    let aperture : String?
-    let credit : String?
-    let camera : String?
-    let caption : String?
-    let createdTimestamp : String?
-    let copyright : String?
-    let focalLength : String?
-    let iso : String?
-    let shutterSpeed : String?
-    let title : String?
-    let orientation : String?
-    let keywords : [String]?
+    public let aperture : String?
+    public let credit : String?
+    public let camera : String?
+    public let caption : String?
+    public let createdTimestamp : String?
+    public let copyright : String?
+    public let focalLength : String?
+    public let iso : String?
+    public let shutterSpeed : String?
+    public let title : String?
+    public let orientation : String?
+    public let keywords : [String]?
     
     enum CodingKeys: String, CodingKey {
         
@@ -488,11 +488,11 @@ public struct ImageMeta : Codable {
 }
 
 public struct MediaSize : Codable {
-    let file : String?
-    let width : Int?
-    let height : Int?
-    let mimeType : String?
-    let sourceUrl : String?
+    public let file : String?
+    public let width : Int?
+    public let height : Int?
+    public let mimeType : String?
+    public let sourceUrl : String?
     
     enum CodingKeys: String, CodingKey {
         
