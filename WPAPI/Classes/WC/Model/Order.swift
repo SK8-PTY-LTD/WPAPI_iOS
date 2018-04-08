@@ -601,7 +601,7 @@ open class WCOrder : Codable , WPAPI {
                 case subtotal = "subtotal"
             }
             
-            init(from decoder: Decoder) throws {
+            public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: CodingKeys.self)
                 id = try values.decodeIfPresent(Int.self, forKey: .id)
                 total = Double(try values.decodeIfPresent(String.self, forKey: .total)!)
