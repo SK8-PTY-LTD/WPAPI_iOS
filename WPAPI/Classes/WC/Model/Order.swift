@@ -589,10 +589,10 @@ open class WCOrder : Codable , WPAPI {
             
         }
         
-        struct Tax : Codable {
-            let id : Int?
-            let total : Double?
-            let subtotal : Double?
+        public struct Tax : Codable {
+            public let id : Int?
+            public let total : Double?
+            public let subtotal : Double?
             
             enum CodingKeys: String, CodingKey {
                 
