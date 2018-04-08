@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WPAPI'
-  s.version          = '0.4.6'
+  s.version          = '0.4.7'
   s.summary          = 'An Swift client for the WordPress REST API'
 
 # This description is used to generate tags and improve search results.

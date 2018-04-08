@@ -192,7 +192,10 @@ open class Post : Codable, WPAPI {
                                status: Status? = nil,
                                categories: [Int]? = nil,
                                categoriesExclude: [Int]? = nil,
-                               filter: String? = nil,
+                               tags: [String]? = nil,
+                               tagsExclude: [String]? = nil,
+                               sticky: Bool? = nil,
+                               filters: [String: AnyObject]? = nil,
                                completion: @escaping ResultCallback<[T]>) where T : WPAPI {
         
         let request = ListPosts<T>(context: context,
@@ -211,7 +214,11 @@ open class Post : Codable, WPAPI {
                                    slug: slug,
                                    status: status,
                                    categories: categories,
-                                   categoriesExclude: categoriesExclude)
+                                   categoriesExclude: categoriesExclude,
+                                   tags: tags,
+                                   tagsExclude: tagsExclude,
+                                   sticky: sticky,
+                                   filters: filters)
         
         WP.sharedInstance.send(request) { response in
             

@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        BLPost.list(page: 1, perPage: 5, categories: [32, 23]) { (response: Result<[BLPost]>) in
+        BLPost.list(page: 1, perPage: 5, categories: [32, 23], filters: ["vendor": 399 as AnyObject]) { (response: Result<[BLPost]>) in
             
             switch response {
             case .success(let posts):

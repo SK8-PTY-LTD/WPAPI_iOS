@@ -34,11 +34,11 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
     // Parameters
     let context: Context?
     let page: Int?
-    let per_page: Int?
+    let perPage: Int?
     let search: String?
     let after: String?
     let author: Int?
-    let author_exclude: [Int]?
+    let authorExclude: [Int]?
     let before: String?
     let exclude: [Int]?
     let include: [Int]?
@@ -48,8 +48,11 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
     let slug: String?
     let status: Status?
     let categories: [Int]?
-    let categories_exclude: [Int]?
-    let filter: String?
+    let categoriesExclude: [Int]?
+    let tags: [String]?
+    let tagsExclude: [String]?
+    let sticky: Bool?
+    let filters: [String: AnyObject]?
     
     init(context: Context? = nil,
         page: Int? = nil,
@@ -68,11 +71,14 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
         status: Status? = nil,
         categories: [Int]? = nil,
         categoriesExclude: [Int]? = nil,
-        filter: String? = nil) {
+        tags: [String]?,
+        tagsExclude: [String]?,
+        sticky: Bool?,
+        filters: [String: AnyObject]? = nil) {
         
         self.context = context
         self.page = page
-        self.per_page = perPage
+        self.perPage = perPage
         self.search = search
         if let after = after {
             self.after = WP.dateFormatter.string(from: after)
@@ -80,7 +86,7 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
             self.after = nil
         }
         self.author = author
-        self.author_exclude = authorExclude
+        self.authorExclude = authorExclude
         if let before = before {
             self.before = WP.dateFormatter.string(from: before)
         } else {
@@ -94,8 +100,94 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
         self.slug = slug
         self.status = status
         self.categories = categories
-        self.categories_exclude = categoriesExclude
-        self.filter = filter
+        self.categoriesExclude = categoriesExclude
+        self.tags = tags
+        self.tagsExclude = tagsExclude
+        self.sticky = sticky
+        self.filters = filters // Not default WordPress REST API, filter is enabled by [WP REST Filter](https://wordpress.org/plugins/wp-rest-filter/)
+    }
+    
+    private struct CodingKeys: CodingKey {
+        
+        var stringValue: String
+        init?(stringValue: String) {
+            self.stringValue = stringValue
+        }
+        
+        var intValue: Int?
+        init?(intValue: Int) {
+            self.intValue = intValue;
+            self.stringValue = "\(intValue)"
+        }
+        
+//        static let context = "context"
+//        static let page = "page"
+//        static let perPage = "per_page"
+//        static let search = "search"
+//        static let after = "after"
+//        static let author = "author"
+//        static let authorExclude = "author_exclude"
+//        static let before = "before"
+//        static let exclude = "exclude"
+//        static let include = "include"
+//        static let offset = "offset"
+//        static let order = "order"
+//        static let orderBy = "orderby"
+//        static let slug = "slug"
+//        static let status = "status"
+//        static let categories = "categories"
+//        static let categoriesExclude = "categories_exclude"
+//        static let tags = "tags"
+//        static let tagsExclude = "tags_exclude"
+//        static let sticky = "sticky"
+        
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encodeIfPresent(context, forKey: CodingKeys(stringValue: "context")!)
+        try container.encodeIfPresent(page, forKey: CodingKeys(stringValue: "page")!)
+        try container.encodeIfPresent(perPage, forKey: CodingKeys(stringValue: "per_page")!)
+        try container.encodeIfPresent(search, forKey: CodingKeys(stringValue: "search")!)
+        try container.encodeIfPresent(after, forKey: CodingKeys(stringValue: "after")!)
+        try container.encodeIfPresent(author, forKey: CodingKeys(stringValue: "author")!)
+        try container.encodeIfPresent(authorExclude, forKey: CodingKeys(stringValue: "author_exclude")!)
+        try container.encodeIfPresent(before, forKey: CodingKeys(stringValue: "before")!)
+        try container.encodeIfPresent(exclude, forKey: CodingKeys(stringValue: "exclude")!)
+        try container.encodeIfPresent(include, forKey: CodingKeys(stringValue: "include")!)
+        try container.encodeIfPresent(offset, forKey: CodingKeys(stringValue: "offset")!)
+        try container.encodeIfPresent(order, forKey: CodingKeys(stringValue: "order")!)
+        try container.encodeIfPresent(orderby, forKey: CodingKeys(stringValue: "orderby")!)
+        try container.encodeIfPresent(slug, forKey: CodingKeys(stringValue: "slug")!)
+        try container.encodeIfPresent(status, forKey: CodingKeys(stringValue: "status")!)
+        try container.encodeIfPresent(categories, forKey: CodingKeys(stringValue: "categories")!)
+        try container.encodeIfPresent(categoriesExclude, forKey: CodingKeys(stringValue: "categories_exclude")!)
+        try container.encodeIfPresent(tags, forKey: CodingKeys(stringValue: "tags")!)
+        try container.encodeIfPresent(tagsExclude, forKey: CodingKeys(stringValue: "tags_exclude")!)
+        try container.encodeIfPresent(sticky, forKey: CodingKeys(stringValue: "sticky")!)
+        
+         // Not default WordPress REST API, filter is enabled by [WP REST Filter](https://wordpress.org/plugins/wp-rest-filter/)
+        if let filters = self.filters {
+            var index = 0
+            for (key, value) in filters {
+                // Encode key
+                try container.encodeIfPresent(key, forKey: CodingKeys(stringValue: "filter[meta_query][\(index)][key]")!)
+                // Encode value, currently only single value, e.g. Date, Int, String & Bool is accepted. Array & Dictionary is not accepted
+                if let dateValue = value as? Date {
+                    try container.encodeIfPresent(WP.dateFormatter.string(from: dateValue), forKey: CodingKeys(stringValue: "filter[meta_query][\(index)][value]")!)
+                } else if let intValue = value as? Int {
+                    try container.encodeIfPresent(intValue, forKey:CodingKeys(stringValue: "filter[meta_query][\(index)][value]")!)
+                } else if let stringValue = value as? String {
+                    try container.encodeIfPresent(stringValue, forKey:CodingKeys(stringValue: "filter[meta_query][\(index)][value]")!)
+                } else if let boolValue = value as? Bool {
+                    try container.encodeIfPresent(boolValue, forKey:CodingKeys(stringValue: "filter[meta_query][\(index)][value]")!)
+                }
+                index += 1
+            }
+        }
+        
     }
 }
 
