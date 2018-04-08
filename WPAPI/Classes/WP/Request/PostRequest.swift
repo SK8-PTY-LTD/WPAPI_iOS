@@ -175,6 +175,7 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
                 // Encode key
                 try container.encodeIfPresent(key, forKey: CodingKeys(stringValue: "filter[meta_query][\(index)][key]")!)
                 // Encode value, currently only single value, e.g. Date, Int, String & Bool is accepted. Array & Dictionary is not accepted
+                // AdvancedValue: [expiry_date: ["value": "20181226T23:59:59", "compare": "="]]
                 if let dateValue = value as? Date {
                     try container.encodeIfPresent(WP.dateFormatter.string(from: dateValue), forKey: CodingKeys(stringValue: "filter[meta_query][\(index)][value]")!)
                 } else if let intValue = value as? Int {
@@ -183,11 +184,26 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
                     try container.encodeIfPresent(stringValue, forKey:CodingKeys(stringValue: "filter[meta_query][\(index)][value]")!)
                 } else if let boolValue = value as? Bool {
                     try container.encodeIfPresent(boolValue, forKey:CodingKeys(stringValue: "filter[meta_query][\(index)][value]")!)
+                } else if let advancedValue = value as? [String: AnyObject] {
+                    if let dateValue = advancedValue["value"] as? Date {
+                        try container.encodeIfPresent(WP.dateFormatter.string(from: dateValue), forKey: CodingKeys(stringValue: "filter[meta_query][\(index)][value]")!)
+                    } else if let intValue = advancedValue["value"] as? Int {
+                        try container.encodeIfPresent(intValue, forKey:CodingKeys(stringValue: "filter[meta_query][\(index)][value]")!)
+                    } else if let stringValue = advancedValue["value"] as? String {
+                        try container.encodeIfPresent(stringValue, forKey:CodingKeys(stringValue: "filter[meta_query][\(index)][value]")!)
+                    } else if let boolValue = advancedValue["value"] as? Bool {
+                        try container.encodeIfPresent(boolValue, forKey:CodingKeys(stringValue: "filter[meta_query][\(index)][value]")!)
+                    } else {
+                        // Silence is gold
+                    }
+                    let compareValue = advancedValue["compare"] as! String
+                    try container.encodeIfPresent(compareValue, forKey: CodingKeys(stringValue: "filter[meta_query][\(index)][compare]")!)
+                } else {
+                    // Silence is gold
                 }
-                index += 1
+            index += 1
             }
         }
-        
     }
 }
 
