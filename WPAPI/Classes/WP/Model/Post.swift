@@ -192,6 +192,7 @@ open class Post : Codable, WPAPI {
                                status: Status? = nil,
                                categories: [Int]? = nil,
                                categoriesExclude: [Int]? = nil,
+                               filter: String? = nil,
                                completion: @escaping ResultCallback<[T]>) where T : WPAPI {
         
         let request = ListPosts<T>(context: context,

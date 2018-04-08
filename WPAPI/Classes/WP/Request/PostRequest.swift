@@ -49,6 +49,7 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
     let status: Status?
     let categories: [Int]?
     let categories_exclude: [Int]?
+    let filter: String?
     
     init(context: Context? = nil,
         page: Int? = nil,
@@ -66,7 +67,8 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
         slug: String? = nil,
         status: Status? = nil,
         categories: [Int]? = nil,
-        categoriesExclude: [Int]? = nil) {
+        categoriesExclude: [Int]? = nil,
+        filter: String? = nil) {
         
         self.context = context
         self.page = page
@@ -93,6 +95,7 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
         self.status = status
         self.categories = categories
         self.categories_exclude = categoriesExclude
+        self.filter = filter
     }
 }
 
