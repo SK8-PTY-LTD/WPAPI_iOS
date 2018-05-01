@@ -139,7 +139,7 @@ public class WP {
         self.baseURL = baseURL
         self.authorizationToken = authToken
         
-        WP.dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
+        WP.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         WP.sharedInstance = self
     }
     
