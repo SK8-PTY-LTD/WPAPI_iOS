@@ -68,7 +68,7 @@ For more information on [iOS App Development] and [WordPress Web Development](ht
 ## Copyright
 
 Copyright © 2013-2018 [SK8 PTY LTD](https://sk8.tech)
-hi@sk8.tech
+support@sk8.tech
 
 ## License
 
