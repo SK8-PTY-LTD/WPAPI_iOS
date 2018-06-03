@@ -34,7 +34,7 @@ open class Media : Codable, WPAPI {
     public let commentStatus : String?
     public let pingStatus : String?
     public let template : String?
-    public let meta : [String]?
+    //    public let meta : [String]?
     public var description : String?
     public var caption : String?
     public var altText : String?
@@ -61,7 +61,7 @@ open class Media : Codable, WPAPI {
         self.commentStatus = nil
         self.pingStatus = nil
         self.template = nil
-        self.meta = nil
+        //        self.meta = nil
         self.description = description
         self.caption = caption
         self.altText = altText
@@ -89,7 +89,7 @@ open class Media : Codable, WPAPI {
         case comment_status = "comment_status"
         case ping_status = "ping_status"
         case template = "template"
-        case meta = "meta"
+        //        case meta = "meta"
         case description = "description"
         case caption = "caption"
         case alt_text = "alt_text"
@@ -148,7 +148,7 @@ open class Media : Codable, WPAPI {
         commentStatus = try values.decodeIfPresent(String.self, forKey: .comment_status)
         pingStatus = try values.decodeIfPresent(String.self, forKey: .ping_status)
         template = try values.decodeIfPresent(String.self, forKey: .template)
-        meta = try values.decodeIfPresent([String].self, forKey: .meta)
+        //        meta = try values.decodeIfPresent([String].self, forKey: .meta)
         
         do{
             description = (try values.decodeIfPresent(WPAPIText.self, forKey: .description))?.rendered
@@ -226,7 +226,7 @@ open class Media : Codable, WPAPI {
         try container.encodeIfPresent(commentStatus, forKey: .comment_status)
         try container.encodeIfPresent(pingStatus, forKey: .ping_status)
         try container.encodeIfPresent(template, forKey: .template)
-        try container.encodeIfPresent(meta, forKey: .meta)
+        //        try container.encodeIfPresent(meta, forKey: .meta)
         try container.encodeIfPresent(description, forKey: .description)
         try container.encodeIfPresent(caption, forKey: .caption)
         try container.encodeIfPresent(altText, forKey: .alt_text)
