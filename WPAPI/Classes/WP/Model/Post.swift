@@ -1,15 +1,15 @@
-/* 
-Copyright (c) 2017 Swift Models Generated from JSON powered by http://www.json4swift.com
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar
-
-*/
+/*
+ Copyright (c) 2017 Swift Models Generated from JSON powered by http://www.json4swift.com
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
+ For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar
+ 
+ */
 
 import Foundation
 
@@ -20,29 +20,29 @@ open class Post : Codable, WPAPI {
         return "posts"
     }
     
-	public let id : Int?
-	public let date : Date?
-	public let dateGmt : Date?
-	public let modified : Date?
-	public let modifiedGmt : Date?
-	public var slug : String?
-	public var status : String?
-	public let type : String?
-	public var link : String?
+    public let id : Int?
+    public let date : Date?
+    public let dateGmt : Date?
+    public let modified : Date?
+    public let modifiedGmt : Date?
+    public var slug : String?
+    public var status : String?
+    public let type : String?
+    public var link : String?
     public var password: String?
-	public var title : String?
-	public var content : String?
-	public var excerpt : String?
-	public let author : Int?
-	public var featuredMedia : Int?
-	public let commentStatus : String?
-	public let pingStatus : String?
-	public var sticky : Bool?
-	public let format : String?
-	public let meta : [String]?
+    public var title : String?
+    public var content : String?
+    public var excerpt : String?
+    public let author : Int?
+    public var featuredMedia : Int?
+    public let commentStatus : String?
+    public let pingStatus : String?
+    public var sticky : Bool?
+    public let format : String?
+    //    public let meta : [String]?
     public var categories : [Int]?
     public var tags : [Int]?
-
+    
     public init(title : String?, content : String?, featuredMedia : Int?, categories : [Int]?) {
         
         self.id  = nil
@@ -64,51 +64,51 @@ open class Post : Codable, WPAPI {
         self.pingStatus  = nil
         self.sticky  = nil
         self.format  = nil
-        self.meta  = nil
+        //        self.meta  = nil
         self.categories  = categories
         self.tags = nil
     }
-
-	private enum CodingKeys: String, CodingKey {
-
-		case id = "id"
-		case date = "date"
-		case date_gmt = "date_gmt"
-		case modified = "modified"
-		case modified_gmt = "modified_gmt"
-		case slug = "slug"
-		case status = "status"
-		case type = "type"
+    
+    private enum CodingKeys: String, CodingKey {
+        
+        case id = "id"
+        case date = "date"
+        case date_gmt = "date_gmt"
+        case modified = "modified"
+        case modified_gmt = "modified_gmt"
+        case slug = "slug"
+        case status = "status"
+        case type = "type"
         case password = "password"
-		case link = "link"
-		case title = "title"
-		case content = "content"
-		case excerpt = "excerpt"
-		case author = "author"
-		case featured_media = "featured_media"
-		case comment_status = "comment_status"
-		case ping_status = "ping_status"
-		case sticky = "sticky"
-		case format = "format"
-		case meta = "meta"
-		case categories = "categories"
+        case link = "link"
+        case title = "title"
+        case content = "content"
+        case excerpt = "excerpt"
+        case author = "author"
+        case featured_media = "featured_media"
+        case comment_status = "comment_status"
+        case ping_status = "ping_status"
+        case sticky = "sticky"
+        case format = "format"
+        //        case meta = "meta"
+        case categories = "categories"
         case tags = "tags"
-	}
-
+    }
+    
     required public init(from decoder: Decoder) throws {
         
-		let values = try decoder.container(keyedBy: CodingKeys.self)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
         
-		id = try values.decodeIfPresent(Int.self, forKey: .id)
+        id = try values.decodeIfPresent(Int.self, forKey: .id)
         date = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date)!)
         dateGmt = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_gmt)!)
         modified = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .modified)!)
         modifiedGmt = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .modified_gmt)!)
-		slug = try values.decodeIfPresent(String.self, forKey: .slug)
-		status = try values.decodeIfPresent(String.self, forKey: .status)
-		type = try values.decodeIfPresent(String.self, forKey: .type)
+        slug = try values.decodeIfPresent(String.self, forKey: .slug)
+        status = try values.decodeIfPresent(String.self, forKey: .status)
+        type = try values.decodeIfPresent(String.self, forKey: .type)
         password = try values.decodeIfPresent(String.self, forKey: .password)
-		link = try values.decodeIfPresent(String.self, forKey: .link)
+        link = try values.decodeIfPresent(String.self, forKey: .link)
         title = (try values.decodeIfPresent(WPAPIText.self, forKey: .title))?.rendered
         content = (try values.decodeIfPresent(WPAPIText.self, forKey: .content))?.rendered
         excerpt = (try values.decodeIfPresent(WPAPIText.self, forKey: .excerpt))?.rendered
@@ -118,10 +118,10 @@ open class Post : Codable, WPAPI {
         pingStatus = try values.decodeIfPresent(String.self, forKey: .ping_status)
         sticky = try values.decodeIfPresent(Bool.self, forKey: .sticky)
         format = try values.decodeIfPresent(String.self, forKey: .format)
-        meta = try values.decodeIfPresent([String].self, forKey: .meta)
+        //        meta = try values.decodeIfPresent([String].self, forKey: .meta)
         categories = try values.decodeIfPresent([Int].self, forKey: .categories)
         tags = try values.decodeIfPresent([Int].self, forKey: .tags)
-	}
+    }
     
     open func encode(to encoder: Encoder) throws {
         
@@ -146,7 +146,7 @@ open class Post : Codable, WPAPI {
         try container.encodeIfPresent(pingStatus, forKey: .ping_status)
         try container.encodeIfPresent(sticky, forKey: .sticky)
         try container.encodeIfPresent(format, forKey: .format)
-        try container.encodeIfPresent(meta, forKey: .meta)
+        //        try container.encodeIfPresent(meta, forKey: .meta)
         try container.encodeIfPresent(categories, forKey: .categories)
         try container.encodeIfPresent(tags, forKey: .tags)
     }
@@ -240,7 +240,7 @@ open class Post : Codable, WPAPI {
             let request = UpdateAPost<T>(post: self)
             
             WP.sharedInstance.send(request) { response in
-
+                
                 switch response {
                 case .success(let post):
                     completion(.success(post))
@@ -299,6 +299,6 @@ open class Post : Codable, WPAPI {
         }
         
     }
-
+    
 }
 
