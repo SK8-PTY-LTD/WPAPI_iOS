@@ -37,7 +37,7 @@ open class User : Codable, WPAPI {
     public let capabilities : Capabilities?
     public let extraCapabilities : ExtraCapabilities?
     public let avatarUrls : AvatarUrls?
-    public let meta : [String: String]?
+    public var meta : [String: String]?
     
     enum CodingKeys: String, CodingKey {
         
