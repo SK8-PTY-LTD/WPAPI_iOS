@@ -37,7 +37,7 @@ open class User : Codable, WPAPI {
     public let capabilities : Capabilities?
     public let extraCapabilities : ExtraCapabilities?
     public let avatarUrls : AvatarUrls?
-    public let meta : [String]?
+    public let meta : [String: String]?
     
     enum CodingKeys: String, CodingKey {
         
@@ -89,7 +89,8 @@ open class User : Codable, WPAPI {
         capabilities = try values.decodeIfPresent(Capabilities.self, forKey: .capabilities)
         extraCapabilities = try values.decodeIfPresent(ExtraCapabilities.self, forKey: .extra_capabilities)
         avatarUrls = try values.decodeIfPresent(AvatarUrls.self, forKey: .avatar_urls)
-        meta = try values.decodeIfPresent([String].self, forKey: .meta)
+        // meta = try values.decodeIfPresent([String: String].self, forKey: .meta)
+        meta = [String: String]() // Temporarily disabling meta for user. Pending further testing
     }
     
     public func encode(to encoder: Encoder) throws {
