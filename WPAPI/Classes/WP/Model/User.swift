@@ -108,7 +108,7 @@ open class User : Codable, WPAPI {
         try container.encodeIfPresent(link, forKey: .link)
         try container.encodeIfPresent(nickname, forKey: .nickname)
         try container.encodeIfPresent(slug, forKey: .slug)
-        try container.encodeIfPresent(roles, forKey: .roles)
+        // try container.encodeIfPresent(roles, forKey: .roles) // Not Encoding roles, because users are generally not allowed to edit roles.
         if (registeredDate != nil) {
             try container.encodeIfPresent(WP.dateFormatter.string(from: registeredDate!), forKey: .registered_date)
         }
