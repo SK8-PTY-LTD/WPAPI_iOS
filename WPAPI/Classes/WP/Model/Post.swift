@@ -58,7 +58,7 @@ open class Post : Codable, WPAPI {
         self.title  = title
         self.content  = content
         self.excerpt  = nil
-        self.author  = nil
+        self.author  = WP.currentUser?.id
         self.featuredMedia  = featuredMedia
         self.commentStatus  = nil
         self.pingStatus  = nil
