@@ -93,7 +93,7 @@ open class User : Codable, WPAPI {
         meta = [String: String]() // Temporarily disabling meta for user. Pending further testing
     }
     
-    public func encode(to encoder: Encoder) throws {
+    open func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
