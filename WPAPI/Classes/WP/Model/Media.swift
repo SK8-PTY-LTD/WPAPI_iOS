@@ -470,14 +470,17 @@ public struct MediaDetails : Codable {
 }
 
 public struct Sizes : Codable {
+    
     public let thumbnail : MediaSize?
     public let medium : MediaSize?
+    public let large : MediaSize?
     public let full : MediaSize?
     
     enum CodingKeys: String, CodingKey {
         
         case thumbnail = "thumbnail"
         case medium = "medium"
+        case large = "large"
         case full = "full"
     }
     
@@ -485,6 +488,7 @@ public struct Sizes : Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         thumbnail = try values.decodeIfPresent(MediaSize.self, forKey: .thumbnail)
         medium = try values.decodeIfPresent(MediaSize.self, forKey: .medium)
+        large = try values.decodeIfPresent(MediaSize.self, forKey: .large)
         full = try values.decodeIfPresent(MediaSize.self, forKey: .full)
     }
     
