@@ -200,7 +200,7 @@ open class Media : Codable, WPAPI {
         }catch {
             post = 0
         }
-        print("Media J")
+        print("Media A")
         do{
             sourceUrl = (try values.decodeIfPresent(String.self, forKey: .source_url))
         }catch {
@@ -457,10 +457,14 @@ public struct MediaDetails : Codable {
         status = try values.decodeIfPresent(String.self, forKey: .status)
         print("Decode 15")
         uploadedTo = try values.decodeIfPresent(Int.self, forKey: .uploadedTo)
-        print("Decode 16")
-        date = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .date)!)
+        print("Decode 16a")
+        if let dateString = try values.decodeIfPresent(String.self, forKey: .date) {
+            date = WP.dateFormatter.date(from: dateString)
+        }
         print("Decode 17")
-        modified = WP.dateFormatter.date(from: try values.decodeIfPresent(String.self, forKey: .modified)!)
+        if let modifiedString = try values.decodeIfPresent(String.self, forKey: .modified) {
+            modified = WP.dateFormatter.date(from: modifiedString)
+        }
         print("Decode 18")
         menuOrder = try values.decodeIfPresent(Int.self, forKey: .menuOrder)
         print("Decode 19")
