@@ -102,16 +102,12 @@ open class Media : Codable, WPAPI {
     
     required public init(from decoder: Decoder) throws {
         
-        print("Media A")
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
         
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try values.decodeIfPresent(Int.self, forKey: .id)
-        
-        print("Media B")
         
         //        date = formatter.date(from: try values.decodeIfPresent(String.self, forKey: .date)!)
         var ds = ((try values.decodeIfPresent(String.self, forKey: .date)))
@@ -120,7 +116,6 @@ open class Media : Codable, WPAPI {
         }else{
             date = nil
         }
-        print("Media C")
         //        dateGmt = formatter.date(from: try values.decodeIfPresent(String.self, forKey: .date_gmt)!)
         ds = ((try values.decodeIfPresent(String.self, forKey: .date_gmt)))
         if ds != nil {
@@ -128,7 +123,6 @@ open class Media : Codable, WPAPI {
         }else{
             dateGmt = nil
         }
-        print("Media D")
         //        modified = formatter.date(from: try values.decodeIfPresent(String.self, forKey: .modified)!)
         ds = ((try values.decodeIfPresent(String.self, forKey: .modified)))
         if ds != nil {
@@ -136,7 +130,6 @@ open class Media : Codable, WPAPI {
         }else{
             modified = nil
         }
-        print("Media E")
         //        modifiedGmt = formatter.date(from: try values.decodeIfPresent(String.self, forKey: .modified_gmt)!)
         ds = ((try values.decodeIfPresent(String.self, forKey: .modified_gmt)))
         if ds != nil {
@@ -145,7 +138,6 @@ open class Media : Codable, WPAPI {
             modifiedGmt = nil
         }
         
-        print("Media F")
         slug = try values.decodeIfPresent(String.self, forKey: .slug)
         status = try values.decodeIfPresent(String.self, forKey: .status)
         type = try values.decodeIfPresent(String.self, forKey: .type)
@@ -157,7 +149,6 @@ open class Media : Codable, WPAPI {
         template = try values.decodeIfPresent(String.self, forKey: .template)
         //        meta = try values.decodeIfPresent([String].self, forKey: .meta)
         
-        print("Media G")
         do{
             description = (try values.decodeIfPresent(WPAPIText.self, forKey: .description))?.rendered
         }catch {
@@ -178,7 +169,6 @@ open class Media : Codable, WPAPI {
         }catch {
             altText = ""
         }
-        print("Media H")
         do{
             mediaType = (try values.decodeIfPresent(String.self, forKey: .media_type))
         }catch {
@@ -194,13 +184,11 @@ open class Media : Codable, WPAPI {
         }catch {
             mediaDetails = nil
         }
-        print("Media I")
         do{
             post = (try values.decodeIfPresent(Int.self, forKey: .post))
         }catch {
             post = 0
         }
-        print("Media A")
         do{
             sourceUrl = (try values.decodeIfPresent(String.self, forKey: .source_url))
         }catch {
@@ -425,55 +413,36 @@ public struct MediaDetails : Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
-        print("Decode 0")
         width = try values.decodeIfPresent(Int.self, forKey: .width)
-        print("Decode 1")
         height = try values.decodeIfPresent(Int.self, forKey: .height)
-        print("Decode 2")
         file = try values.decodeIfPresent(String.self, forKey: .file)
-        print("Decode 3")
         sizes = try values.decodeIfPresent(Sizes.self, forKey: .sizes)
-        print("Decode 4")
         imageMeta = try values.decodeIfPresent(ImageMeta.self, forKey: .imageMeta)
-        print("Decode 5")
         title = try values.decodeIfPresent(String.self, forKey: .title)
-        print("Decode 6")
         filename = try values.decodeIfPresent(String.self, forKey: .filename)
-        print("Decode 7")
         filesize = try values.decodeIfPresent(Int.self, forKey: .filesize)
-        print("Decode 8")
         url = try values.decodeIfPresent(String.self, forKey: .url)
-        print("Decode 9")
         link = try values.decodeIfPresent(String.self, forKey: .link)
-        print("Decode 10")
         alt = try values.decodeIfPresent(String.self, forKey: .alt)
-        print("Decode 11")
         description = try values.decodeIfPresent(String.self, forKey: .description)
-        print("Decode 12")
         caption = try values.decodeIfPresent(String.self, forKey: .caption)
-        print("Decode 13")
         name = try values.decodeIfPresent(String.self, forKey: .name)
-        print("Decode 14")
         status = try values.decodeIfPresent(String.self, forKey: .status)
-        print("Decode 15")
         uploadedTo = try values.decodeIfPresent(Int.self, forKey: .uploadedTo)
-        print("Decode 16a")
         if let dateString = try values.decodeIfPresent(String.self, forKey: .date) {
             date = WP.dateFormatter.date(from: dateString)
+        } else {
+            date = nil
         }
-        print("Decode 17")
         if let modifiedString = try values.decodeIfPresent(String.self, forKey: .modified) {
             modified = WP.dateFormatter.date(from: modifiedString)
+        } else {
+            modified = nil
         }
-        print("Decode 18")
         menuOrder = try values.decodeIfPresent(Int.self, forKey: .menuOrder)
-        print("Decode 19")
         type = try values.decodeIfPresent(String.self, forKey: .type)
-        print("Decode 20")
         subtype = try values.decodeIfPresent(String.self, forKey: .subtype)
-        print("Decode 21")
         icon = try values.decodeIfPresent(String.self, forKey: .icon)
-        print("Decode 22")
     }
     
     public func encode(to encoder: Encoder) throws {
