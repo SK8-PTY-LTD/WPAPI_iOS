@@ -84,7 +84,7 @@ open class Post : Codable, WPAPI {
         case title = "title"
         case content = "content"
         case excerpt = "excerpt"
-        case author = "authors"
+        case author = "author"
         case featured_media = "featured_media"
         case comment_status = "comment_status"
         case ping_status = "ping_status"
