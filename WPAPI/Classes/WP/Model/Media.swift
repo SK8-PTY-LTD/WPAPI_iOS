@@ -34,7 +34,7 @@ open class Media : Codable, WPAPI {
     public let commentStatus : String?
     public let pingStatus : String?
     public let template : String?
-    public let meta : [String]?
+    //    public let meta : [String]?
     public var description : String?
     public var caption : String?
     public var altText : String?
@@ -61,7 +61,7 @@ open class Media : Codable, WPAPI {
         self.commentStatus = nil
         self.pingStatus = nil
         self.template = nil
-        self.meta = nil
+        //        self.meta = nil
         self.description = description
         self.caption = caption
         self.altText = altText
@@ -89,7 +89,7 @@ open class Media : Codable, WPAPI {
         case comment_status = "comment_status"
         case ping_status = "ping_status"
         case template = "template"
-        case meta = "meta"
+        //        case meta = "meta"
         case description = "description"
         case caption = "caption"
         case alt_text = "alt_text"
@@ -108,7 +108,6 @@ open class Media : Codable, WPAPI {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try values.decodeIfPresent(Int.self, forKey: .id)
-        
         
         //        date = formatter.date(from: try values.decodeIfPresent(String.self, forKey: .date)!)
         var ds = ((try values.decodeIfPresent(String.self, forKey: .date)))
@@ -148,7 +147,7 @@ open class Media : Codable, WPAPI {
         commentStatus = try values.decodeIfPresent(String.self, forKey: .comment_status)
         pingStatus = try values.decodeIfPresent(String.self, forKey: .ping_status)
         template = try values.decodeIfPresent(String.self, forKey: .template)
-        meta = try values.decodeIfPresent([String].self, forKey: .meta)
+        //        meta = try values.decodeIfPresent([String].self, forKey: .meta)
         
         do{
             description = (try values.decodeIfPresent(WPAPIText.self, forKey: .description))?.rendered
@@ -226,7 +225,7 @@ open class Media : Codable, WPAPI {
         try container.encodeIfPresent(commentStatus, forKey: .comment_status)
         try container.encodeIfPresent(pingStatus, forKey: .ping_status)
         try container.encodeIfPresent(template, forKey: .template)
-        try container.encodeIfPresent(meta, forKey: .meta)
+        //        try container.encodeIfPresent(meta, forKey: .meta)
         try container.encodeIfPresent(description, forKey: .description)
         try container.encodeIfPresent(caption, forKey: .caption)
         try container.encodeIfPresent(altText, forKey: .alt_text)
@@ -361,11 +360,29 @@ open class Media : Codable, WPAPI {
 }
 
 public struct MediaDetails : Codable {
+    
     public let width : Int?
     public let height : Int?
     public let file : String?
     public let sizes : Sizes?
     public let imageMeta : ImageMeta?
+    public let title : String?
+    public let filename : String?
+    public let filesize : Int?
+    public let url : String?
+    public let link : String?
+    public let alt : String?
+    public let description : String?
+    public let caption : String?
+    public let name : String?
+    public let status : String?
+    public let uploadedTo : Int?
+    public let date : Date?
+    public let modified : Date?
+    public let menuOrder : Int?
+    public let type : String?
+    public let subtype : String?
+    public let icon : String?
     
     enum CodingKeys: String, CodingKey {
         
@@ -373,16 +390,59 @@ public struct MediaDetails : Codable {
         case height = "height"
         case file = "file"
         case sizes = "sizes"
-        case image_meta = "image_meta"
+        case imageMeta = "image_meta"
+        case title = "title"
+        case filename = "filename"
+        case filesize = "filesize"
+        case url = "url"
+        case link = "link"
+        case alt = "alt"
+        case description = "description"
+        case caption = "caption"
+        case name = "name"
+        case status = "status"
+        case uploadedTo = "uploaded_to"
+        case date = "date"
+        case modified = "modified"
+        case menuOrder = "menu_order"
+        case type = "type"
+        case subtype = "subtype"
+        case icon = "icon"
     }
     
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        
         width = try values.decodeIfPresent(Int.self, forKey: .width)
         height = try values.decodeIfPresent(Int.self, forKey: .height)
         file = try values.decodeIfPresent(String.self, forKey: .file)
         sizes = try values.decodeIfPresent(Sizes.self, forKey: .sizes)
-        imageMeta = try values.decodeIfPresent(ImageMeta.self, forKey: .image_meta)
+        imageMeta = try values.decodeIfPresent(ImageMeta.self, forKey: .imageMeta)
+        title = try values.decodeIfPresent(String.self, forKey: .title)
+        filename = try values.decodeIfPresent(String.self, forKey: .filename)
+        filesize = try values.decodeIfPresent(Int.self, forKey: .filesize)
+        url = try values.decodeIfPresent(String.self, forKey: .url)
+        link = try values.decodeIfPresent(String.self, forKey: .link)
+        alt = try values.decodeIfPresent(String.self, forKey: .alt)
+        description = try values.decodeIfPresent(String.self, forKey: .description)
+        caption = try values.decodeIfPresent(String.self, forKey: .caption)
+        name = try values.decodeIfPresent(String.self, forKey: .name)
+        status = try values.decodeIfPresent(String.self, forKey: .status)
+        uploadedTo = try values.decodeIfPresent(Int.self, forKey: .uploadedTo)
+        if let dateString = try values.decodeIfPresent(String.self, forKey: .date) {
+            date = WP.dateFormatter.date(from: dateString)
+        } else {
+            date = nil
+        }
+        if let modifiedString = try values.decodeIfPresent(String.self, forKey: .modified) {
+            modified = WP.dateFormatter.date(from: modifiedString)
+        } else {
+            modified = nil
+        }
+        menuOrder = try values.decodeIfPresent(Int.self, forKey: .menuOrder)
+        type = try values.decodeIfPresent(String.self, forKey: .type)
+        subtype = try values.decodeIfPresent(String.self, forKey: .subtype)
+        icon = try values.decodeIfPresent(String.self, forKey: .icon)
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -393,29 +453,65 @@ public struct MediaDetails : Codable {
         try container.encodeIfPresent(height, forKey: .height)
         try container.encodeIfPresent(file, forKey: .file)
         try container.encodeIfPresent(sizes, forKey: .sizes)
-        try container.encodeIfPresent(imageMeta, forKey: .image_meta)
+        try container.encodeIfPresent(imageMeta, forKey: .imageMeta)
+        try container.encodeIfPresent(title, forKey: .title)
+        try container.encodeIfPresent(filename, forKey: .filename)
+        try container.encodeIfPresent(filesize, forKey: .filesize)
+        try container.encodeIfPresent(url, forKey: .url)
+        try container.encodeIfPresent(link, forKey: .link)
+        try container.encodeIfPresent(alt, forKey: .alt)
+        try container.encodeIfPresent(description, forKey: .description)
+        try container.encodeIfPresent(caption, forKey: .caption)
+        try container.encodeIfPresent(name, forKey: .name)
+        try container.encodeIfPresent(status, forKey: .status)
+        try container.encodeIfPresent(uploadedTo, forKey: .uploadedTo)
+        try container.encodeIfPresent(WP.dateFormatter.string(from: date ?? Date()), forKey: .date)
+        try container.encodeIfPresent(WP.dateFormatter.string(from: modified ?? Date()), forKey: .modified)
+        try container.encodeIfPresent(menuOrder, forKey: .menuOrder)
+        try container.encodeIfPresent(type, forKey: .type)
+        try container.encodeIfPresent(subtype, forKey: .subtype)
+        try container.encodeIfPresent(icon, forKey: .icon)
         
     }
     
 }
 
 public struct Sizes : Codable {
-    public let thumbnail : MediaSize?
-    public let medium : MediaSize?
-    public let full : MediaSize?
+    
+    private(set)public var thumbnail : MediaSize?
+    public let thumbnailUrl : String?
+    private(set)public var medium : MediaSize?
+    public let mediumUrl : String?
+    private(set)public var large : MediaSize?
+    public let largeUrl : String?
+    private(set)public var full : MediaSize?
+    public let fullUrl : String?
     
     enum CodingKeys: String, CodingKey {
         
         case thumbnail = "thumbnail"
         case medium = "medium"
+        case large = "large"
         case full = "full"
     }
     
     public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        thumbnail = try values.decodeIfPresent(MediaSize.self, forKey: .thumbnail)
-        medium = try values.decodeIfPresent(MediaSize.self, forKey: .medium)
-        full = try values.decodeIfPresent(MediaSize.self, forKey: .full)
+        let values = try decoder.container(keyedBy: CodingKeys.self)// Check for a boolean
+        do {
+            thumbnail = try values.decodeIfPresent(MediaSize.self, forKey: .thumbnail)
+            medium = try values.decodeIfPresent(MediaSize.self, forKey: .medium)
+            large = try values.decodeIfPresent(MediaSize.self, forKey: .large)
+            full = try values.decodeIfPresent(MediaSize.self, forKey: .full)
+            thumbnailUrl = thumbnail?.sourceUrl
+            mediumUrl = medium?.sourceUrl
+            largeUrl = large?.sourceUrl
+            fullUrl = full?.sourceUrl
+        } catch {
+            thumbnailUrl = try values.decodeIfPresent(String.self, forKey: .thumbnail)
+            mediumUrl = try values.decodeIfPresent(String.self, forKey: .medium)
+            largeUrl = try values.decodeIfPresent(String.self, forKey: .large)
+            fullUrl = try values.decodeIfPresent(String.self, forKey: .full)
+        }
     }
     
 }
