@@ -139,7 +139,7 @@ public class WP {
         self.baseURL = baseURL
         self.authorizationToken = authToken
         
-        WP.dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
+        WP.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         WP.sharedInstance = self
     }
     
@@ -316,7 +316,7 @@ public class WP {
     
     public func updateAuthToken(authToken : String, completion: @escaping ResultCallback<User>) {
         print("WPAPI: authToken updated \(authToken)")
-        self.authorizationToken = authToken;
+        self.authorizationToken = authToken
         
         User.getMe { (response: Result<User>) in
             
@@ -332,5 +332,15 @@ public class WP {
                 print("WPAPI: authToken error: \(error)")
             }
         }
+    }
+    
+    public static func logOut() {
+        if let currentUser = WP.currentUser {
+            print("WPAPI: \(currentUser.username!) logged out")
+        } else {
+            print("WPAPI: No currentUser logged in. User already logged out")
+        }
+        WP.sharedInstance.authorizationToken = nil
+        WP.currentUser = nil
     }
 }

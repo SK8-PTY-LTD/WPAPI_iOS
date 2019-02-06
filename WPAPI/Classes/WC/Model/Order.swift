@@ -500,20 +500,20 @@ open class WCOrder : Codable , WPAPI {
     }
     
     public struct LineItem : Codable {
-        let id : Int?
-        let name : String?
-        let productId : Int?
-        let variationId : Int?
-        let quantity : Int?
-        let taxClass : String?
-        let subtotal : Double?
-        let subtotalTax : Double?
-        let total : Double?
-        let totalTax : Double?
-        let taxes : [Tax]?
-        let metaData : [String]?
-        let sku : String?
-        let price : Double?
+        public let id : Int?
+        public let name : String?
+        public let productId : Int?
+        public let variationId : Int?
+        public let quantity : Int?
+        public let taxClass : String?
+        public let subtotal : Double?
+        public let subtotalTax : Double?
+        public let total : Double?
+        public let totalTax : Double?
+        public let taxes : [Tax]?
+        public let metaData : [String]?
+        public let sku : String?
+        public let price : Double?
         
         public init(productId: Int, quantity: Int) {
             self.id = nil
@@ -589,10 +589,10 @@ open class WCOrder : Codable , WPAPI {
             
         }
         
-        struct Tax : Codable {
-            let id : Int?
-            let total : Double?
-            let subtotal : Double?
+        public struct Tax : Codable {
+            public let id : Int?
+            public let total : Double?
+            public let subtotal : Double?
             
             enum CodingKeys: String, CodingKey {
                 
@@ -601,7 +601,7 @@ open class WCOrder : Codable , WPAPI {
                 case subtotal = "subtotal"
             }
             
-            init(from decoder: Decoder) throws {
+            public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: CodingKeys.self)
                 id = try values.decodeIfPresent(Int.self, forKey: .id)
                 total = Double(try values.decodeIfPresent(String.self, forKey: .total)!)

@@ -13,11 +13,11 @@
 
 import Foundation
 
-open class Post : Codable, WPAPI {
+open class Page : Codable, WPAPI {
     
     // Slug for end point
     open class var endpoint: String {
-        return "posts"
+        return "pages"
     }
     
     public let id : Int?
@@ -37,13 +37,12 @@ open class Post : Codable, WPAPI {
     public var featuredMedia : Int?
     public let commentStatus : String?
     public let pingStatus : String?
-    public var sticky : Bool?
-    public let format : String?
-    //    public let meta : [String]?
-    public var categories : [Int]?
-    public var tags : [Int]?
+    public let parent : Int?
+    public let menuOrder : Int?
+//    public let meta : [String]?
+//    public let template : String?
     
-    public init(title : String?, content : String?, featuredMedia : Int?, categories : [Int]?) {
+    public init(title : String?, content : String?, featuredMedia : Int?, parent : Int?) {
         
         self.id  = nil
         self.date  = nil
@@ -62,11 +61,9 @@ open class Post : Codable, WPAPI {
         self.featuredMedia  = featuredMedia
         self.commentStatus  = nil
         self.pingStatus  = nil
-        self.sticky  = nil
-        self.format  = nil
-        //        self.meta  = nil
-        self.categories  = categories
-        self.tags = nil
+        self.parent  = parent
+        self.menuOrder = nil
+//        self.meta  = nil
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -88,11 +85,9 @@ open class Post : Codable, WPAPI {
         case featured_media = "featured_media"
         case comment_status = "comment_status"
         case ping_status = "ping_status"
-        case sticky = "sticky"
-        case format = "format"
-        //        case meta = "meta"
-        case categories = "categories"
-        case tags = "tags"
+        case parent = "parent"
+        case menu_order = "menu_order"
+//        case meta = "meta"
     }
     
     required public init(from decoder: Decoder) throws {
@@ -116,11 +111,9 @@ open class Post : Codable, WPAPI {
         featuredMedia = try values.decodeIfPresent(Int.self, forKey: .featured_media)
         commentStatus = try values.decodeIfPresent(String.self, forKey: .comment_status)
         pingStatus = try values.decodeIfPresent(String.self, forKey: .ping_status)
-        sticky = try values.decodeIfPresent(Bool.self, forKey: .sticky)
-        format = try values.decodeIfPresent(String.self, forKey: .format)
-        //        meta = try values.decodeIfPresent([String].self, forKey: .meta)
-        categories = try values.decodeIfPresent([Int].self, forKey: .categories)
-        tags = try values.decodeIfPresent([Int].self, forKey: .tags)
+        parent = try values.decodeIfPresent(Int.self, forKey: .parent)
+        menuOrder = try values.decodeIfPresent(Int.self, forKey: .menu_order)
+//        meta = try values.decodeIfPresent([String].self, forKey: .meta)
     }
     
     open func encode(to encoder: Encoder) throws {
@@ -144,34 +137,32 @@ open class Post : Codable, WPAPI {
         try container.encodeIfPresent(featuredMedia, forKey: .featured_media)
         try container.encodeIfPresent(commentStatus, forKey: .comment_status)
         try container.encodeIfPresent(pingStatus, forKey: .ping_status)
-        try container.encodeIfPresent(sticky, forKey: .sticky)
-        try container.encodeIfPresent(format, forKey: .format)
-        //        try container.encodeIfPresent(meta, forKey: .meta)
-        try container.encodeIfPresent(categories, forKey: .categories)
-        try container.encodeIfPresent(tags, forKey: .tags)
+        try container.encodeIfPresent(parent, forKey: .parent)
+        try container.encodeIfPresent(menuOrder, forKey: .menu_order)
+//        try container.encodeIfPresent(meta, forKey: .meta)
     }
     
     /// <#Description#>
     ///
     /// - Author: Jack
     /// - seeAlso
-    ///   [List Posts](https://developer.wordpress.org/rest-api/reference/posts/#list-posts)
+    ///   [List Pages](https://developer.wordpress.org/rest-api/reference/pages/#list-pages)
     /// - Parameters:
     ///   - context: Scope under which the request is made; determines fields present in response.
     ///   - page: Current page of the collection.
     ///   - perPage: Maximum number of items to be returned in result set.
     ///   - search: Limit results to those matching a string.
-    ///   - after: Limit response to posts published after a given ISO8601 compliant date.
-    ///   - author: Limit result set to posts assigned to specific authors.
-    ///   - authorExclude: Ensure result set excludes posts assigned to specific authors.
-    ///   - before: Limit response to posts published before a given ISO8601 compliant date.
+    ///   - after: Limit response to pages published after a given ISO8601 compliant date.
+    ///   - author: Limit result set to pages assigned to specific authors.
+    ///   - authorExclude: Ensure result set excludes pages assigned to specific authors.
+    ///   - before: Limit response to pages published before a given ISO8601 compliant date.
     ///   - exclude: Ensure result set excludes specific IDs.
     ///   - include: Limit result set to specific IDs.
     ///   - offset: Offset the result set by a specific number of items.
     ///   - order: Order sort attribute ascending or descending.
     ///   - orderby: Sort collection by object attribute.
-    ///   - slug: Limit result set to posts with one or more specific slugs.
-    ///   - status: Limit result set to posts assigned one or more statuses.
+    ///   - slug: Limit result set to pages with one or more specific slugs.
+    ///   - status: Limit result set to pages assigned one or more statuses.
     ///   - categories: Limit result set to all items that have the specified term assigned in the categories taxonomy.
     ///   - categoriesExclude:     Limit result set to all items except those that have the specified term assigned in the categories taxonomy.
     ///   - completion: Completion handle
@@ -185,20 +176,18 @@ open class Post : Codable, WPAPI {
                                before: Date? = nil,
                                exclude: [Int]? = nil,
                                include: [Int]? = nil,
+                               menuOrder: Int? = nil,
                                offset: Int? = nil,
                                order: Order? = nil,
                                orderby: OrderBy? = nil,
+                               parent: [Int]? = nil,
+                               parentExclude: [Int]? = nil,
                                slug: String? = nil,
                                status: Status? = nil,
-                               categories: [Int]? = nil,
-                               categoriesExclude: [Int]? = nil,
-                               tags: [String]? = nil,
-                               tagsExclude: [String]? = nil,
-                               sticky: Bool? = nil,
                                filters: [String: AnyObject]? = nil,
                                completion: @escaping ResultCallback<[T]>) where T : WPAPI {
         
-        let request = ListPosts<T>(context: context,
+        let request = ListPages<T>(context: context,
                                    page: page,
                                    perPage: perPage,
                                    search: search,
@@ -208,23 +197,21 @@ open class Post : Codable, WPAPI {
                                    before: before,
                                    exclude: exclude,
                                    include: include,
+                                   menuOrder: menuOrder,
                                    offset: offset,
                                    order: order,
                                    orderby: orderby,
+                                   parent: parent,
+                                   parentExclude: parentExclude,
                                    slug: slug,
                                    status: status,
-                                   categories: categories,
-                                   categoriesExclude: categoriesExclude,
-                                   tags: tags,
-                                   tagsExclude: tagsExclude,
-                                   sticky: sticky,
                                    filters: filters)
         
         WP.sharedInstance.send(request) { response in
             
             switch response {
-            case .success(let posts):
-                completion(.success(posts))
+            case .success(let pages):
+                completion(.success(pages))
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -236,28 +223,28 @@ open class Post : Codable, WPAPI {
         
         if self.id != nil {
             
-            // ID exists, Update A Post
-            let request = UpdateAPost<T>(post: self)
+            // ID exists, Update A Page
+            let request = UpdateAPage<T>(page: self)
             
             WP.sharedInstance.send(request) { response in
                 
                 switch response {
-                case .success(let post):
-                    completion(.success(post))
+                case .success(let page):
+                    completion(.success(page))
                 case .failure(let error):
                     completion(.failure(error))
                 }
             }
         } else {
             
-            // ID does not exist, Create A Post
-            let request = CreateAPost<T>(post: self as! T)
+            // ID does not exist, Create A Page
+            let request = CreateAPage<T>(page: self as! T)
             
             WP.sharedInstance.send(request) { response in
                 
                 switch response {
-                case .success(let post):
-                    completion(.success(post))
+                case .success(let page):
+                    completion(.success(page))
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -267,13 +254,13 @@ open class Post : Codable, WPAPI {
     
     public static func get<T>(id: Int, completion: @escaping ResultCallback<T>) where T: WPAPI {
         
-        let request = RetrieveAPost<T>(id: id)
+        let request = RetrieveAPage<T>(id: id)
         
         WP.sharedInstance.send(request) { response in
             
             switch response {
-            case .success(let post):
-                completion(.success(post))
+            case .success(let page):
+                completion(.success(page))
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -283,19 +270,19 @@ open class Post : Codable, WPAPI {
     public func delete<T>(force: Bool? = false, completion: @escaping ResultCallback<T>) where T: WPAPI {
         
         if let id = self.id {
-            let request = DeleteAPost<T>(id: id, force: force)
+            let request = DeleteAPage<T>(id: id, force: force)
             
             WP.sharedInstance.send(request) { response in
                 
                 switch response {
-                case .success(let post):
-                    completion(.success(post))
+                case .success(let page):
+                    completion(.success(page))
                 case .failure(let error):
                     completion(.failure(error))
                 }
             }
         } else {
-            completion(.failure(WPError.client(message: "Current post object is not saved on server yet, therefore cannot be deleted", code: .MISSING_OBJECT_ID)))
+            completion(.failure(WPError.client(message: "Current page object is not saved on server yet, therefore cannot be deleted", code: .MISSING_OBJECT_ID)))
         }
         
     }

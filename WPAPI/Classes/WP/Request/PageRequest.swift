@@ -1,5 +1,5 @@
 //
-//  PostRequest.swift
+//  PageRequest.swift
 //  WPAPI
 //
 //  Created by SongXujie on 26/12/17.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-/// List Posts
+/// List Pages
 /// - Author Jack Song
 /// - seeAlso
-/// [List Posts](https://developer.wordpress.org/rest-api/reference/posts/#list-posts)
-struct ListPosts<T> : WPRequest where T : WPAPI {
+/// [List Pages](https://developer.wordpress.org/rest-api/reference/pages/#list-pages)
+struct ListPages<T> : WPRequest where T : WPAPI {
     
     typealias Response = [T]
     
@@ -42,39 +42,35 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
     let before: String?
     let exclude: [Int]?
     let include: [Int]?
+    let menuOrder: Int?
     let offset: Int?
     let order: Order?
     let orderby: OrderBy?
+    let parent: [Int]?
+    let parentExclude: [Int]?
     let slug: String?
     let status: Status?
-    let categories: [Int]?
-    let categoriesExclude: [Int]?
-    let tags: [String]?
-    let tagsExclude: [String]?
-    let sticky: Bool?
     let filters: [String: AnyObject]?
     
     init(context: Context? = nil,
-        page: Int? = nil,
-        perPage: Int? = nil,
-        search: String? = nil,
-        after: Date? = nil,
-        author: Int? = nil,
-        authorExclude: [Int]? = nil,
-        before: Date? = nil,
-        exclude: [Int]? = nil,
-        include: [Int]? = nil,
-        offset: Int? = nil,
-        order: Order? = nil,
-        orderby: OrderBy? = nil,
-        slug: String? = nil,
-        status: Status? = nil,
-        categories: [Int]? = nil,
-        categoriesExclude: [Int]? = nil,
-        tags: [String]?,
-        tagsExclude: [String]?,
-        sticky: Bool?,
-        filters: [String: AnyObject]? = nil) {
+         page: Int? = nil,
+         perPage: Int? = nil,
+         search: String? = nil,
+         after: Date? = nil,
+         author: Int? = nil,
+         authorExclude: [Int]? = nil,
+         before: Date? = nil,
+         exclude: [Int]? = nil,
+         include: [Int]? = nil,
+         menuOrder: Int? = nil,
+         offset: Int? = nil,
+         order: Order? = nil,
+         orderby: OrderBy? = nil,
+         parent: [Int]? = nil,
+         parentExclude: [Int]? = nil,
+         slug: String? = nil,
+         status: Status? = nil,
+         filters: [String: AnyObject]? = nil) {
         
         self.context = context
         self.page = page
@@ -99,11 +95,9 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
         self.orderby = orderby
         self.slug = slug
         self.status = status
-        self.categories = categories
-        self.categoriesExclude = categoriesExclude
-        self.tags = tags
-        self.tagsExclude = tagsExclude
-        self.sticky = sticky
+        self.menuOrder = menuOrder
+        self.parent = parent
+        self.parentExclude = parentExclude
         self.filters = filters // Not default WordPress REST API, filter is enabled by [WP REST Filter](https://wordpress.org/plugins/wp-rest-filter/)
     }
     
@@ -160,13 +154,11 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
         try container.encodeIfPresent(offset, forKey: CodingKeys(stringValue: "offset")!)
         try container.encodeIfPresent(order, forKey: CodingKeys(stringValue: "order")!)
         try container.encodeIfPresent(orderby, forKey: CodingKeys(stringValue: "orderby")!)
+        try container.encodeIfPresent(parent, forKey: CodingKeys(stringValue: "parent")!)
+        try container.encodeIfPresent(parentExclude, forKey: CodingKeys(stringValue: "parent_exclude")!)
         try container.encodeIfPresent(slug, forKey: CodingKeys(stringValue: "slug")!)
         try container.encodeIfPresent(status, forKey: CodingKeys(stringValue: "status")!)
-        try container.encodeIfPresent(categories, forKey: CodingKeys(stringValue: "categories")!)
-        try container.encodeIfPresent(categoriesExclude, forKey: CodingKeys(stringValue: "categories_exclude")!)
-        try container.encodeIfPresent(tags, forKey: CodingKeys(stringValue: "tags")!)
-        try container.encodeIfPresent(tagsExclude, forKey: CodingKeys(stringValue: "tags_exclude")!)
-        try container.encodeIfPresent(sticky, forKey: CodingKeys(stringValue: "sticky")!)
+        try container.encodeIfPresent(menuOrder, forKey: CodingKeys(stringValue: "menu_order")!)
         
          // Not default WordPress REST API, filter is enabled by [WP REST Filter](https://wordpress.org/plugins/wp-rest-filter/)
         if let filters = self.filters {
@@ -207,11 +199,11 @@ struct ListPosts<T> : WPRequest where T : WPAPI {
     }
 }
 
-/// Create a Post
+/// Create a Page
 /// - Author Jack Song
 /// - seeAlso
-/// [Create a Post](https://developer.wordpress.org/rest-api/reference/posts/#create-a-post)
-struct CreateAPost<T> : WPRequest where T: WPAPI {
+/// [Create a Page](https://developer.wordpress.org/rest-api/reference/pages/#create-a-page)
+struct CreateAPage<T> : WPRequest where T: WPAPI {
     
     typealias Response = T
     
@@ -227,22 +219,22 @@ struct CreateAPost<T> : WPRequest where T: WPAPI {
     
     // Body
     var body: Data? {
-        return try? JSONEncoder().encode(post)
+        return try? JSONEncoder().encode(page)
     }
     
     // Body
-    let post: T
+    let page: T
     
-    init(post: T) {
-        self.post = post
+    init(page: T) {
+        self.page = page
     }
 }
 
-/// Retrieve a Post
+/// Retrieve a Page
 /// - Author Jack Song
 /// - seeAlso
-/// [Retrieve A Post](https://developer.wordpress.org/rest-api/reference/posts/#retrieve-a-post)
-struct RetrieveAPost<T> : WPRequest where T : WPAPI {
+/// [Retrieve A Page](https://developer.wordpress.org/rest-api/reference/pages/#retrieve-a-page)
+struct RetrieveAPage<T> : WPRequest where T : WPAPI {
     
     typealias Response = T
     
@@ -269,11 +261,11 @@ struct RetrieveAPost<T> : WPRequest where T : WPAPI {
     }
 }
 
-/// Update a Post
+/// Update a Page
 /// - Author Jack Song
 /// - seeAlso
-/// [Update a Post](https://developer.wordpress.org/rest-api/reference/posts/#update-a-post)
-struct UpdateAPost<T> : WPRequest where T : WPAPI {
+/// [Update a Page](https://developer.wordpress.org/rest-api/reference/pages/#update-a-page)
+struct UpdateAPage<T> : WPRequest where T : WPAPI {
     
     typealias Response = T
     
@@ -284,27 +276,27 @@ struct UpdateAPost<T> : WPRequest where T : WPAPI {
     
     // Path name
     var pathName: String {
-        return "/wp/v2/\(T.endpoint)/\(post.id!)"
+        return "/wp/v2/\(T.endpoint)/\(page.id!)"
     }
     
     // Body
     var body: Data? {
-        return try? JSONEncoder().encode(post)
+        return try? JSONEncoder().encode(page)
     }
     
     // Body
-    let post: Post
+    let page: Page
     
-    init(post: Post) {
-        self.post = post
+    init(page: Page) {
+        self.page = page
     }
 }
 
-/// Delete a Post
+/// Delete a Page
 /// - Author Jack Song
 /// - seeAlso
-/// [Delete a Post](https://developer.wordpress.org/rest-api/reference/posts/#delete-a-post)
-struct DeleteAPost<T> : WPRequest where T : WPAPI {
+/// [Delete a Page](https://developer.wordpress.org/rest-api/reference/pages/#delete-a-page)
+struct DeleteAPage<T> : WPRequest where T : WPAPI {
     
     typealias Response = T
     

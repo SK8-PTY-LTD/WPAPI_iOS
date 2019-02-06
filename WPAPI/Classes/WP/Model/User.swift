@@ -37,7 +37,7 @@ open class User : Codable, WPAPI {
     public let capabilities : Capabilities?
     public let extraCapabilities : ExtraCapabilities?
     public let avatarUrls : AvatarUrls?
-    public let meta : [String]?
+    public var meta : [String: String]?
     
     enum CodingKeys: String, CodingKey {
         
@@ -89,10 +89,11 @@ open class User : Codable, WPAPI {
         capabilities = try values.decodeIfPresent(Capabilities.self, forKey: .capabilities)
         extraCapabilities = try values.decodeIfPresent(ExtraCapabilities.self, forKey: .extra_capabilities)
         avatarUrls = try values.decodeIfPresent(AvatarUrls.self, forKey: .avatar_urls)
-        meta = try values.decodeIfPresent([String].self, forKey: .meta)
+        // meta = try values.decodeIfPresent([String: String].self, forKey: .meta)
+        meta = [String: String]() // Temporarily disabling meta for user. Pending further testing
     }
     
-    public func encode(to encoder: Encoder) throws {
+    open func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
@@ -107,8 +108,10 @@ open class User : Codable, WPAPI {
         try container.encodeIfPresent(link, forKey: .link)
         try container.encodeIfPresent(nickname, forKey: .nickname)
         try container.encodeIfPresent(slug, forKey: .slug)
-        try container.encodeIfPresent(roles, forKey: .roles)
-        try container.encodeIfPresent(WP.dateFormatter.string(from: registeredDate!), forKey: .registered_date)
+        // try container.encodeIfPresent(roles, forKey: .roles) // Not Encoding roles, because users are generally not allowed to edit roles.
+        if (registeredDate != nil) {
+            try container.encodeIfPresent(WP.dateFormatter.string(from: registeredDate!), forKey: .registered_date)
+        }
         try container.encodeIfPresent(capabilities, forKey: .capabilities)
         try container.encodeIfPresent(extraCapabilities, forKey: .extra_capabilities)
         try container.encodeIfPresent(avatarUrls, forKey: .avatar_urls)
